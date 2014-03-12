@@ -14,6 +14,8 @@
 		F88D4E0F18D0FE0800C9E9C3 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F88D4E0E18D0FE0800C9E9C3 /* MainMenu.xib */; };
 		F88D4E1118D0FE7B00C9E9C3 /* Broadcast Encoder.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = F88D4E1018D0FE7B00C9E9C3 /* Broadcast Encoder.entitlements */; };
 		F88D4E1618D0FEF100C9E9C3 /* PRXDropzoneView.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D4E1518D0FEF100C9E9C3 /* PRXDropzoneView.m */; };
+		F88D4E1A18D1029700C9E9C3 /* PRXDropzoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D4E1918D1029700C9E9C3 /* PRXDropzoneViewController.m */; };
+		F88D4E1C18D102BA00C9E9C3 /* PRXDropzoneView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F88D4E1B18D102BA00C9E9C3 /* PRXDropzoneView.xib */; };
 		FEDE4F37ED8343EBBFC7ACEE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FB60D8C62A224C569AF2877F /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -34,6 +36,9 @@
 		F88D4E1018D0FE7B00C9E9C3 /* Broadcast Encoder.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Broadcast Encoder.entitlements"; sourceTree = "<group>"; };
 		F88D4E1418D0FEF100C9E9C3 /* PRXDropzoneView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PRXDropzoneView.h; path = Views/Dropzone/PRXDropzoneView.h; sourceTree = "<group>"; };
 		F88D4E1518D0FEF100C9E9C3 /* PRXDropzoneView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PRXDropzoneView.m; path = Views/Dropzone/PRXDropzoneView.m; sourceTree = "<group>"; };
+		F88D4E1818D1029700C9E9C3 /* PRXDropzoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PRXDropzoneViewController.h; path = Dropzone/PRXDropzoneViewController.h; sourceTree = "<group>"; };
+		F88D4E1918D1029700C9E9C3 /* PRXDropzoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PRXDropzoneViewController.m; path = Dropzone/PRXDropzoneViewController.m; sourceTree = "<group>"; };
+		F88D4E1B18D102BA00C9E9C3 /* PRXDropzoneView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PRXDropzoneView.xib; path = Views/Dropzone/PRXDropzoneView.xib; sourceTree = "<group>"; };
 		FB60D8C62A224C569AF2877F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -123,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				F88D4E0E18D0FE0800C9E9C3 /* MainMenu.xib */,
+				F88D4E1718D1027B00C9E9C3 /* Dropzone */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -140,6 +146,16 @@
 			children = (
 				F88D4E1418D0FEF100C9E9C3 /* PRXDropzoneView.h */,
 				F88D4E1518D0FEF100C9E9C3 /* PRXDropzoneView.m */,
+				F88D4E1B18D102BA00C9E9C3 /* PRXDropzoneView.xib */,
+			);
+			name = Dropzone;
+			sourceTree = "<group>";
+		};
+		F88D4E1718D1027B00C9E9C3 /* Dropzone */ = {
+			isa = PBXGroup;
+			children = (
+				F88D4E1818D1029700C9E9C3 /* PRXDropzoneViewController.h */,
+				F88D4E1918D1029700C9E9C3 /* PRXDropzoneViewController.m */,
 			);
 			name = Dropzone;
 			sourceTree = "<group>";
@@ -212,6 +228,7 @@
 				F88D4DF918D0F89000C9E9C3 /* Broadcast Encoder-Info.plist in Resources */,
 				F88D4DF218D0F75200C9E9C3 /* Images.xcassets in Resources */,
 				F88D4E0F18D0FE0800C9E9C3 /* MainMenu.xib in Resources */,
+				F88D4E1C18D102BA00C9E9C3 /* PRXDropzoneView.xib in Resources */,
 				F88D4E1118D0FE7B00C9E9C3 /* Broadcast Encoder.entitlements in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -269,6 +286,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F88D4E1A18D1029700C9E9C3 /* PRXDropzoneViewController.m in Sources */,
 				F88D4DC518D0F5F900C9E9C3 /* main.m in Sources */,
 				F88D4E1618D0FEF100C9E9C3 /* PRXDropzoneView.m in Sources */,
 				F88D4DEF18D0F74200C9E9C3 /* PRXAppDelegate.m in Sources */,

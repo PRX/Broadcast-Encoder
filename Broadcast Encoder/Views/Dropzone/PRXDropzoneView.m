@@ -10,16 +10,10 @@
 
 @implementation PRXDropzoneView
 
-- (id)initWithFrame:(NSRect)frame {
-  self = [super initWithFrame:frame];
-  if (self) {
-    [self registerForDraggedTypes:@[ NSColorPboardType, NSFilenamesPboardType ]];
-  }
-  return self;
-}
-
 - (void)awakeFromNib {
   [super awakeFromNib];
+  
+  [self registerForDraggedTypes:@[ NSColorPboardType, NSFilenamesPboardType ]];
 }
 
 - (void)drawRect:(NSRect)dirtyRect {
@@ -32,13 +26,12 @@
 #pragma mark - NSDragOperation
 
 - (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender {
-  NSLog(@"%@", sender);
-  
-  return NSDragOperationNone;
+  self.textField.stringValue = @"Dragging";
+  return NSDragOperationGeneric;
 }
 
 - (NSDragOperation)draggingUpdated:(id<NSDraggingInfo>)sender {
-  return NSDragOperationNone;
+  return NSDragOperationGeneric;
 }
 
 - (void)draggingExited:(id<NSDraggingInfo>)sender {
@@ -46,10 +39,15 @@
 }
 
 - (BOOL)prepareForDragOperation:(id<NSDraggingInfo>)sender {
-  return NO;
+  return YES;
 }
 
 - (BOOL)performDragOperation:(id<NSDraggingInfo>)sender {
+  if ([self.delegate respondsToSelector:@selector(performDropzoneDragOperation:)]) {
+    [self.delegate performDropzoneDragOperation:sender];
+    return YES;
+  }
+  
   return NO;
 }
 
