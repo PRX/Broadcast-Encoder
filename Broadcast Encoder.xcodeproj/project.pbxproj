@@ -164,7 +164,7 @@
 					F88D4DB418D0F5F900C9E9C3 = {
 						SystemCapabilities = {
 							com.apple.Sandbox = {
-								enabled = 0;
+								enabled = 1;
 							};
 						};
 					};
@@ -365,6 +365,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3E6F032395DA45B693B2B329 /* Pods.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Broadcast Encoder/Broadcast Encoder.entitlements";
 				CODE_SIGN_IDENTITY = "-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -374,6 +375,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3E6F032395DA45B693B2B329 /* Pods.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Broadcast Encoder/Broadcast Encoder.entitlements";
 				CODE_SIGN_IDENTITY = "-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
