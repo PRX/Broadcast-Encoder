@@ -1,1 +1,1 @@
-platform :osx
+platform :osx, '10.7'
