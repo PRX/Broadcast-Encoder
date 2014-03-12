@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 PRX. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+@import Cocoa;
 
 @interface PRXAppDelegate : NSObject <NSApplicationDelegate>
 

@@ -1,13 +1,11 @@
 //
-//  main.m
+//  Development.xcconfig
 //  Broadcast Encoder
 //
 //  Created by Christopher Kalafarski on 3/12/14.
 //  Copyright (c) 2014 PRX. All rights reserved.
 //
 
-@import Cocoa;
+#include "Common.xcconfig"
 
-int main(int argc, const char * argv[]) {
-  return NSApplicationMain(argc, argv);
-}
+ONLY_ACTIVE_ARCH = YES
