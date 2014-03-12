@@ -7,23 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F88D4DC318D0F5F900C9E9C3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F88D4DC118D0F5F900C9E9C3 /* InfoPlist.strings */; };
 		F88D4DC518D0F5F900C9E9C3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D4DC418D0F5F900C9E9C3 /* main.m */; };
-		F88D4DC918D0F5F900C9E9C3 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = F88D4DC718D0F5F900C9E9C3 /* Credits.rtf */; };
-		F88D4DCF18D0F5F900C9E9C3 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F88D4DCD18D0F5F900C9E9C3 /* MainMenu.xib */; };
 		F88D4DEF18D0F74200C9E9C3 /* PRXAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D4DEE18D0F74200C9E9C3 /* PRXAppDelegate.m */; };
 		F88D4DF218D0F75200C9E9C3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F88D4DF118D0F75200C9E9C3 /* Images.xcassets */; };
 		F88D4DF918D0F89000C9E9C3 /* Broadcast Encoder-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F88D4DF818D0F89000C9E9C3 /* Broadcast Encoder-Info.plist */; };
+		F88D4E0F18D0FE0800C9E9C3 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F88D4E0E18D0FE0800C9E9C3 /* MainMenu.xib */; };
+		F88D4E1118D0FE7B00C9E9C3 /* Broadcast Encoder.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = F88D4E1018D0FE7B00C9E9C3 /* Broadcast Encoder.entitlements */; };
 		FEDE4F37ED8343EBBFC7ACEE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FB60D8C62A224C569AF2877F /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3E6F032395DA45B693B2B329 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = ../../Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		F88D4DB518D0F5F900C9E9C3 /* Broadcast Encoder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Broadcast Encoder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		F88D4DC218D0F5F900C9E9C3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F88D4DC418D0F5F900C9E9C3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		F88D4DC818D0F5F900C9E9C3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
-		F88D4DCE18D0F5F900C9E9C3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		F88D4DED18D0F74200C9E9C3 /* PRXAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRXAppDelegate.h; sourceTree = "<group>"; };
 		F88D4DEE18D0F74200C9E9C3 /* PRXAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRXAppDelegate.m; sourceTree = "<group>"; };
 		F88D4DF118D0F75200C9E9C3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -33,7 +29,8 @@
 		F88D4DF718D0F7C100C9E9C3 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = "Build Configurations/Release.xcconfig"; sourceTree = "<group>"; };
 		F88D4DF818D0F89000C9E9C3 /* Broadcast Encoder-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Broadcast Encoder-Info.plist"; sourceTree = "<group>"; };
 		F88D4DFA18D0F8AE00C9E9C3 /* Broadcast Encoder-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Broadcast Encoder-Prefix.pch"; sourceTree = "<group>"; };
-		F88D4DFC18D0FA5E00C9E9C3 /* Broadcast Encoder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Broadcast Encoder.entitlements"; sourceTree = "<group>"; };
+		F88D4E0E18D0FE0800C9E9C3 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
+		F88D4E1018D0FE7B00C9E9C3 /* Broadcast Encoder.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Broadcast Encoder.entitlements"; sourceTree = "<group>"; };
 		FB60D8C62A224C569AF2877F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -77,29 +74,19 @@
 		F88D4DBE18D0F5F900C9E9C3 /* Broadcast Encoder */ = {
 			isa = PBXGroup;
 			children = (
-				F88D4DFC18D0FA5E00C9E9C3 /* Broadcast Encoder.entitlements */,
 				F88D4DC418D0F5F900C9E9C3 /* main.m */,
 				F88D4DF018D0F75200C9E9C3 /* Assets */,
 				F88D4DEC18D0F74200C9E9C3 /* Core */,
-				F88D4DCD18D0F5F900C9E9C3 /* MainMenu.xib */,
-				F88D4DBF18D0F5F900C9E9C3 /* Supporting Files */,
+				F88D4DFD18D0FAE900C9E9C3 /* Interface */,
 			);
 			path = "Broadcast Encoder";
-			sourceTree = "<group>";
-		};
-		F88D4DBF18D0F5F900C9E9C3 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				F88D4DC118D0F5F900C9E9C3 /* InfoPlist.strings */,
-				F88D4DC718D0F5F900C9E9C3 /* Credits.rtf */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		F88D4DEC18D0F74200C9E9C3 /* Core */ = {
 			isa = PBXGroup;
 			children = (
 				F88D4DF318D0F77900C9E9C3 /* Build Configurations */,
+				F88D4E1018D0FE7B00C9E9C3 /* Broadcast Encoder.entitlements */,
 				F88D4DF818D0F89000C9E9C3 /* Broadcast Encoder-Info.plist */,
 				F88D4DFA18D0F8AE00C9E9C3 /* Broadcast Encoder-Prefix.pch */,
 				F88D4DED18D0F74200C9E9C3 /* PRXAppDelegate.h */,
@@ -126,6 +113,14 @@
 				F88D4DF718D0F7C100C9E9C3 /* Release.xcconfig */,
 			);
 			name = "Build Configurations";
+			sourceTree = "<group>";
+		};
+		F88D4DFD18D0FAE900C9E9C3 /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+				F88D4E0E18D0FE0800C9E9C3 /* MainMenu.xib */,
+			);
+			path = Interface;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -193,11 +188,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F88D4DC318D0F5F900C9E9C3 /* InfoPlist.strings in Resources */,
 				F88D4DF918D0F89000C9E9C3 /* Broadcast Encoder-Info.plist in Resources */,
 				F88D4DF218D0F75200C9E9C3 /* Images.xcassets in Resources */,
-				F88D4DC918D0F5F900C9E9C3 /* Credits.rtf in Resources */,
-				F88D4DCF18D0F5F900C9E9C3 /* MainMenu.xib in Resources */,
+				F88D4E0F18D0FE0800C9E9C3 /* MainMenu.xib in Resources */,
+				F88D4E1118D0FE7B00C9E9C3 /* Broadcast Encoder.entitlements in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -260,33 +254,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		F88D4DC118D0F5F900C9E9C3 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F88D4DC218D0F5F900C9E9C3 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		F88D4DC718D0F5F900C9E9C3 /* Credits.rtf */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F88D4DC818D0F5F900C9E9C3 /* en */,
-			);
-			name = Credits.rtf;
-			sourceTree = "<group>";
-		};
-		F88D4DCD18D0F5F900C9E9C3 /* MainMenu.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F88D4DCE18D0F5F900C9E9C3 /* Base */,
-			);
-			name = MainMenu.xib;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		F88D4DE418D0F5F900C9E9C3 /* Debug */ = {
@@ -365,7 +332,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3E6F032395DA45B693B2B329 /* Pods.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "Broadcast Encoder/Broadcast Encoder.entitlements";
 				CODE_SIGN_IDENTITY = "-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -375,7 +341,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3E6F032395DA45B693B2B329 /* Pods.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "Broadcast Encoder/Broadcast Encoder.entitlements";
 				CODE_SIGN_IDENTITY = "-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
