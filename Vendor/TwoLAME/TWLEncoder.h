@@ -20,6 +20,20 @@ NS_ENUM(NSInteger, TWLEncoderError) {
   TWLEncoderErrorCannotOpenFile = -3000
 };
 
+NS_ENUM(NSInteger, TWLEncoderOutputMode) {
+  TWLEncoderOutputModeAuto,
+  TWLEncoderOutputModeMono,
+  TWLEncoderOutputModeStereo,
+  TWLEncoderOutputModeJointStereo,
+  TWLEncoderOutputModeDualChannel
+};
+
+NS_ENUM(NSInteger, TWLEncoderEmphasis) {
+  TWLEncoderEmphasisNone,
+  TWLEncoderEmphasisC,
+  TWLEncoderEmphasis5
+};
+
 @protocol TWLEncoderDelegate;
 @class TWLEncoderTask, TWLEncoderConfiguration;
 

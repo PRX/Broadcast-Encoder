@@ -10,4 +10,9 @@
 
 @implementation TWLEncoderConfiguration
 
++ (instancetype)publicRadioConfiguration {
+//  -t 0 --mode j --bitrate 256 --protect --copyright --original --deemphasis n
+  return self.new;
+}
+
 @end
