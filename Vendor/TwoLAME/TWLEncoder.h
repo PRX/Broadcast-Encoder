@@ -14,7 +14,7 @@ NS_ENUM(NSInteger, TWLEncoderError) {
   TWLEncoderErrorUnknown = -1,
   TWLEncoderErrorCancelled = -999,
   TWLEncoderErrorUnsupportedAudio = -1000,
-  TWLEncoderErrorBadEncoderConfiguration = -2000,
+  TWLEncoderErrorBadConfiguration = -2000,
   TWLEncoderErrorCannotAllocateInputBuffer = -2001,
   TWLEncoderErrorCannotAllocateOutputBuffer = -2002,
   TWLEncoderErrorCannotOpenFile = -3000

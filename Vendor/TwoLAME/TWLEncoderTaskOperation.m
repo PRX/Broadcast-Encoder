@@ -188,7 +188,7 @@
   if (twolame_init_params(encodeOptions) != 0) {
     NSError *error;
     NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Encoding was unsuccessful.", NSLocalizedFailureReasonErrorKey: @"Configuring the encoder failed.", NSLocalizedRecoverySuggestionErrorKey: @"Double check the encoder options." };
-    error = [NSError errorWithDomain:TWLEncoderErrorDomain code:TWLEncoderErrorBadEncoderConfiguration userInfo:userInfo];
+    error = [NSError errorWithDomain:TWLEncoderErrorDomain code:TWLEncoderErrorBadConfiguration userInfo:userInfo];
     
     [self didFailWithError:error];
     return;
