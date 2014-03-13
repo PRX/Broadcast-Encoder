@@ -10,7 +10,7 @@
 
 @protocol PRXDropzoneViewDelegate;
 
-@interface PRXDropzoneView : NSView
+@interface PRXDropzoneView : NSView <NSDraggingDestination>
 
 @property (nonatomic, strong) id<PRXDropzoneViewDelegate> delegate;
 

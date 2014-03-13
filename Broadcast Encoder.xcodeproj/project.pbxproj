@@ -16,6 +16,11 @@
 		F88D4E1618D0FEF100C9E9C3 /* PRXDropzoneView.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D4E1518D0FEF100C9E9C3 /* PRXDropzoneView.m */; };
 		F88D4E1A18D1029700C9E9C3 /* PRXDropzoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D4E1918D1029700C9E9C3 /* PRXDropzoneViewController.m */; };
 		F88D4E1C18D102BA00C9E9C3 /* PRXDropzoneView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F88D4E1B18D102BA00C9E9C3 /* PRXDropzoneView.xib */; };
+		F88D4E7C18D1266D00C9E9C3 /* PRXResampler.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D4E7B18D1266D00C9E9C3 /* PRXResampler.m */; };
+		F88D4E9118D14E5400C9E9C3 /* audio_wave.c in Sources */ = {isa = PBXBuildFile; fileRef = F88D4E8918D14E5400C9E9C3 /* audio_wave.c */; };
+		F88D4E9218D14E5400C9E9C3 /* TWLEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D4E8C18D14E5400C9E9C3 /* TWLEncoder.m */; };
+		F88D4E9318D14E5400C9E9C3 /* TWLEncoderTask.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D4E8F18D14E5400C9E9C3 /* TWLEncoderTask.m */; };
+		F88D4E9618D150DA00C9E9C3 /* TWLEncoderTaskOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D4E9518D150DA00C9E9C3 /* TWLEncoderTaskOperation.m */; };
 		FEDE4F37ED8343EBBFC7ACEE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FB60D8C62A224C569AF2877F /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +44,18 @@
 		F88D4E1818D1029700C9E9C3 /* PRXDropzoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PRXDropzoneViewController.h; path = Dropzone/PRXDropzoneViewController.h; sourceTree = "<group>"; };
 		F88D4E1918D1029700C9E9C3 /* PRXDropzoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PRXDropzoneViewController.m; path = Dropzone/PRXDropzoneViewController.m; sourceTree = "<group>"; };
 		F88D4E1B18D102BA00C9E9C3 /* PRXDropzoneView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PRXDropzoneView.xib; path = Views/Dropzone/PRXDropzoneView.xib; sourceTree = "<group>"; };
+		F88D4E7A18D1266D00C9E9C3 /* PRXResampler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PRXResampler.h; path = Models/PRXResampler.h; sourceTree = "<group>"; };
+		F88D4E7B18D1266D00C9E9C3 /* PRXResampler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PRXResampler.m; path = Models/PRXResampler.m; sourceTree = "<group>"; };
+		F88D4E8918D14E5400C9E9C3 /* audio_wave.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = audio_wave.c; sourceTree = "<group>"; };
+		F88D4E8A18D14E5400C9E9C3 /* audio_wave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = audio_wave.h; sourceTree = "<group>"; };
+		F88D4E8B18D14E5400C9E9C3 /* TWLEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWLEncoder.h; sourceTree = "<group>"; };
+		F88D4E8C18D14E5400C9E9C3 /* TWLEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWLEncoder.m; sourceTree = "<group>"; };
+		F88D4E8D18D14E5400C9E9C3 /* TWLEncoder_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWLEncoder_private.h; sourceTree = "<group>"; };
+		F88D4E8E18D14E5400C9E9C3 /* TWLEncoderTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWLEncoderTask.h; sourceTree = "<group>"; };
+		F88D4E8F18D14E5400C9E9C3 /* TWLEncoderTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWLEncoderTask.m; sourceTree = "<group>"; };
+		F88D4E9018D14E5400C9E9C3 /* TWLEncoderTask_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWLEncoderTask_private.h; sourceTree = "<group>"; };
+		F88D4E9418D150DA00C9E9C3 /* TWLEncoderTaskOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWLEncoderTaskOperation.h; sourceTree = "<group>"; };
+		F88D4E9518D150DA00C9E9C3 /* TWLEncoderTaskOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWLEncoderTaskOperation.m; sourceTree = "<group>"; };
 		FB60D8C62A224C569AF2877F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -58,6 +75,7 @@
 			isa = PBXGroup;
 			children = (
 				F88D4DB718D0F5F900C9E9C3 /* Frameworks */,
+				F88D4E8718D14E5400C9E9C3 /* Vendor */,
 				F88D4DBE18D0F5F900C9E9C3 /* Broadcast Encoder */,
 				F88D4DB618D0F5F900C9E9C3 /* Products */,
 			);
@@ -85,6 +103,7 @@
 				F88D4DC418D0F5F900C9E9C3 /* main.m */,
 				F88D4DF018D0F75200C9E9C3 /* Assets */,
 				F88D4DEC18D0F74200C9E9C3 /* Core */,
+				F88D4E7318D1219200C9E9C3 /* Models */,
 				F88D4E1218D0FEC100C9E9C3 /* Views */,
 				F88D4DFD18D0FAE900C9E9C3 /* Interface */,
 			);
@@ -160,6 +179,48 @@
 			name = Dropzone;
 			sourceTree = "<group>";
 		};
+		F88D4E7318D1219200C9E9C3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F88D4E8618D14C9A00C9E9C3 /* SoX */,
+				F88D4E7A18D1266D00C9E9C3 /* PRXResampler.h */,
+				F88D4E7B18D1266D00C9E9C3 /* PRXResampler.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		F88D4E8618D14C9A00C9E9C3 /* SoX */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = SoX;
+			sourceTree = "<group>";
+		};
+		F88D4E8718D14E5400C9E9C3 /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				F88D4E8818D14E5400C9E9C3 /* TwoLAME */,
+			);
+			path = Vendor;
+			sourceTree = "<group>";
+		};
+		F88D4E8818D14E5400C9E9C3 /* TwoLAME */ = {
+			isa = PBXGroup;
+			children = (
+				F88D4E8918D14E5400C9E9C3 /* audio_wave.c */,
+				F88D4E8A18D14E5400C9E9C3 /* audio_wave.h */,
+				F88D4E8B18D14E5400C9E9C3 /* TWLEncoder.h */,
+				F88D4E8D18D14E5400C9E9C3 /* TWLEncoder_private.h */,
+				F88D4E8C18D14E5400C9E9C3 /* TWLEncoder.m */,
+				F88D4E8E18D14E5400C9E9C3 /* TWLEncoderTask.h */,
+				F88D4E9018D14E5400C9E9C3 /* TWLEncoderTask_private.h */,
+				F88D4E8F18D14E5400C9E9C3 /* TWLEncoderTask.m */,
+				F88D4E9418D150DA00C9E9C3 /* TWLEncoderTaskOperation.h */,
+				F88D4E9518D150DA00C9E9C3 /* TWLEncoderTaskOperation.m */,
+			);
+			path = TwoLAME;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -196,7 +257,7 @@
 					F88D4DB418D0F5F900C9E9C3 = {
 						SystemCapabilities = {
 							com.apple.Sandbox = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
@@ -287,9 +348,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				F88D4E1A18D1029700C9E9C3 /* PRXDropzoneViewController.m in Sources */,
+				F88D4E7C18D1266D00C9E9C3 /* PRXResampler.m in Sources */,
 				F88D4DC518D0F5F900C9E9C3 /* main.m in Sources */,
+				F88D4E9118D14E5400C9E9C3 /* audio_wave.c in Sources */,
 				F88D4E1618D0FEF100C9E9C3 /* PRXDropzoneView.m in Sources */,
+				F88D4E9318D14E5400C9E9C3 /* TWLEncoderTask.m in Sources */,
+				F88D4E9218D14E5400C9E9C3 /* TWLEncoder.m in Sources */,
 				F88D4DEF18D0F74200C9E9C3 /* PRXAppDelegate.m in Sources */,
+				F88D4E9618D150DA00C9E9C3 /* TWLEncoderTaskOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,6 +398,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
 		};
@@ -365,6 +432,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;
 		};
@@ -373,6 +441,14 @@
 			baseConfigurationReference = 3E6F032395DA45B693B2B329 /* Pods.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				HEADER_SEARCH_PATHS = (
+					"\"${PODS_ROOT}/Headers\"",
+					"\"${PODS_ROOT}/Headers/Underscore.m\"",
+					"/usr/local/Cellar/two-lame/0.3.13/include",
+					/usr/local/Cellar/sox/14.4.1/include,
+				);
+				LIBRARY_SEARCH_PATHS = "/usr/local/Cellar/two-lame/0.3.13/lib";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -382,6 +458,14 @@
 			baseConfigurationReference = 3E6F032395DA45B693B2B329 /* Pods.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				HEADER_SEARCH_PATHS = (
+					"\"${PODS_ROOT}/Headers\"",
+					"\"${PODS_ROOT}/Headers/Underscore.m\"",
+					"/usr/local/Cellar/two-lame/0.3.13/include",
+					/usr/local/Cellar/sox/14.4.1/include,
+				);
+				LIBRARY_SEARCH_PATHS = "/usr/local/Cellar/two-lame/0.3.13/lib";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

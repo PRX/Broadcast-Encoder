@@ -9,7 +9,9 @@
 @import Cocoa;
 
 #import "PRXDropzoneView.h"
+#import "TWLEncoderTask.h"
+#import "TWLEncoder.h"
 
-@interface PRXDropzoneViewController : NSViewController <PRXDropzoneViewDelegate>
+@interface PRXDropzoneViewController : NSViewController <PRXDropzoneViewDelegate, TWLEncoderTaskDelegate, TWLEncoderDelegate>
 
 @end

@@ -17,26 +17,34 @@
 }
 
 - (void)drawRect:(NSRect)dirtyRect {
-  // Fill in background Color
   CGContextRef context = (CGContextRef) [[NSGraphicsContext currentContext] graphicsPort];
   CGContextSetRGBFillColor(context, 0.227,0.251,0.337,0.8);
   CGContextFillRect(context, NSRectToCGRect(dirtyRect));
 }
 
+#pragma mark - Mouse Events
+
+- (void)mouseDown:(NSEvent *)theEvent {
+  NSLog(@"click");
+}
+
 #pragma mark - NSDragOperation
 
 - (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender {
-  self.textField.stringValue = @"Dragging";
-  return NSDragOperationGeneric;
-}
-
-- (NSDragOperation)draggingUpdated:(id<NSDraggingInfo>)sender {
-  return NSDragOperationGeneric;
-}
-
-- (void)draggingExited:(id<NSDraggingInfo>)sender {
+  if ((NSDragOperationGeneric & sender.draggingSourceOperationMask) == NSDragOperationGeneric) {
+    return NSDragOperationGeneric;
+  }
   
+  return NSDragOperationNone;
 }
+
+//- (NSDragOperation)draggingUpdated:(id<NSDraggingInfo>)sender {
+//  return NSDragOperationGeneric;
+//}
+//
+//- (void)draggingExited:(id<NSDraggingInfo>)sender {
+//  
+//}
 
 - (BOOL)prepareForDragOperation:(id<NSDraggingInfo>)sender {
   return YES;
@@ -52,7 +60,6 @@
 }
 
 - (void)concludeDragOperation:(id<NSDraggingInfo>)sender {
-  
 }
 
 @end
