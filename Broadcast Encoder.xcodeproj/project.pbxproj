@@ -17,11 +17,12 @@
 		F88D4E1A18D1029700C9E9C3 /* PRXDropzoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D4E1918D1029700C9E9C3 /* PRXDropzoneViewController.m */; };
 		F88D4E1C18D102BA00C9E9C3 /* PRXDropzoneView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F88D4E1B18D102BA00C9E9C3 /* PRXDropzoneView.xib */; };
 		F88D4E7C18D1266D00C9E9C3 /* PRXResampler.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D4E7B18D1266D00C9E9C3 /* PRXResampler.m */; };
-		F88D4E9118D14E5400C9E9C3 /* audio_wave.c in Sources */ = {isa = PBXBuildFile; fileRef = F88D4E8918D14E5400C9E9C3 /* audio_wave.c */; };
 		F88D4E9218D14E5400C9E9C3 /* TWLEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D4E8C18D14E5400C9E9C3 /* TWLEncoder.m */; };
 		F88D4E9318D14E5400C9E9C3 /* TWLEncoderTask.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D4E8F18D14E5400C9E9C3 /* TWLEncoderTask.m */; };
 		F88D4E9618D150DA00C9E9C3 /* TWLEncoderTaskOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D4E9518D150DA00C9E9C3 /* TWLEncoderTaskOperation.m */; };
 		F88D4E9918D163C900C9E9C3 /* TWLEncoderConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D4E9818D163C900C9E9C3 /* TWLEncoderConfiguration.m */; };
+		F88D4E9C18D20F8600C9E9C3 /* TWLAudioInRaw.c in Sources */ = {isa = PBXBuildFile; fileRef = F88D4E9A18D20F8600C9E9C3 /* TWLAudioInRaw.c */; };
+		F88D4E9D18D20F8600C9E9C3 /* TWLAudioInSndfile.c in Sources */ = {isa = PBXBuildFile; fileRef = F88D4E9B18D20F8600C9E9C3 /* TWLAudioInSndfile.c */; };
 		FEDE4F37ED8343EBBFC7ACEE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FB60D8C62A224C569AF2877F /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -47,8 +48,6 @@
 		F88D4E1B18D102BA00C9E9C3 /* PRXDropzoneView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PRXDropzoneView.xib; path = Views/Dropzone/PRXDropzoneView.xib; sourceTree = "<group>"; };
 		F88D4E7A18D1266D00C9E9C3 /* PRXResampler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PRXResampler.h; path = Models/PRXResampler.h; sourceTree = "<group>"; };
 		F88D4E7B18D1266D00C9E9C3 /* PRXResampler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PRXResampler.m; path = Models/PRXResampler.m; sourceTree = "<group>"; };
-		F88D4E8918D14E5400C9E9C3 /* audio_wave.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = audio_wave.c; sourceTree = "<group>"; };
-		F88D4E8A18D14E5400C9E9C3 /* audio_wave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = audio_wave.h; sourceTree = "<group>"; };
 		F88D4E8B18D14E5400C9E9C3 /* TWLEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWLEncoder.h; sourceTree = "<group>"; };
 		F88D4E8C18D14E5400C9E9C3 /* TWLEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWLEncoder.m; sourceTree = "<group>"; };
 		F88D4E8D18D14E5400C9E9C3 /* TWLEncoder_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWLEncoder_private.h; sourceTree = "<group>"; };
@@ -59,6 +58,9 @@
 		F88D4E9518D150DA00C9E9C3 /* TWLEncoderTaskOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWLEncoderTaskOperation.m; sourceTree = "<group>"; };
 		F88D4E9718D163C900C9E9C3 /* TWLEncoderConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWLEncoderConfiguration.h; sourceTree = "<group>"; };
 		F88D4E9818D163C900C9E9C3 /* TWLEncoderConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWLEncoderConfiguration.m; sourceTree = "<group>"; };
+		F88D4E9A18D20F8600C9E9C3 /* TWLAudioInRaw.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = TWLAudioInRaw.c; sourceTree = "<group>"; };
+		F88D4E9B18D20F8600C9E9C3 /* TWLAudioInSndfile.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = TWLAudioInSndfile.c; sourceTree = "<group>"; };
+		F88D4E9E18D20FD800C9E9C3 /* TWLAudioIn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TWLAudioIn.h; sourceTree = "<group>"; };
 		FB60D8C62A224C569AF2877F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -210,8 +212,9 @@
 		F88D4E8818D14E5400C9E9C3 /* TwoLAME */ = {
 			isa = PBXGroup;
 			children = (
-				F88D4E8918D14E5400C9E9C3 /* audio_wave.c */,
-				F88D4E8A18D14E5400C9E9C3 /* audio_wave.h */,
+				F88D4E9E18D20FD800C9E9C3 /* TWLAudioIn.h */,
+				F88D4E9A18D20F8600C9E9C3 /* TWLAudioInRaw.c */,
+				F88D4E9B18D20F8600C9E9C3 /* TWLAudioInSndfile.c */,
 				F88D4E9718D163C900C9E9C3 /* TWLEncoderConfiguration.h */,
 				F88D4E9818D163C900C9E9C3 /* TWLEncoderConfiguration.m */,
 				F88D4E8B18D14E5400C9E9C3 /* TWLEncoder.h */,
@@ -356,11 +359,12 @@
 				F88D4E9918D163C900C9E9C3 /* TWLEncoderConfiguration.m in Sources */,
 				F88D4E7C18D1266D00C9E9C3 /* PRXResampler.m in Sources */,
 				F88D4DC518D0F5F900C9E9C3 /* main.m in Sources */,
-				F88D4E9118D14E5400C9E9C3 /* audio_wave.c in Sources */,
 				F88D4E1618D0FEF100C9E9C3 /* PRXDropzoneView.m in Sources */,
 				F88D4E9318D14E5400C9E9C3 /* TWLEncoderTask.m in Sources */,
 				F88D4E9218D14E5400C9E9C3 /* TWLEncoder.m in Sources */,
+				F88D4E9D18D20F8600C9E9C3 /* TWLAudioInSndfile.c in Sources */,
 				F88D4DEF18D0F74200C9E9C3 /* PRXAppDelegate.m in Sources */,
+				F88D4E9C18D20F8600C9E9C3 /* TWLAudioInRaw.c in Sources */,
 				F88D4E9618D150DA00C9E9C3 /* TWLEncoderTaskOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -453,6 +457,7 @@
 					"\"${PODS_ROOT}/Headers/Underscore.m\"",
 					"/usr/local/Cellar/two-lame/0.3.13/include",
 					/usr/local/Cellar/sox/14.4.1/include,
+					/usr/local/Cellar/libsndfile/1.0.25/include,
 				);
 				LIBRARY_SEARCH_PATHS = "/usr/local/Cellar/two-lame/0.3.13/lib";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -470,6 +475,7 @@
 					"\"${PODS_ROOT}/Headers/Underscore.m\"",
 					"/usr/local/Cellar/two-lame/0.3.13/include",
 					/usr/local/Cellar/sox/14.4.1/include,
+					/usr/local/Cellar/libsndfile/1.0.25/include,
 				);
 				LIBRARY_SEARCH_PATHS = "/usr/local/Cellar/two-lame/0.3.13/lib";
 				PRODUCT_NAME = "$(TARGET_NAME)";
