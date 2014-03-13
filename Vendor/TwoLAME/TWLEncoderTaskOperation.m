@@ -223,7 +223,7 @@
     // Display the number of MPEG audio frames we have encoded
     frames += (num_samples / TWOLAME_SAMPLES_PER_FRAME);
     
-    [self.task.encoder.delegate encoder:self.task.encoder task:self.task didWriteFrames:(num_samples / TWOLAME_SAMPLES_PER_FRAME) totalFramesWritten:frames];
+    [self.task.encoder.delegate encoder:self.task.encoder task:self.task didWriteFrames:(num_samples / TWOLAME_SAMPLES_PER_FRAME) totalFramesWritten:frames totalFrameExpectedToWrite:0];
     
     fflush(stdout);
   }

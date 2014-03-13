@@ -69,7 +69,7 @@
 
 #pragma mark - TWLEncoderTaskDelegate
 
-- (void)encoder:(TWLEncoder *)encoder task:(TWLEncoderTask *)task didWriteFrames:(int64_t)framesWritten totalFramesWritten:(int64_t)totalFramesWritten {
+- (void)encoder:(TWLEncoder *)encoder task:(TWLEncoderTask *)task didWriteFrames:(int64_t)framesWritten totalFramesWritten:(int64_t)totalFramesWritten totalFrameExpectedToWrite:(int64_t)totalFramesExpectedToWrite {
   
   dispatch_async(dispatch_get_main_queue(), ^{
     [[[self dropzoneView] textField] setStringValue:@"Working..."];
