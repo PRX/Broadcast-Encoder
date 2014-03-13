@@ -67,7 +67,7 @@
   NSLog(@"error %@", error);
 }
 
-#pragma mark -TWLEncoderTaskDelegate
+#pragma mark - TWLEncoderTaskDelegate
 
 - (void)encoder:(TWLEncoder *)encoder task:(TWLEncoderTask *)task didWriteFrames:(int64_t)framesWritten totalFramesWritten:(int64_t)totalFramesWritten {
   
