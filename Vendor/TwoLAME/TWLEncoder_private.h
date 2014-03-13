@@ -8,9 +8,15 @@
 
 #import "TWLEncoder.h"
 
+@class TWLEncoderConfiguration;
+
 @interface TWLEncoder ()
 
 @property (nonatomic, strong, readonly) NSOperationQueue *operationQueue;
+@property (nonatomic, strong, readonly) TWLEncoderConfiguration *activeConfiguration;
+
+- (id)initWithConfiguration:(TWLEncoderConfiguration *)configuration;
+- (id)initWithConfiguration:(TWLEncoderConfiguration *)configuration delegate:(id<TWLEncoderDelegate>)delegate operationQueue:(NSOperationQueue *)queue;
 
 - (void)encodeTask:(TWLEncoderTask *)task;
 

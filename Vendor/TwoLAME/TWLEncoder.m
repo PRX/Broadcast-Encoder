@@ -10,12 +10,15 @@
 #import "TWLEncoder_private.h"
 #import "TWLEncoderTask_private.h"
 #import "TWLEncoderTaskOperation.h"
+#import "TWLEncoderConfiguration.h"
 
 NSString * const TWLEncoderErrorDomain = @"TWLEncoderErrorDomain";
 
 @implementation TWLEncoder
 
 @synthesize operationQueue = _operationQueue;
+@synthesize configuration = _configuration;
+@synthesize activeConfiguration = _activeConfiguration;
 
 + (instancetype)sharedEncoder {
   static dispatch_once_t pred;
@@ -30,14 +33,25 @@ NSString * const TWLEncoderErrorDomain = @"TWLEncoderErrorDomain";
   return instance;
 }
 
-+ (instancetype)encoderWithOperationQueue:(NSOperationQueue *)queue {
-  return [[TWLEncoder alloc] initWithOperationQueue:queue];
++ (instancetype)encoderWithConfiguration:(TWLEncoderConfiguration *)configuration {
+  return [self encoderWithConfiguration:configuration delegate:nil operationQueue:nil];
 }
 
-- (id)initWithOperationQueue:(NSOperationQueue *)queue {
++ (instancetype)encoderWithConfiguration:(TWLEncoderConfiguration *)configuration delegate:(id<TWLEncoderDelegate>)delegate operationQueue:(NSOperationQueue *)queue {
+  return [[self alloc] initWithConfiguration:configuration delegate:delegate operationQueue:queue];
+}
+
+- (id)initWithConfiguration:(TWLEncoderConfiguration *)configuration {
+  return [self initWithConfiguration:configuration delegate:nil operationQueue:nil];
+}
+
+- (id)initWithConfiguration:(TWLEncoderConfiguration *)configuration delegate:(id<TWLEncoderDelegate>)delegate operationQueue:(NSOperationQueue *)queue {
   self = [super init];
   if (self) {
+    _configuration = configuration;
+    _activeConfiguration = configuration.copy;
     _operationQueue = queue;
+    _delegate = delegate;
   }
   return self;
 }

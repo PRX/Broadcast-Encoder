@@ -50,7 +50,7 @@
     encoder.delegate = self;
     
     for (NSString *filePath in files) {
-      if ([acceptableExtensions containsObject:filePath.pathExtension]) {
+      if ([acceptableExtensions containsObject:filePath.pathExtension.lowercaseString]) {
         NSURL *fileURL = [NSURL fileURLWithPath:filePath];
         
         TWLEncoderTask *task = [encoder taskWithURL:fileURL];

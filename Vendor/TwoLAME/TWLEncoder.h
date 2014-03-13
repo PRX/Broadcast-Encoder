@@ -22,16 +22,16 @@ NS_ENUM(NSInteger, TWLEncoderError) {
 
 @protocol TWLEncoderDelegate;
 
-@class TWLEncoderTask;
+@class TWLEncoderTask, TWLEncoderConfiguration;
 
 @interface TWLEncoder : NSObject
 
++ (instancetype)encoderWithConfiguration:(TWLEncoderConfiguration *)configuration;
++ (instancetype)encoderWithConfiguration:(TWLEncoderConfiguration *)configuration delegate:(id<TWLEncoderDelegate>)delegate operationQueue:(NSOperationQueue *)queue;
 + (instancetype)sharedEncoder;
-+ (instancetype)encoderWithOperationQueue:(NSOperationQueue *)queue;
-
-- (id)initWithOperationQueue:(NSOperationQueue *)queue;
 
 @property (nonatomic, strong) id<TWLEncoderDelegate> delegate;
+@property (nonatomic, strong, readonly) TWLEncoderConfiguration *configuration;
 
 - (TWLEncoderTask *)taskWithURL:(NSURL *)url;
 

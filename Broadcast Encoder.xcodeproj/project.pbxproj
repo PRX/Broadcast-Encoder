@@ -21,6 +21,7 @@
 		F88D4E9218D14E5400C9E9C3 /* TWLEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D4E8C18D14E5400C9E9C3 /* TWLEncoder.m */; };
 		F88D4E9318D14E5400C9E9C3 /* TWLEncoderTask.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D4E8F18D14E5400C9E9C3 /* TWLEncoderTask.m */; };
 		F88D4E9618D150DA00C9E9C3 /* TWLEncoderTaskOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D4E9518D150DA00C9E9C3 /* TWLEncoderTaskOperation.m */; };
+		F88D4E9918D163C900C9E9C3 /* TWLEncoderConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D4E9818D163C900C9E9C3 /* TWLEncoderConfiguration.m */; };
 		FEDE4F37ED8343EBBFC7ACEE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FB60D8C62A224C569AF2877F /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -56,6 +57,8 @@
 		F88D4E9018D14E5400C9E9C3 /* TWLEncoderTask_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWLEncoderTask_private.h; sourceTree = "<group>"; };
 		F88D4E9418D150DA00C9E9C3 /* TWLEncoderTaskOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWLEncoderTaskOperation.h; sourceTree = "<group>"; };
 		F88D4E9518D150DA00C9E9C3 /* TWLEncoderTaskOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWLEncoderTaskOperation.m; sourceTree = "<group>"; };
+		F88D4E9718D163C900C9E9C3 /* TWLEncoderConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWLEncoderConfiguration.h; sourceTree = "<group>"; };
+		F88D4E9818D163C900C9E9C3 /* TWLEncoderConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWLEncoderConfiguration.m; sourceTree = "<group>"; };
 		FB60D8C62A224C569AF2877F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -209,6 +212,8 @@
 			children = (
 				F88D4E8918D14E5400C9E9C3 /* audio_wave.c */,
 				F88D4E8A18D14E5400C9E9C3 /* audio_wave.h */,
+				F88D4E9718D163C900C9E9C3 /* TWLEncoderConfiguration.h */,
+				F88D4E9818D163C900C9E9C3 /* TWLEncoderConfiguration.m */,
 				F88D4E8B18D14E5400C9E9C3 /* TWLEncoder.h */,
 				F88D4E8D18D14E5400C9E9C3 /* TWLEncoder_private.h */,
 				F88D4E8C18D14E5400C9E9C3 /* TWLEncoder.m */,
@@ -348,6 +353,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F88D4E1A18D1029700C9E9C3 /* PRXDropzoneViewController.m in Sources */,
+				F88D4E9918D163C900C9E9C3 /* TWLEncoderConfiguration.m in Sources */,
 				F88D4E7C18D1266D00C9E9C3 /* PRXResampler.m in Sources */,
 				F88D4DC518D0F5F900C9E9C3 /* main.m in Sources */,
 				F88D4E9118D14E5400C9E9C3 /* audio_wave.c in Sources */,
