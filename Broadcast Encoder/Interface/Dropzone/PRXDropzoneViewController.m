@@ -83,8 +83,6 @@
     
     self.dropzoneView.progressIndicator.doubleValue = totalFramesWritten;
   });
-  
-  NSLog(@"(+%lli) %lli/%lli", framesWritten, totalFramesWritten, totalFramesExpectedToWrite);
 }
 
 - (void)encoder:(TWLEncoder *)encoder task:(TWLEncoderTask *)task didFinishEncodingToURL:(NSURL *)location {
@@ -98,6 +96,7 @@
   
   dispatch_async(dispatch_get_main_queue(), ^{
     [[[self dropzoneView] textField] setStringValue:@"Done!"];
+    self.dropzoneView.progressIndicator.doubleValue = 0;
   });
 }
 
