@@ -13,7 +13,7 @@
 @interface TWLEncoder ()
 
 @property (nonatomic, strong, readonly) NSOperationQueue *operationQueue;
-@property (nonatomic, strong, readonly) TWLEncoderConfiguration *activeConfiguration;
+@property (nonatomic, strong, readonly) TWLEncoderConfiguration *immutableConfiguration;
 
 - (id)initWithConfiguration:(TWLEncoderConfiguration *)configuration;
 - (id)initWithConfiguration:(TWLEncoderConfiguration *)configuration delegate:(id<TWLEncoderDelegate>)delegate operationQueue:(NSOperationQueue *)queue;

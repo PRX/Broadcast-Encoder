@@ -20,7 +20,6 @@
 @interface TWLEncoderTaskOperation () {
   
   int sampleSize;
-  int useRaw;
   
   BOOL _executing;
   BOOL _finished;
@@ -215,7 +214,7 @@
 }
 
 - (void)setOptionsFromConfiguration {
-  TWLEncoderConfiguration *config = self.task.encoder.configuration;
+  TWLEncoderConfiguration *config = self.task.encoder.immutableConfiguration;
   
   twolame_set_copyright(self.encoderOptions, config.markAsCopyright);
   twolame_set_original(self.encoderOptions, config.markAsOriginal);
@@ -261,7 +260,7 @@
 - (void)openInputFile {
   char *inputFileName = self.task.URL.path.UTF8String;
   
-  if (useRaw) {
+  if (self.task.encoder.immutableConfiguration.raw) {
     // use raw input handler
     self.inputPCMAudio = open_audioin_raw(inputFileName, &_sndfileInfo, sampleSize);
   } else {
@@ -321,6 +320,11 @@
   if (self.sndfileInfo.frames) {
     totalFrames = (self.sndfileInfo.frames / TWOLAME_SAMPLES_PER_FRAME);
   }
+  
+//  if (single_frame_mode)
+//    audioReadSize = TWOLAME_SAMPLES_PER_FRAME;
+//  else
+  audioReadSize = AUDIO_BUF_SIZE;
   
   while ((samples_read = self.inputPCMAudio->read(self.inputPCMAudio, self.inputBuffer, audioReadSize)) > 0) {
     int bytes_out = 0;
@@ -383,14 +387,10 @@
 //    
     
     // Display Progress
-    frameCount += (mp2fill_size / frameLength);
-    if (twolame_get_verbosity(self.encoderOptions) > 0) {
-      fprintf(stderr, "\rEncoding frame: %i", frameCount);
-      if (totalFrames) {
-        fprintf(stderr, "/%i (%i%%)", totalFrames, (frameCount * 100) / totalFrames);
-      }
-      fflush(stderr);
-    }
+    unsigned int frames_out = (mp2fill_size / frameLength);
+    frameCount += frames_out;
+    
+    [self.task.encoder.delegate encoder:self.task.encoder task:self.task didWriteFrames:frames_out totalFramesWritten:frameCount totalFrameExpectedToWrite:totalFrames bytesWritten:bytes_out totalBytesWritten:total_bytes];
   }
   
   return YES;

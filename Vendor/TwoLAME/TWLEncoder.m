@@ -18,7 +18,7 @@ NSString * const TWLEncoderErrorDomain = @"TWLEncoderErrorDomain";
 
 @synthesize operationQueue = _operationQueue;
 @synthesize configuration = _configuration;
-@synthesize activeConfiguration = _activeConfiguration;
+@synthesize immutableConfiguration = _immutableConfiguration;
 
 + (instancetype)sharedEncoder {
   static dispatch_once_t pred;
@@ -49,7 +49,8 @@ NSString * const TWLEncoderErrorDomain = @"TWLEncoderErrorDomain";
   self = [super init];
   if (self) {
     _configuration = configuration;
-    _activeConfiguration = configuration.copy;
+#warning should be a copy
+    _immutableConfiguration = configuration;
     _operationQueue = queue;
     _delegate = delegate;
   }

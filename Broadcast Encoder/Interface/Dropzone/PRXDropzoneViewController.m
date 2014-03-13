@@ -71,13 +71,14 @@
 
 #pragma mark - TWLEncoderTaskDelegate
 
-- (void)encoder:(TWLEncoder *)encoder task:(TWLEncoderTask *)task didWriteFrames:(int64_t)framesWritten totalFramesWritten:(int64_t)totalFramesWritten totalFrameExpectedToWrite:(int64_t)totalFramesExpectedToWrite {
+- (void)encoder:(TWLEncoder *)encoder task:(TWLEncoderTask *)task didWriteFrames:(int64_t)framesWritten totalFramesWritten:(int64_t)totalFramesWritten totalFrameExpectedToWrite:(int64_t)totalFramesExpectedToWrite bytesWritten:(int64_t)bytessWritten totalBytesWritten:(int64_t)totalBytesWritten {
   
   dispatch_async(dispatch_get_main_queue(), ^{
     [[[self dropzoneView] textField] setStringValue:@"Working..."];
   });
   
-  NSLog(@"%lli - %lli", framesWritten, totalFramesWritten);
+  NSLog(@"(%lli) %lli/%lli", framesWritten, totalFramesWritten, totalFramesExpectedToWrite);
+  NSLog(@"(%lli) %lli", bytessWritten, totalBytesWritten);
 }
 
 - (void)encoder:(TWLEncoder *)encoder task:(TWLEncoderTask *)task didFinishEncodingToURL:(NSURL *)location {

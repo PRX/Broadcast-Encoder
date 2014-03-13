@@ -14,6 +14,8 @@
 
 + (instancetype)publicRadioConfiguration;
 
+@property (nonatomic) BOOL raw;
+
 @property (nonatomic) BOOL byteSwap;
 @property (nonatomic) BOOL channelSwap;
 
