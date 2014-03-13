@@ -23,11 +23,17 @@
 		F88D4E9918D163C900C9E9C3 /* TWLEncoderConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D4E9818D163C900C9E9C3 /* TWLEncoderConfiguration.m */; };
 		F88D4E9C18D20F8600C9E9C3 /* TWLAudioInRaw.c in Sources */ = {isa = PBXBuildFile; fileRef = F88D4E9A18D20F8600C9E9C3 /* TWLAudioInRaw.c */; };
 		F88D4E9D18D20F8600C9E9C3 /* TWLAudioInSndfile.c in Sources */ = {isa = PBXBuildFile; fileRef = F88D4E9B18D20F8600C9E9C3 /* TWLAudioInSndfile.c */; };
+		F88D4EA218D23FE200C9E9C3 /* SOXResampler.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D4EA118D23FE200C9E9C3 /* SOXResampler.m */; };
+		F88D4EA518D2412800C9E9C3 /* SOXResamplerTask.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D4EA418D2412800C9E9C3 /* SOXResamplerTask.m */; };
+		F88D4EA818D2413B00C9E9C3 /* SOXResamplerTaskOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D4EA718D2413B00C9E9C3 /* SOXResamplerTaskOperation.m */; };
+		F88D4EAB18D2426200C9E9C3 /* SOXResamplerConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D4EAA18D2426200C9E9C3 /* SOXResamplerConfiguration.m */; };
 		FEDE4F37ED8343EBBFC7ACEE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FB60D8C62A224C569AF2877F /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3E6F032395DA45B693B2B329 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = ../../Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		F88B6A5B18D245E800DB2A73 /* SOXResampler_private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SOXResampler_private.h; path = SoX/SOXResampler_private.h; sourceTree = "<group>"; };
+		F88B6A5C18D2464D00DB2A73 /* SOXResamplerTask_private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SOXResamplerTask_private.h; path = SoX/SOXResamplerTask_private.h; sourceTree = "<group>"; };
 		F88D4DB518D0F5F900C9E9C3 /* Broadcast Encoder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Broadcast Encoder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F88D4DC418D0F5F900C9E9C3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		F88D4DED18D0F74200C9E9C3 /* PRXAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRXAppDelegate.h; sourceTree = "<group>"; };
@@ -61,6 +67,14 @@
 		F88D4E9A18D20F8600C9E9C3 /* TWLAudioInRaw.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = TWLAudioInRaw.c; sourceTree = "<group>"; };
 		F88D4E9B18D20F8600C9E9C3 /* TWLAudioInSndfile.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = TWLAudioInSndfile.c; sourceTree = "<group>"; };
 		F88D4E9E18D20FD800C9E9C3 /* TWLAudioIn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TWLAudioIn.h; sourceTree = "<group>"; };
+		F88D4EA018D23FE200C9E9C3 /* SOXResampler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SOXResampler.h; path = SoX/SOXResampler.h; sourceTree = "<group>"; };
+		F88D4EA118D23FE200C9E9C3 /* SOXResampler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SOXResampler.m; path = SoX/SOXResampler.m; sourceTree = "<group>"; };
+		F88D4EA318D2412800C9E9C3 /* SOXResamplerTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SOXResamplerTask.h; path = SoX/SOXResamplerTask.h; sourceTree = "<group>"; };
+		F88D4EA418D2412800C9E9C3 /* SOXResamplerTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SOXResamplerTask.m; path = SoX/SOXResamplerTask.m; sourceTree = "<group>"; };
+		F88D4EA618D2413B00C9E9C3 /* SOXResamplerTaskOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SOXResamplerTaskOperation.h; path = SoX/SOXResamplerTaskOperation.h; sourceTree = "<group>"; };
+		F88D4EA718D2413B00C9E9C3 /* SOXResamplerTaskOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SOXResamplerTaskOperation.m; path = SoX/SOXResamplerTaskOperation.m; sourceTree = "<group>"; };
+		F88D4EA918D2426200C9E9C3 /* SOXResamplerConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SOXResamplerConfiguration.h; path = SoX/SOXResamplerConfiguration.h; sourceTree = "<group>"; };
+		F88D4EAA18D2426200C9E9C3 /* SOXResamplerConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SOXResamplerConfiguration.m; path = SoX/SOXResamplerConfiguration.m; sourceTree = "<group>"; };
 		FB60D8C62A224C569AF2877F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -204,6 +218,7 @@
 		F88D4E8718D14E5400C9E9C3 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				F88D4E9F18D23FC100C9E9C3 /* SoX */,
 				F88D4E8818D14E5400C9E9C3 /* TwoLAME */,
 			);
 			path = Vendor;
@@ -227,6 +242,23 @@
 				F88D4E9518D150DA00C9E9C3 /* TWLEncoderTaskOperation.m */,
 			);
 			path = TwoLAME;
+			sourceTree = "<group>";
+		};
+		F88D4E9F18D23FC100C9E9C3 /* SoX */ = {
+			isa = PBXGroup;
+			children = (
+				F88D4EA918D2426200C9E9C3 /* SOXResamplerConfiguration.h */,
+				F88D4EAA18D2426200C9E9C3 /* SOXResamplerConfiguration.m */,
+				F88D4EA018D23FE200C9E9C3 /* SOXResampler.h */,
+				F88B6A5B18D245E800DB2A73 /* SOXResampler_private.h */,
+				F88D4EA118D23FE200C9E9C3 /* SOXResampler.m */,
+				F88D4EA318D2412800C9E9C3 /* SOXResamplerTask.h */,
+				F88B6A5C18D2464D00DB2A73 /* SOXResamplerTask_private.h */,
+				F88D4EA418D2412800C9E9C3 /* SOXResamplerTask.m */,
+				F88D4EA618D2413B00C9E9C3 /* SOXResamplerTaskOperation.h */,
+				F88D4EA718D2413B00C9E9C3 /* SOXResamplerTaskOperation.m */,
+			);
+			name = SoX;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -357,8 +389,12 @@
 			files = (
 				F88D4E1A18D1029700C9E9C3 /* PRXDropzoneViewController.m in Sources */,
 				F88D4E9918D163C900C9E9C3 /* TWLEncoderConfiguration.m in Sources */,
+				F88D4EA218D23FE200C9E9C3 /* SOXResampler.m in Sources */,
+				F88D4EAB18D2426200C9E9C3 /* SOXResamplerConfiguration.m in Sources */,
+				F88D4EA818D2413B00C9E9C3 /* SOXResamplerTaskOperation.m in Sources */,
 				F88D4E7C18D1266D00C9E9C3 /* PRXResampler.m in Sources */,
 				F88D4DC518D0F5F900C9E9C3 /* main.m in Sources */,
+				F88D4EA518D2412800C9E9C3 /* SOXResamplerTask.m in Sources */,
 				F88D4E1618D0FEF100C9E9C3 /* PRXDropzoneView.m in Sources */,
 				F88D4E9318D14E5400C9E9C3 /* TWLEncoderTask.m in Sources */,
 				F88D4E9218D14E5400C9E9C3 /* TWLEncoder.m in Sources */,

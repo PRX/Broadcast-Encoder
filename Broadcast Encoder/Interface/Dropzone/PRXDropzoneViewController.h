@@ -11,7 +11,9 @@
 #import "PRXDropzoneView.h"
 #import "TWLEncoderTask.h"
 #import "TWLEncoder.h"
+#import "SOXResampler.h"
+#import "SOXResamplerTask.h"
 
-@interface PRXDropzoneViewController : NSViewController <PRXDropzoneViewDelegate, TWLEncoderTaskDelegate, TWLEncoderDelegate, NSUserNotificationCenterDelegate>
+@interface PRXDropzoneViewController : NSViewController <PRXDropzoneViewDelegate, TWLEncoderTaskDelegate, TWLEncoderDelegate, SOXResamplerDelegate, SOXResamplerTaskDelegate, NSUserNotificationCenterDelegate>
 
 @end

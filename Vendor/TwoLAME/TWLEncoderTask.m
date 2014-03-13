@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 PRX. All rights reserved.
 //
 
-#import "TWLEncoder.h"
 #import "TWLEncoder_private.h"
 #import "TWLEncoderTask_private.h"
 

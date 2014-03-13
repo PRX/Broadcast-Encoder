@@ -52,7 +52,7 @@
 @implementation TWLEncoderTaskOperation
 
 + (instancetype)operationWithTask:(TWLEncoderTask *)task {
-  return [[TWLEncoderTaskOperation alloc] initWithTask:task];
+  return [[self alloc] initWithTask:task];
 }
 
 - (id)initWithTask:(TWLEncoderTask *)task {
@@ -60,6 +60,7 @@
   if (self) {
     self.task = task;
     
+#warning TODO goes somewhere else
     sampleSize = 16;
   }
   return self;

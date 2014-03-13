@@ -10,12 +10,21 @@
 #import "TWLEncoder.h"
 #import "TWLEncoderConfiguration.h"
 #import "TWLEncoderTask.h"
+#import "SOXResampler.h"
+#import "SOXResamplerConfiguration.h"
+#import "SOXResamplerTask.h"
 
 @interface PRXDropzoneViewController ()
+
+@property (nonatomic, strong, readonly) SOXResampler *resampler;
+@property (nonatomic, strong, readonly) TWLEncoder *encoder;
 
 @end
 
 @implementation PRXDropzoneViewController
+
+@synthesize resampler = _resampler;
+@synthesize encoder = _encoder;
 
 - (void)awakeFromNib {
   [super awakeFromNib];
@@ -34,6 +43,63 @@
   return (PRXDropzoneView *)self.view;
 }
 
+#pragma mark - Encoding
+
+- (SOXResampler *)resampler {
+  if (!_resampler) {
+    SOXResamplerConfiguration *config = SOXResamplerConfiguration.publicRadioConfiguration;
+    
+    _resampler = [SOXResampler resamplerWithConfiguration:config];
+    _resampler.delegate = self;
+  }
+  
+  return _resampler;
+}
+
+- (TWLEncoder *)encoder {
+  if (!_encoder) {
+    TWLEncoderConfiguration *config = TWLEncoderConfiguration.publicRadioConfiguration;
+    
+    _encoder = [TWLEncoder encoderWithConfiguration:config];
+    _encoder.delegate = self;
+  }
+  
+  return _encoder;
+}
+
+- (void)encodeFilesFromPaths:(NSArray *)filePaths {
+  NSArray *acceptableExtensions = @[ @"wav", @"aiff", @"aif" ];
+  
+  for (NSString *filePath in filePaths) {
+    if ([acceptableExtensions containsObject:filePath.pathExtension.lowercaseString]) {
+      NSURL *fileURL = [NSURL fileURLWithPath:filePath];
+      [self resampleAndOrEncodeFileAtURL:fileURL];
+    }
+  }
+}
+
+- (void)resampleAndOrEncodeFileAtURL:(NSURL *)url {
+  BOOL needsResampling = NO;
+  
+  if (needsResampling) {
+    [self resampleAndEncodeFileAtURL:url];
+  } else {
+    [self encodeFileAtURL:url];
+  }
+}
+
+- (void)resampleAndEncodeFileAtURL:(NSURL *)url {
+  SOXResamplerTask *task = [self.resampler taskWithURL:url];
+  task.delegate = self;
+  [task resume];
+}
+
+- (void)encodeFileAtURL:(NSURL *)url {
+  TWLEncoderTask *task = [self.encoder taskWithURL:url];
+  task.delegate = self;
+  [task resume];
+}
+
 #pragma mark - PRXDropzoneViewDelegate
 
 - (void)performDropzoneDragOperation:(id<NSDraggingInfo>)sender {
@@ -43,24 +109,24 @@
   NSString *availableTypes = [pasteboard availableTypeFromArray:acceptableTypes];
   
   if ([availableTypes isEqualToString:NSFilenamesPboardType]) {
-    NSArray *files = [pasteboard propertyListForType:NSFilenamesPboardType];
     
-    NSArray *acceptableExtensions = @[ @"wav", @"aiff", @"aif" ];
     
-    TWLEncoderConfiguration *config = TWLEncoderConfiguration.publicRadioConfiguration;
-    TWLEncoder *encoder = [TWLEncoder encoderWithConfiguration:config];
-    encoder.delegate = self;
+    NSArray *filePaths = [pasteboard propertyListForType:NSFilenamesPboardType];
+    [self encodeFilesFromPaths:filePaths];
     
-    for (NSString *filePath in files) {
-      if ([acceptableExtensions containsObject:filePath.pathExtension.lowercaseString]) {
-        NSURL *fileURL = [NSURL fileURLWithPath:filePath];
-        
-        TWLEncoderTask *task = [encoder taskWithURL:fileURL];
-        task.delegate = self;
-        [task resume];
-      }
-    }
   }
+}
+
+#pragma mark - SOXResamplerDelegate
+
+- (void)resampler:(SOXResampler *)resampler task:(SOXResamplerTask *)task didFinishResamplingToURL:(NSURL *)location {
+  NSLog(@"Now the resulting file needs to be encoded...");
+}
+
+#pragma mark - SOXResamplerTaskDelegate
+
+- (void)resampler:(SOXResampler *)encoder task:(SOXResamplerTask *)task didCompleteWithError:(NSError *)error {
+  NSLog(@"Resampling error");
 }
 
 #pragma mark - TWLEncoderDelegate
@@ -75,8 +141,6 @@
   
   dispatch_async(dispatch_get_main_queue(), ^{
     if (framesWritten == totalFramesWritten) {
-      [[[self dropzoneView] textField] setStringValue:@"Working..."];
-      
       self.dropzoneView.progressIndicator.maxValue = totalFramesExpectedToWrite;
       self.dropzoneView.progressIndicator.minValue = 0;
     }
@@ -106,7 +170,7 @@
   notification.soundName = NSUserNotificationDefaultSoundName;
   notification.userInfo = @{ @"path": outputURL.path };
   
-  NSUserNotificationCenter *center = [NSUserNotificationCenter defaultUserNotificationCenter];
+  NSUserNotificationCenter *center = NSUserNotificationCenter.defaultUserNotificationCenter;
   [center setDelegate:self];
   [center deliverNotification:notification];
 }
