@@ -11,6 +11,7 @@
 #define AUDIOBUFSIZE	(9216)
 
 #import "TWLEncoderTaskOperation.h"
+#import "TWLEncoderError.h"
 #import "TWLEncoderTask_private.h"
 #import "TWLEncoder_private.h"
 #import "TWLEncoderConfiguration.h"

@@ -59,9 +59,7 @@
 - (TWLEncoder *)encoder {
   if (!_encoder) {
     TWLEncoderConfiguration *config = TWLEncoderConfiguration.publicRadioConfiguration;
-    
-    _encoder = [TWLEncoder encoderWithConfiguration:config];
-    _encoder.delegate = self;
+    _encoder = [TWLEncoder encoderWithConfiguration:config delegate:self operationQueue:nil];
   }
   
   return _encoder;

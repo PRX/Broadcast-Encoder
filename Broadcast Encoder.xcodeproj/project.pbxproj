@@ -34,6 +34,7 @@
 		3E6F032395DA45B693B2B329 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = ../../Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		F88B6A5B18D245E800DB2A73 /* SOXResampler_private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SOXResampler_private.h; path = SoX/SOXResampler_private.h; sourceTree = "<group>"; };
 		F88B6A5C18D2464D00DB2A73 /* SOXResamplerTask_private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SOXResamplerTask_private.h; path = SoX/SOXResamplerTask_private.h; sourceTree = "<group>"; };
+		F88B6A5D18D2695D00DB2A73 /* TWLEncoderError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TWLEncoderError.h; sourceTree = "<group>"; };
 		F88D4DB518D0F5F900C9E9C3 /* Broadcast Encoder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Broadcast Encoder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F88D4DC418D0F5F900C9E9C3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		F88D4DED18D0F74200C9E9C3 /* PRXAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRXAppDelegate.h; sourceTree = "<group>"; };
@@ -227,6 +228,7 @@
 		F88D4E8818D14E5400C9E9C3 /* TwoLAME */ = {
 			isa = PBXGroup;
 			children = (
+				F88B6A5D18D2695D00DB2A73 /* TWLEncoderError.h */,
 				F88D4E9E18D20FD800C9E9C3 /* TWLAudioIn.h */,
 				F88D4E9A18D20F8600C9E9C3 /* TWLAudioInRaw.c */,
 				F88D4E9B18D20F8600C9E9C3 /* TWLAudioInSndfile.c */,
