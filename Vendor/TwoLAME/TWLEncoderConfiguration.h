@@ -10,7 +10,7 @@
 
 #import "TWLEncoder.h"
 
-@interface TWLEncoderConfiguration : NSObject
+@interface TWLEncoderConfiguration : NSObject <NSCopying>
 
 + (instancetype)publicRadioConfiguration;
 
@@ -21,12 +21,12 @@
 
 @property (nonatomic) TWLEncoderOutputMode outputMode;
 
-@property (nonatomic) NSUInteger bitrate;
+@property (nonatomic) NSUInteger kilobitrate;
 
 @property (nonatomic) BOOL markAsCopyright;
 @property (nonatomic) BOOL markAsOriginal;
 @property (nonatomic) BOOL protect;
-@property (nonatomic) BOOL deemphasis;
+@property (nonatomic) TWLEncoderEmphasis deemphasis;
 
 
 @end

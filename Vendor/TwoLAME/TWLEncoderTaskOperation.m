@@ -221,7 +221,7 @@
   twolame_set_original(self.encoderOptions, config.markAsOriginal);
   twolame_set_error_protection(self.encoderOptions, config.protect);
   
-  twolame_set_bitrate(self.encoderOptions, (int)(config.bitrate / 1024));
+  twolame_set_bitrate(self.encoderOptions, (int)config.kilobitrate);
   
   switch (config.outputMode) {
     case TWLEncoderOutputModeAuto:

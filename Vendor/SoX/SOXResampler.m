@@ -46,8 +46,7 @@ NSString * const SOXResamplerErrorDomain = @"SOXResamplerErrorDomain";
   self = [super init];
   if (self) {
     _configuration = configuration;
-#warning should be a copy
-    _immutableConfiguration = configuration;
+    _immutableConfiguration = configuration.copy;
     _operationQueue = queue;
     _delegate = delegate;
   }

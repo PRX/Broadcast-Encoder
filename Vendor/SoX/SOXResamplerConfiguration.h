@@ -8,7 +8,7 @@
 
 @import Foundation;
 
-@interface SOXResamplerConfiguration : NSObject
+@interface SOXResamplerConfiguration : NSObject <NSCopying>
 
 + (instancetype)publicRadioConfiguration;
 

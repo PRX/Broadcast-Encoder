@@ -18,4 +18,14 @@
   return config;
 }
 
+- (id)copyWithZone:(NSZone *)zone {
+  SOXResamplerConfiguration *copy = self.class.new;
+  
+  if (copy) {
+    copy.targetSampleRate = self.targetSampleRate;
+  }
+  
+  return copy;
+}
+
 @end
