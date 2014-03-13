@@ -15,6 +15,7 @@
 @property (nonatomic, strong) id<PRXDropzoneViewDelegate> delegate;
 
 @property (nonatomic, strong) IBOutlet NSTextField *textField;
+@property (nonatomic, strong) IBOutlet NSProgressIndicator *progressIndicator;
 
 @end
 

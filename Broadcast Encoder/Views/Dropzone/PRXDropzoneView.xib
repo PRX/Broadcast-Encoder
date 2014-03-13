@@ -24,8 +24,13 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <progressIndicator fixedFrame="YES" maxValue="100" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="i3v-xl-eSS">
+                    <rect key="frame" x="132" y="133" width="96" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                </progressIndicator>
             </subviews>
             <connections>
+                <outlet property="progressIndicator" destination="i3v-xl-eSS" id="V0h-Pf-fIx"/>
                 <outlet property="textField" destination="S9k-Sv-VaR" id="yfc-TM-C4n"/>
             </connections>
         </customView>

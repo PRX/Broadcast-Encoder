@@ -74,11 +74,17 @@
 - (void)encoder:(TWLEncoder *)encoder task:(TWLEncoderTask *)task didWriteFrames:(int64_t)framesWritten totalFramesWritten:(int64_t)totalFramesWritten totalFrameExpectedToWrite:(int64_t)totalFramesExpectedToWrite bytesWritten:(int64_t)bytessWritten totalBytesWritten:(int64_t)totalBytesWritten {
   
   dispatch_async(dispatch_get_main_queue(), ^{
-    [[[self dropzoneView] textField] setStringValue:@"Working..."];
+    if (framesWritten == totalFramesWritten) {
+      [[[self dropzoneView] textField] setStringValue:@"Working..."];
+      
+      self.dropzoneView.progressIndicator.maxValue = totalFramesExpectedToWrite;
+      self.dropzoneView.progressIndicator.minValue = 0;
+    }
+    
+    self.dropzoneView.progressIndicator.doubleValue = totalFramesWritten;
   });
   
-  NSLog(@"(%lli) %lli/%lli", framesWritten, totalFramesWritten, totalFramesExpectedToWrite);
-  NSLog(@"(%lli) %lli", bytessWritten, totalBytesWritten);
+  NSLog(@"(+%lli) %lli/%lli", framesWritten, totalFramesWritten, totalFramesExpectedToWrite);
 }
 
 - (void)encoder:(TWLEncoder *)encoder task:(TWLEncoderTask *)task didFinishEncodingToURL:(NSURL *)location {
