@@ -9,7 +9,6 @@
 @import Foundation;
 
 @protocol TWLEncoderTaskDelegate;
-
 @class TWLEncoder;
 
 @interface TWLEncoderTask : NSObject

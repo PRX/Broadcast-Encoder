@@ -21,7 +21,6 @@ NS_ENUM(NSInteger, TWLEncoderError) {
 };
 
 @protocol TWLEncoderDelegate;
-
 @class TWLEncoderTask, TWLEncoderConfiguration;
 
 @interface TWLEncoder : NSObject
