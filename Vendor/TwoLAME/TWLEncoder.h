@@ -8,20 +8,6 @@
 
 @import Foundation;
 
-typedef NS_ENUM(NSInteger, TWLEncoderOutputMode) {
-  TWLEncoderOutputModeAuto,
-  TWLEncoderOutputModeMono,
-  TWLEncoderOutputModeStereo,
-  TWLEncoderOutputModeJointStereo,
-  TWLEncoderOutputModeDualChannel
-};
-
-typedef NS_ENUM(NSInteger, TWLEncoderEmphasis) {
-  TWLEncoderEmphasisNone,
-  TWLEncoderEmphasisC,
-  TWLEncoderEmphasis5
-};
-
 /**
  
  TWLEncoder provides an interface for encoding PCM audio data to MPEG Audio
@@ -122,6 +108,5 @@ typedef NS_ENUM(NSInteger, TWLEncoderEmphasis) {
 
 /* Sent periodically to notify the delegate of download progress. */
 - (void)encoder:(TWLEncoder *)encoder task:(TWLEncoderTask *)task didWriteFrames:(int64_t)framesWritten totalFramesWritten:(int64_t)totalFramesWritten totalFrameExpectedToWrite:(int64_t)totalFramesExpectedToWrite bytesWritten:(int64_t)bytessWritten totalBytesWritten:(int64_t)totalBytesWritten;
-
 
 @end
