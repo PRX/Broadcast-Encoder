@@ -28,10 +28,20 @@
                     <rect key="frame" x="132" y="133" width="96" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                 </progressIndicator>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RxK-KV-vjW">
+                    <rect key="frame" x="56" y="20" width="248" height="14"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="GcL-Vt-Mnh">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
             </subviews>
             <connections>
                 <outlet property="progressIndicator" destination="i3v-xl-eSS" id="V0h-Pf-fIx"/>
                 <outlet property="textField" destination="S9k-Sv-VaR" id="yfc-TM-C4n"/>
+                <outlet property="versionTextField" destination="RxK-KV-vjW" id="3GB-QW-npy"/>
             </connections>
         </customView>
     </objects>

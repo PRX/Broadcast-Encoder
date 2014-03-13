@@ -12,6 +12,6 @@
 #import "TWLEncoderTask.h"
 #import "TWLEncoder.h"
 
-@interface PRXDropzoneViewController : NSViewController <PRXDropzoneViewDelegate, TWLEncoderTaskDelegate, TWLEncoderDelegate>
+@interface PRXDropzoneViewController : NSViewController <PRXDropzoneViewDelegate, TWLEncoderTaskDelegate, TWLEncoderDelegate, NSUserNotificationCenterDelegate>
 
 @end

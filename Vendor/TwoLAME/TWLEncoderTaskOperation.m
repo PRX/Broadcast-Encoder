@@ -255,6 +255,8 @@
     default:
       break;
   }
+  
+  twolame_print_config(self.encoderOptions);
 }
 
 - (void)openInputFile {

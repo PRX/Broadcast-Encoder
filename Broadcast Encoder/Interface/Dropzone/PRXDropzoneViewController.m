@@ -98,6 +98,29 @@
     [[[self dropzoneView] textField] setStringValue:@"Done!"];
     self.dropzoneView.progressIndicator.doubleValue = 0;
   });
+  
+  NSUserNotification *notification = NSUserNotification.new;
+  notification.title = @"Encoding complete";
+  notification.subtitle = inputFileName;
+  notification.informativeText = @"Broadcast-ready MP2 now available";
+  notification.soundName = NSUserNotificationDefaultSoundName;
+  notification.userInfo = @{ @"path": outputURL.path };
+  
+  NSUserNotificationCenter *center = [NSUserNotificationCenter defaultUserNotificationCenter];
+  [center setDelegate:self];
+  [center deliverNotification:notification];
+}
+
+#pragma mark - NSUserNotificationCenterDelegate
+
+- (BOOL)userNotificationCenter:(NSUserNotificationCenter *)center shouldPresentNotification:(NSUserNotification *)notification {
+  return YES;
+}
+
+- (void)userNotificationCenter:(NSUserNotificationCenter *)center didActivateNotification:(NSUserNotification *)notification {
+  NSString *path = notification.userInfo[@"path"];
+  NSURL *fileURL = [NSURL fileURLWithPath:path];
+  [NSWorkspace.sharedWorkspace activateFileViewerSelectingURLs:@[ fileURL ]];
 }
 
 @end
