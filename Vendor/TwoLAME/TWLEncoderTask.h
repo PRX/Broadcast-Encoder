@@ -17,6 +17,7 @@
 @property (nonatomic, strong) id<TWLEncoderTaskDelegate> delegate;
 @property (nonatomic, strong, readonly) NSURL *originalURL;
 
+#warning TODO
 @property (nonatomic, readonly) int64_t countOfBytesEncoded;
 
 - (void)resume;
