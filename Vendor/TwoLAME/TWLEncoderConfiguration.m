@@ -11,8 +11,18 @@
 @implementation TWLEncoderConfiguration
 
 + (instancetype)publicRadioConfiguration {
+  TWLEncoderConfiguration *config = self.new;
+  
+  config.markAsCopyright = YES;
+  config.markAsOriginal = YES;
+  config.protect = YES;
+  config.deemphasis = TWLEncoderEmphasisNone;
+  
+  config.outputMode = TWLEncoderOutputModeJointStereo;
+  config.bitrate = (256 * 1024);
+  
 //  -t 0 --mode j --bitrate 256 --protect --copyright --original --deemphasis n
-  return self.new;
+  return config;
 }
 
 @end

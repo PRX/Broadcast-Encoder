@@ -8,6 +8,7 @@
 
 #import "PRXDropzoneViewController.h"
 #import "TWLEncoder.h"
+#import "TWLEncoderConfiguration.h"
 #import "TWLEncoderTask.h"
 
 @interface PRXDropzoneViewController ()
@@ -46,7 +47,8 @@
     
     NSArray *acceptableExtensions = @[ @"wav", @"aiff", @"aif" ];
     
-    TWLEncoder *encoder = TWLEncoder.sharedEncoder;
+    TWLEncoderConfiguration *config = TWLEncoderConfiguration.publicRadioConfiguration;
+    TWLEncoder *encoder = [TWLEncoder encoderWithConfiguration:config];
     encoder.delegate = self;
     
     for (NSString *filePath in files) {

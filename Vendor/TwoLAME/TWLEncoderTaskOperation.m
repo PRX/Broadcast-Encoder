@@ -13,44 +13,30 @@
 #import "TWLEncoderTaskOperation.h"
 #import "TWLEncoderTask_private.h"
 #import "TWLEncoder_private.h"
+#import "TWLEncoderConfiguration.h"
 #import <twolame.h>
 #import "TWLAudioIn.h"
 
 @interface TWLEncoderTaskOperation () {
-  SF_INFO sndfileInfo;
+  
   int sampleSize;
   int useRaw;
-  
-  short int *inputPCMBuffer;
-  unsigned char *outputMP2Buffer;
-  
-  twolame_options *encoderOptions;
-  
-  audioin_t *inputAudioFile;
-  FILE *outputAudioFile;
-  
-  unsigned int frameLength;
-  unsigned int totalFrames;
-  unsigned int frameCount;
-  
-//  twolame_options *encodeOptions;
-//  
-//  short int *pcmaudio;
-//  unsigned char *mp2buffer;
-//  
-//  wave_info_t *wave_info;
-//  
-//  FILE *outfile;
-//  
-//  int num_samples;
-//  int mp2fill_size;
-//  int frames;
   
   BOOL _executing;
   BOOL _finished;
 }
 
 @property (nonatomic, strong) TWLEncoderTask *task;
+
+@property (nonatomic) SF_INFO sndfileInfo;
+
+@property (nonatomic) audioin_t *inputPCMAudio;
+@property (nonatomic) short int *inputBuffer;
+
+@property (nonatomic) FILE *outputMP2File;
+@property (nonatomic) unsigned char *outputBuffer;
+
+@property (nonatomic) twolame_options *encoderOptions;
 
 - (void)didGetCanceled;
 
@@ -164,8 +150,8 @@
   
   [self openInputFile];
   
-  twolame_set_num_channels(encoderOptions, sndfileInfo.channels);
-  twolame_set_in_samplerate(encoderOptions, sndfileInfo.samplerate);
+  twolame_set_num_channels(self.encoderOptions, self.sndfileInfo.channels);
+  twolame_set_in_samplerate(self.encoderOptions, self.sndfileInfo.samplerate);
   
   if (![self openOutputFile:location]) return;
   
@@ -182,7 +168,7 @@
 }
 
 - (BOOL)allocatePCMBuffer {
-  if ((inputPCMBuffer = (short *) calloc(AUDIOBUFSIZE, sizeof(short))) == NULL) {
+  if ((self.inputBuffer = (short *) calloc(AUDIOBUFSIZE, sizeof(short))) == NULL) {
     
     NSError *error;
     NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Encoding was unsuccessful.", NSLocalizedFailureReasonErrorKey: @"Could not allocate buffer.", NSLocalizedRecoverySuggestionErrorKey: @"You may be out of memory." };
@@ -197,7 +183,7 @@
 }
 
 - (BOOL)allocateMP2Buffer {
-  if ((outputMP2Buffer = (unsigned char *) calloc(MP2BUFSIZE, sizeof(unsigned char))) == NULL) {
+  if ((self.outputBuffer = (unsigned char *) calloc(MP2BUFSIZE, sizeof(unsigned char))) == NULL) {
     
     NSError *error;
     NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Encoding was unsuccessful.", NSLocalizedFailureReasonErrorKey: @"Could not allocate buffer.", NSLocalizedRecoverySuggestionErrorKey: @"You may be out of memory." };
@@ -212,9 +198,9 @@
 }
 
 - (BOOL)initializeEncoderOptions {
-  encoderOptions = twolame_init();
+  self.encoderOptions = twolame_init();
   
-  if (encoderOptions == NULL) {
+  if (self.encoderOptions == NULL) {
     
     NSError *error;
     NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Encoding was unsuccessful.", NSLocalizedFailureReasonErrorKey: @"Could not initialize encoder.", NSLocalizedRecoverySuggestionErrorKey: @"This is an internal error." };
@@ -229,7 +215,47 @@
 }
 
 - (void)setOptionsFromConfiguration {
-#warning todo
+  TWLEncoderConfiguration *config = self.task.encoder.configuration;
+  
+  twolame_set_copyright(self.encoderOptions, config.markAsCopyright);
+  twolame_set_original(self.encoderOptions, config.markAsOriginal);
+  twolame_set_error_protection(self.encoderOptions, config.protect);
+  
+  twolame_set_bitrate(self.encoderOptions, (int)(config.bitrate / 1024));
+  
+  switch (config.outputMode) {
+    case TWLEncoderOutputModeAuto:
+      twolame_set_mode(self.encoderOptions, TWOLAME_AUTO_MODE);
+      break;
+    case TWLEncoderOutputModeMono:
+      twolame_set_mode(self.encoderOptions, TWOLAME_MONO);
+      break;
+    case TWLEncoderOutputModeStereo:
+      twolame_set_mode(self.encoderOptions, TWOLAME_STEREO);
+      break;
+    case TWLEncoderOutputModeJointStereo:
+      twolame_set_mode(self.encoderOptions, TWOLAME_JOINT_STEREO);
+      break;
+    case TWLEncoderOutputModeDualChannel:
+      twolame_set_mode(self.encoderOptions, TWOLAME_DUAL_CHANNEL);
+      break;
+    default:
+      break;
+  }
+  
+  switch (config.deemphasis) {
+    case TWLEncoderEmphasisNone:
+      twolame_set_emphasis(self.encoderOptions, TWOLAME_EMPHASIS_N);
+      break;
+    case TWLEncoderEmphasisC:
+      twolame_set_emphasis(self.encoderOptions, TWOLAME_EMPHASIS_C);
+      break;
+    case TWLEncoderEmphasis5:
+      twolame_set_emphasis(self.encoderOptions, TWOLAME_EMPHASIS_5);
+      break;
+    default:
+      break;
+  }
 }
 
 - (void)openInputFile {
@@ -237,10 +263,10 @@
   
   if (useRaw) {
     // use raw input handler
-    inputAudioFile = open_audioin_raw(inputFileName, &sndfileInfo, sampleSize);
+    self.inputPCMAudio = open_audioin_raw(inputFileName, &_sndfileInfo, sampleSize);
   } else {
     // use libsndfile
-    inputAudioFile = open_audioin_sndfile(inputFileName, &sndfileInfo);
+    self.inputPCMAudio = open_audioin_sndfile(inputFileName, &_sndfileInfo);
   }
 }
 
@@ -261,13 +287,13 @@
     return NO;
   }
   
-  outputAudioFile = file;
+  self.outputMP2File = file;
   
   return YES;
 }
 
 - (BOOL)initializeTwoLAME {
-  if (twolame_init_params(encoderOptions) != 0) {
+  if (twolame_init_params(self.encoderOptions) != 0) {
     
     NSError *error;
     NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Encoding was unsuccessful.", NSLocalizedFailureReasonErrorKey: @"Could not initialize encoder.", NSLocalizedRecoverySuggestionErrorKey: @"Configuring TwoLAME with these options failed." };
@@ -282,50 +308,52 @@
 }
 
 - (BOOL)transcode:(NSURL *)location {
-  frameLength = twolame_get_framelength(encoderOptions);
+  unsigned int frameLength = twolame_get_framelength(self.encoderOptions);
   
-  if (sndfileInfo.frames) {
-    totalFrames = sndfileInfo.frames / TWOLAME_SAMPLES_PER_FRAME;
-  }
   
+  unsigned int totalFrames = 0;
+  unsigned int frameCount = 0;
   int samples_read = 0;
   int audioReadSize = 0;
-  int byteswap = FALSE;
   int mp2fill_size = 0;
   unsigned int total_bytes = 0;
   
-  while ((samples_read = inputAudioFile->read(inputAudioFile, inputPCMBuffer, audioReadSize)) > 0) {
+  if (self.sndfileInfo.frames) {
+    totalFrames = (self.sndfileInfo.frames / TWOLAME_SAMPLES_PER_FRAME);
+  }
+  
+  while ((samples_read = self.inputPCMAudio->read(self.inputPCMAudio, self.inputBuffer, audioReadSize)) > 0) {
     int bytes_out = 0;
     
     // Force byte swapping if requested
+    BOOL byteswap = self.task.encoder.configuration.byteSwap;
     if (byteswap) {
       int i;
       for (i = 0; i < samples_read; i++) {
-        short tmp = inputPCMBuffer[i];
+        short tmp = self.inputBuffer[i];
         char *src = (char *) &tmp;
-        char *dst = (char *) &inputPCMBuffer[i];
+        char *dst = (char *) &_inputBuffer[i];
         dst[0] = src[1];
         dst[1] = src[0];
       }
     }
     
     // Calculate the number of samples we have (per channel)
-    samples_read /= sndfileInfo.channels;
+    samples_read /= self.sndfileInfo.channels;
     
     // Do swapping of left and right channels if requested
-//    if (channelswap && sndfileInfo.channels == 2) {
-//      int i;
-//      for (i = 0; i < samples_read; i++) {
-//        short tmp = inputPCMBuffer[(2 * i)];
-//        inputPCMBuffer[(2 * i)] = inputPCMBuffer[(2 * i) + 1];
-//        inputPCMBuffer[(2 * i) + 1] = tmp;
-//      }
-//    }
+    BOOL channelSwap = self.task.encoder.configuration.channelSwap;
+    if (channelSwap && self.sndfileInfo.channels == 2) {
+      int i;
+      for (i = 0; i < samples_read; i++) {
+        short tmp = self.inputBuffer[(2 * i)];
+        self.inputBuffer[(2 * i)] = self.inputBuffer[(2 * i) + 1];
+        self.inputBuffer[(2 * i) + 1] = tmp;
+      }
+    }
     
     // Encode the audio to MP2
-    mp2fill_size =
-    twolame_encode_buffer_interleaved(encoderOptions, inputPCMBuffer, samples_read, outputMP2Buffer,
-                                      MP2_BUF_SIZE);
+    mp2fill_size = twolame_encode_buffer_interleaved(self.encoderOptions, self.inputBuffer, samples_read, self.outputBuffer, MP2_BUF_SIZE);
     
     // Stop if we don't have any bytes (probably don't have enough audio for a full frame of
     // mpeg audio)
@@ -342,7 +370,7 @@
     // }
     
     // Write the encoded audio out
-    bytes_out = fwrite(outputMP2Buffer, sizeof(unsigned char), mp2fill_size, outputAudioFile);
+    bytes_out = fwrite(self.outputBuffer, sizeof(unsigned char), mp2fill_size, self.outputMP2File);
     if (bytes_out != mp2fill_size) {
       perror("error while writing to output file");
       exit(ERR_WRITING_OUTPUT);
@@ -356,7 +384,7 @@
     
     // Display Progress
     frameCount += (mp2fill_size / frameLength);
-    if (twolame_get_verbosity(encoderOptions) > 0) {
+    if (twolame_get_verbosity(self.encoderOptions) > 0) {
       fprintf(stderr, "\rEncoding frame: %i", frameCount);
       if (totalFrames) {
         fprintf(stderr, "/%i (%i%%)", totalFrames, (frameCount * 100) / totalFrames);
@@ -369,7 +397,7 @@
 }
 
 - (BOOL)checkForInputFileError {
-  if (inputAudioFile->error_str(inputAudioFile)) {
+  if (self.inputPCMAudio->error_str(self.inputPCMAudio)) {
     
     NSError *error;
     NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Encoding was unsuccessful.", NSLocalizedFailureReasonErrorKey: @"Could not read input file.", NSLocalizedRecoverySuggestionErrorKey: @"Check permissions and file type." };
@@ -400,15 +428,15 @@
 }
 
 - (void)cleanup {
-  inputAudioFile->close(inputAudioFile);
-  fclose(outputAudioFile);
+  self.inputPCMAudio->close(self.inputPCMAudio);
+  fclose(self.outputMP2File);
   
   // Close the libtwolame encoder
-  twolame_close(&encoderOptions);
+  twolame_close(&_encoderOptions);
   
   // Free up memory
-  free(inputPCMBuffer);
-  free(outputMP2Buffer);
+  free(self.inputBuffer);
+  free(self.outputBuffer);
 }
 
 @end

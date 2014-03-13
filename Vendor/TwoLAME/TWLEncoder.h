@@ -10,7 +10,7 @@
 
 extern NSString * const TWLEncoderErrorDomain;
 
-NS_ENUM(NSInteger, TWLEncoderError) {
+typedef NS_ENUM(NSInteger, TWLEncoderError) {
   TWLEncoderErrorUnknown = -1,
   TWLEncoderErrorCancelled = -999,
   TWLEncoderErrorUnsupportedAudio = -1000,
@@ -22,7 +22,7 @@ NS_ENUM(NSInteger, TWLEncoderError) {
   TWLEncoderErrorCannotReadFile = -3001
 };
 
-NS_ENUM(NSInteger, TWLEncoderOutputMode) {
+typedef NS_ENUM(NSInteger, TWLEncoderOutputMode) {
   TWLEncoderOutputModeAuto,
   TWLEncoderOutputModeMono,
   TWLEncoderOutputModeStereo,
@@ -30,7 +30,7 @@ NS_ENUM(NSInteger, TWLEncoderOutputMode) {
   TWLEncoderOutputModeDualChannel
 };
 
-NS_ENUM(NSInteger, TWLEncoderEmphasis) {
+typedef NS_ENUM(NSInteger, TWLEncoderEmphasis) {
   TWLEncoderEmphasisNone,
   TWLEncoderEmphasisC,
   TWLEncoderEmphasis5
