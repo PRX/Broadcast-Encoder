@@ -13,13 +13,15 @@
 
 @synthesize encoder = _encoder;
 @synthesize URL = _URL;
+@synthesize delegate = _delegate;
 
-- (id)initWithURL:(NSURL *)url encoder:(TWLEncoder *)encoder {
+- (id)initWithURL:(NSURL *)url encoder:(TWLEncoder *)encoder delegate:(id<TWLEncoderTaskDelegate>)delegate {
   self = [super init];
   if (self) {
 #warning should make sure both args exist
     _URL = url;
     _encoder = encoder;
+    _delegate = delegate;
   }
   return self;
 }
@@ -36,10 +38,23 @@
   [self.encoder encodeTask:self];
 }
 
+- (void)cancel {
+#warning todo
+}
+
 - (void)didCompleteWithError:(NSError *)error {
   if ([self.delegate respondsToSelector:@selector(encoder:task:didCompleteWithError:)]) {
     [self.delegate encoder:self.encoder task:self didCompleteWithError:error];
   }
+}
+
+#pragma mark - NSCopying
+
+- (id)copyWithZone:(NSZone *)zone {
+  TWLEncoderTask *copy = TWLEncoderTask.new;
+  
+#warning todo
+  return copy;
 }
 
 @end

@@ -36,7 +36,7 @@
 @property (nonatomic) FILE *outputMP2File;
 @property (nonatomic) unsigned char *outputBuffer;
 
-@property (nonatomic) twolame_options *encoderOptions;
+@property (readonly) twolame_options *encoderOptions;
 
 - (void)didGetCanceled;
 
@@ -51,6 +51,8 @@
 @end
 
 @implementation TWLEncoderTaskOperation
+
+@synthesize encoderOptions = _encoderOptions;
 
 + (instancetype)operationWithTask:(TWLEncoderTask *)task {
   return [[self alloc] initWithTask:task];
@@ -140,23 +142,25 @@
   [self didFinish];
 }
 
+#pragma mark - Encoder
+
+- (twolame_options *)encoderOptions {
+  if (_encoderOptions == NULL) {
+    _encoderOptions = [self.task.encoder encoderOptionsWithSFInfo:self.sndfileInfo];
+  }
+  
+  return _encoderOptions;
+}
+
 #pragma mark - Encoding
 
 - (void)encodeToURL:(NSURL *)location {
   if (![self allocatePCMBuffer]) return;
   if (![self allocateMP2Buffer]) return;
   
-  if (![self initializeEncoderOptions]) return;
-  [self setOptionsFromConfiguration];
-  
   [self openInputFile];
   
-  twolame_set_num_channels(self.encoderOptions, self.sndfileInfo.channels);
-  twolame_set_in_samplerate(self.encoderOptions, self.sndfileInfo.samplerate);
-  
   if (![self openOutputFile:location]) return;
-  
-  if (![self initializeTwoLAME]) return;
   
   if (![self transcode:location]) return;
   
@@ -170,10 +174,13 @@
 
 - (BOOL)allocatePCMBuffer {
   if ((self.inputBuffer = (short *) calloc(AUDIOBUFSIZE, sizeof(short))) == NULL) {
+    NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Encoding was unsuccessful.",
+                                NSLocalizedFailureReasonErrorKey: @"Could not allocate buffer.",
+                                NSLocalizedRecoverySuggestionErrorKey: @"You may be out of memory." };
     
-    NSError *error;
-    NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Encoding was unsuccessful.", NSLocalizedFailureReasonErrorKey: @"Could not allocate buffer.", NSLocalizedRecoverySuggestionErrorKey: @"You may be out of memory." };
-    error = [NSError errorWithDomain:TWLEncoderErrorDomain code:TWLEncoderErrorCannotAllocateInputBuffer userInfo:userInfo];
+    NSError *error = [NSError errorWithDomain:TWLEncoderErrorDomain
+                                         code:TWLEncoderErrorCannotAllocateInputBuffer
+                                     userInfo:userInfo];
 
     [self didFailWithError:error];
     
@@ -185,10 +192,13 @@
 
 - (BOOL)allocateMP2Buffer {
   if ((self.outputBuffer = (unsigned char *) calloc(MP2BUFSIZE, sizeof(unsigned char))) == NULL) {
+    NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Encoding was unsuccessful.",
+                                NSLocalizedFailureReasonErrorKey: @"Could not allocate buffer.",
+                                NSLocalizedRecoverySuggestionErrorKey: @"You may be out of memory." };
     
-    NSError *error;
-    NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Encoding was unsuccessful.", NSLocalizedFailureReasonErrorKey: @"Could not allocate buffer.", NSLocalizedRecoverySuggestionErrorKey: @"You may be out of memory." };
-    error = [NSError errorWithDomain:TWLEncoderErrorDomain code:TWLEncoderErrorCannotAllocateOutputBuffer userInfo:userInfo];
+    NSError *error = [NSError errorWithDomain:TWLEncoderErrorDomain
+                                         code:TWLEncoderErrorCannotAllocateOutputBuffer
+                                     userInfo:userInfo];
 
     [self didFailWithError:error];
     
@@ -196,79 +206,14 @@
   }
   
   return YES;
-}
-
-- (BOOL)initializeEncoderOptions {
-  self.encoderOptions = twolame_init();
-  
-  if (self.encoderOptions == NULL) {
-    
-    NSError *error;
-    NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Encoding was unsuccessful.", NSLocalizedFailureReasonErrorKey: @"Could not initialize encoder.", NSLocalizedRecoverySuggestionErrorKey: @"This is an internal error." };
-    error = [NSError errorWithDomain:TWLEncoderErrorDomain code:TWLEncoderErrorCannotInitialize userInfo:userInfo];
-    
-    [self didFailWithError:error];
-    
-    return NO;
-  }
-  
-  return YES;
-}
-
-- (void)setOptionsFromConfiguration {
-  TWLEncoderConfiguration *config = self.task.encoder.immutableConfiguration;
-  
-  twolame_set_copyright(self.encoderOptions, config.markAsCopyright);
-  twolame_set_original(self.encoderOptions, config.markAsOriginal);
-  twolame_set_error_protection(self.encoderOptions, config.protect);
-  
-  twolame_set_bitrate(self.encoderOptions, (int)config.kilobitrate);
-  
-  switch (config.outputMode) {
-    case TWLEncoderOutputModeAuto:
-      twolame_set_mode(self.encoderOptions, TWOLAME_AUTO_MODE);
-      break;
-    case TWLEncoderOutputModeMono:
-      twolame_set_mode(self.encoderOptions, TWOLAME_MONO);
-      break;
-    case TWLEncoderOutputModeStereo:
-      twolame_set_mode(self.encoderOptions, TWOLAME_STEREO);
-      break;
-    case TWLEncoderOutputModeJointStereo:
-      twolame_set_mode(self.encoderOptions, TWOLAME_JOINT_STEREO);
-      break;
-    case TWLEncoderOutputModeDualChannel:
-      twolame_set_mode(self.encoderOptions, TWOLAME_DUAL_CHANNEL);
-      break;
-    default:
-      break;
-  }
-  
-  switch (config.deemphasis) {
-    case TWLEncoderEmphasisNone:
-      twolame_set_emphasis(self.encoderOptions, TWOLAME_EMPHASIS_N);
-      break;
-    case TWLEncoderEmphasisC:
-      twolame_set_emphasis(self.encoderOptions, TWOLAME_EMPHASIS_C);
-      break;
-    case TWLEncoderEmphasis5:
-      twolame_set_emphasis(self.encoderOptions, TWOLAME_EMPHASIS_5);
-      break;
-    default:
-      break;
-  }
-  
-  twolame_print_config(self.encoderOptions);
 }
 
 - (void)openInputFile {
   char *inputFileName = self.task.URL.path.UTF8String;
   
   if (self.task.encoder.immutableConfiguration.raw) {
-    // use raw input handler
     self.inputPCMAudio = open_audioin_raw(inputFileName, &_sndfileInfo, sampleSize);
   } else {
-    // use libsndfile
     self.inputPCMAudio = open_audioin_sndfile(inputFileName, &_sndfileInfo);
   }
 }
@@ -280,10 +225,13 @@
   file = fopen(outputFileName, "wb");
   
   if (file == NULL) {
+    NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Encoding was unsuccessful.",
+                                NSLocalizedFailureReasonErrorKey: @"Could not open output file.",
+                                NSLocalizedRecoverySuggestionErrorKey: @"This may be a app sandboxing issue." };
     
-    NSError *error;
-    NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Encoding was unsuccessful.", NSLocalizedFailureReasonErrorKey: @"Could not open output file.", NSLocalizedRecoverySuggestionErrorKey: @"This may be a app sandboxing issue." };
-    error = [NSError errorWithDomain:TWLEncoderErrorDomain code:TWLEncoderErrorCannotOpenFile userInfo:userInfo];
+    NSError *error = [NSError errorWithDomain:TWLEncoderErrorDomain
+                                         code:TWLEncoderErrorCannotOpenFile
+                                     userInfo:userInfo];
     
     [self didFailWithError:error];
     
@@ -295,24 +243,12 @@
   return YES;
 }
 
-- (BOOL)initializeTwoLAME {
-  if (twolame_init_params(self.encoderOptions) != 0) {
-    
-    NSError *error;
-    NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Encoding was unsuccessful.", NSLocalizedFailureReasonErrorKey: @"Could not initialize encoder.", NSLocalizedRecoverySuggestionErrorKey: @"Configuring TwoLAME with these options failed." };
-    error = [NSError errorWithDomain:TWLEncoderErrorDomain code:TWLEncoderErrorCannotInitialize userInfo:userInfo];
-    
-    [self didFailWithError:error];
-    
+- (BOOL)transcode:(NSURL *)location {
+  if (self.encoderOptions == NULL) {
     return NO;
   }
   
-  return YES;
-}
-
-- (BOOL)transcode:(NSURL *)location {
   unsigned int frameLength = twolame_get_framelength(self.encoderOptions);
-  
   
   unsigned int totalFrames = 0;
   unsigned int frameCount = 0;
@@ -402,10 +338,13 @@
 
 - (BOOL)checkForInputFileError {
   if (self.inputPCMAudio->error_str(self.inputPCMAudio)) {
+    NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Encoding was unsuccessful.",
+                                NSLocalizedFailureReasonErrorKey: @"Could not read input file.",
+                                NSLocalizedRecoverySuggestionErrorKey: @"Check permissions and file type." };
     
-    NSError *error;
-    NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Encoding was unsuccessful.", NSLocalizedFailureReasonErrorKey: @"Could not read input file.", NSLocalizedRecoverySuggestionErrorKey: @"Check permissions and file type." };
-    error = [NSError errorWithDomain:TWLEncoderErrorDomain code:TWLEncoderErrorCannotReadFile userInfo:userInfo];
+    NSError *error = [NSError errorWithDomain:TWLEncoderErrorDomain
+                                         code:TWLEncoderErrorCannotReadFile
+                                     userInfo:userInfo];
     
     [self didFailWithError:error];
     

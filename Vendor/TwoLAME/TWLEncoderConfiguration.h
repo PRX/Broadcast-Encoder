@@ -46,24 +46,39 @@ typedef NS_ENUM(NSInteger, TWLEncoderEmphasis) {
 @property BOOL byteSwap;
 
 /* left and right channels of stereo audio should be swapped in encoded audio */
-@property (nonatomic) BOOL channelSwap;
+@property BOOL channelSwap;
 
 /* channel mode for output audio (mono, stereo, joint, dual, auto) */
-@property (nonatomic) TWLEncoderOutputMode outputMode;
+@property TWLEncoderOutputMode outputMode;
 
 /* bitrate of the resulting MP2 file in kilobits per second */
-@property (nonatomic) NSUInteger kilobitrate;
+@property NSUInteger kilobitrate;
+
+/* enable VBR mode, default value is 5.0 */
+@property BOOL variableBitrate;
+
+/* Enable VBR mode and set quality level. 
+ * The higher the number the better the quality. 
+ * Maximum range is -50 to 50 but useful range is -10 to 10
+ */
+@property NSNumber *variableBitrateLevel;
 
 /* indicate that MPEG stream is copyrighted */
-@property (nonatomic) BOOL markAsCopyright;
+@property BOOL markAsCopyright;
 
 /* set the MPEG Audio Original flag */
-@property (nonatomic) BOOL markAsOriginal;
+@property BOOL markAsOriginal;
 
-/* enable/disable CRC error protection. */
-@property (nonatomic) BOOL protect;
+/* enable/disable CRC error protection */
+@property BOOL protect;
+
+/* turn on padding in output bitstream */
+@property BOOL padding;
 
 /* the type of pre-emphasis to be applied to the encoded audio */
-@property (nonatomic) TWLEncoderEmphasis deemphasis;
+@property TWLEncoderEmphasis deemphasis;
+
+/* turn on energy level extensions */
+@property BOOL energy;
 
 @end

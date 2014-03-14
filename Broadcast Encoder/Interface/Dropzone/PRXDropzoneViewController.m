@@ -94,7 +94,6 @@
 
 - (void)encodeFileAtURL:(NSURL *)url {
   TWLEncoderTask *task = [self.encoder taskWithURL:url];
-  task.delegate = self;
   [task resume];
 }
 

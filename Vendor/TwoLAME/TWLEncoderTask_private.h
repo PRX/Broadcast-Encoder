@@ -17,8 +17,10 @@
 
 @property (nonatomic, readonly) const char *path;
 
-- (id)initWithURL:(NSURL *)url encoder:(TWLEncoder *)encoder;
+/* Private Initializers */
+- (id)initWithURL:(NSURL *)url encoder:(TWLEncoder *)encoder delegate:(id<TWLEncoderTaskDelegate>)delegate;
 
+/* Delegate Notification */
 - (void)didCompleteWithError:(NSError *)error;
 
 @end

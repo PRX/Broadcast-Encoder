@@ -24,7 +24,7 @@
  a suspended state and must be sent the -resume message before they will
  execute.
 
- A TWLEncoderTask will directly write the encoded MP@ audio data to a 
+ A TWLEncoderTask will directly write the encoded MP2 audio data to a 
  temporary file. When completed, the delegate is sent
  encoder:task:didFinishEncodingToURL: and given an opportunity to move
  this file to a permanent location in its sandboxed container, or to
@@ -56,7 +56,7 @@
 + (instancetype)encoderWithConfiguration:(TWLEncoderConfiguration *)configuration delegate:(id<TWLEncoderDelegate>)delegate operationQueue:(NSOperationQueue *)queue;
 
 @property (readonly, retain) NSOperationQueue *operationQueue;
-@property (readonly, retain) id<TWLEncoderDelegate> delegate;
+@property (readonly, retain) id <TWLEncoderDelegate> delegate;
 @property (readonly, copy) TWLEncoderConfiguration *configuration;
 
 /*

@@ -20,8 +20,7 @@
   
   config.outputMode = TWLEncoderOutputModeJointStereo;
   config.kilobitrate = 256;
-  
-//  -t 0 --mode j --bitrate 256 --protect --copyright --original --deemphasis n
+
   return config;
 }
 
@@ -37,11 +36,15 @@
     copy.outputMode = self.outputMode;
     
     copy.kilobitrate = self.kilobitrate;
+    copy.variableBitrate = self.variableBitrate;
+    copy.variableBitrateLevel = self.variableBitrateLevel.copy;
     
     copy.markAsCopyright = self.markAsCopyright;
     copy.markAsOriginal = self.markAsOriginal;
     copy.protect = self.protect;
+    copy.padding = self.padding;
     copy.deemphasis = self.deemphasis;
+    copy.energy = self.energy;
   }
   
   return copy;
