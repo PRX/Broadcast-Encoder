@@ -14,6 +14,7 @@
 @synthesize encoder = _encoder;
 @synthesize URL = _URL;
 @synthesize delegate = _delegate;
+@synthesize taskIdentifier = _taskIdentifier;
 
 - (id)initWithURL:(NSURL *)url encoder:(TWLEncoder *)encoder delegate:(id<TWLEncoderTaskDelegate>)delegate {
   self = [super init];
@@ -24,6 +25,13 @@
     _delegate = delegate;
   }
   return self;
+}
+
+- (NSUInteger)taskIdentifier {
+  if (!_taskIdentifier) {
+    _taskIdentifier = arc4random_uniform(999999);
+  }
+  return _taskIdentifier;
 }
 
 - (NSURL *)originalURL {
@@ -41,6 +49,8 @@
 - (void)cancel {
 #warning todo
 }
+
+#pragma mark - Delegate Notification
 
 - (void)didCompleteWithError:(NSError *)error {
   if ([self.delegate respondsToSelector:@selector(encoder:task:didCompleteWithError:)]) {

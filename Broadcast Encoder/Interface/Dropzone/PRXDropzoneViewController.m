@@ -88,7 +88,6 @@
 
 - (void)resampleAndEncodeFileAtURL:(NSURL *)url {
   SOXResamplerTask *task = [self.resampler taskWithURL:url];
-  task.delegate = self;
   [task resume];
 }
 
@@ -117,6 +116,7 @@
 #pragma mark - SOXResamplerDelegate
 
 - (void)resampler:(SOXResampler *)resampler task:(SOXResamplerTask *)task didFinishResamplingToURL:(NSURL *)location {
+  [self encodeFileAtURL:location];
   NSLog(@"Now the resulting file needs to be encoded...");
 }
 

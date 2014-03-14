@@ -13,7 +13,7 @@
 + (instancetype)publicRadioConfiguration {
   SOXResamplerConfiguration *config = self.new;
   
-  config.targetSampleRate = 44110;
+  config.targetSampleRate = 44100;
   
   return config;
 }
