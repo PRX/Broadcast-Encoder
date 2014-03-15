@@ -77,7 +77,7 @@
 }
 
 - (void)resampleAndOrEncodeFileAtURL:(NSURL *)url {
-  BOOL needsResampling = NO;
+  BOOL needsResampling = YES;
   
   if (needsResampling) {
     [self resampleAndEncodeFileAtURL:url];
@@ -116,8 +116,16 @@
 #pragma mark - SOXResamplerDelegate
 
 - (void)resampler:(SOXResampler *)resampler task:(SOXResamplerTask *)task didFinishResamplingToURL:(NSURL *)location {
-  [self encodeFileAtURL:location];
+//  [self encodeFileAtURL:location];
   NSLog(@"Now the resulting file needs to be encoded...");
+  
+  NSURL *inputDirectory = [task.originalURL URLByDeletingLastPathComponent];
+  NSString *inputFileName = [task.originalURL.pathComponents lastObject];
+  
+  NSString *outputFileName = [NSString stringWithFormat:@"%@.44100.wav", inputFileName];
+  NSURL *outputURL = [inputDirectory URLByAppendingPathComponent:outputFileName];
+  
+  [NSFileManager.defaultManager copyItemAtURL:location toURL:outputURL error:nil];
 }
 
 #pragma mark - SOXResamplerTaskDelegate

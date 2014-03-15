@@ -8,7 +8,8 @@
 
 #import "SOXResamplerTaskOperation.h"
 #import "SOXResamplerTask_private.h"
-#import "SOXResampler.h"
+#import "SOXResampler_private.h"
+#import "SOXResamplerConfiguration.h"
 #import "sox.h"
 
 @interface SOXResamplerTaskOperation () {
@@ -120,7 +121,52 @@
 #pragma mark - Resampling
 
 - (void)resampleToURL:(NSURL *)location {
+  static sox_format_t * in, * out; /* input and output files */
+  sox_effects_chain_t * chain;
+  sox_effect_t * e;
+  sox_signalinfo_t interm_signal;
+  char * args[10];
   
+  assert(sox_init() == SOX_SUCCESS);
+  
+  const char *input_path = self.task.originalURL.path.UTF8String;
+  assert(in = sox_open_read(input_path, NULL, NULL, NULL));
+  
+  const char *output_path = location.path.UTF8String;
+  assert(out = sox_open_write(output_path, &in->signal, NULL, NULL, NULL, NULL));
+  
+  chain = sox_create_effects_chain(&in->encoding, &out->encoding);
+  
+  interm_signal = in->signal;
+  
+  e = sox_create_effect(sox_find_effect("input"));
+  args[0] = (char *)in, assert(sox_effect_options(e, 1, args) == SOX_SUCCESS);
+  assert(sox_add_effect(chain, e, &interm_signal, &in->signal) == SOX_SUCCESS);
+  free(e);
+  
+  char *output_rate;
+  NSUInteger targetSampleRate = self.task.resampler.immutableConfiguration.targetSampleRate;
+  NSString *rateString = [NSString stringWithFormat:@"%lu", (unsigned long)targetSampleRate];
+  output_rate = rateString.UTF8String;
+
+  e = sox_create_effect(sox_find_effect("rate"));
+  assert(sox_effect_options(e, 1, &output_rate) == SOX_SUCCESS);
+  assert(sox_add_effect(chain, e, &interm_signal, &interm_signal) == SOX_SUCCESS);
+  free(e);
+  
+  e = sox_create_effect(sox_find_effect("output"));
+  args[0] = (char *)out, assert(sox_effect_options(e, 1, args) == SOX_SUCCESS);
+  assert(sox_add_effect(chain, e, &interm_signal, &out->signal) == SOX_SUCCESS);
+  free(e);
+  
+  sox_flow_effects(chain, NULL, NULL);
+  
+  sox_delete_effects_chain(chain);
+  sox_close(out);
+  sox_close(in);
+  sox_quit();
+  
+  [self.task.resampler.delegate resampler:self.task.resampler task:self.task didFinishResamplingToURL:location];
 }
 
 @end
