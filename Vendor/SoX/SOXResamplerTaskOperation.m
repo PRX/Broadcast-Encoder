@@ -129,34 +129,34 @@
   
   assert(sox_init() == SOX_SUCCESS);
   
-  const char *input_path = self.task.originalURL.path.UTF8String;
+  const char *input_path = self.task.originalURL.fileSystemRepresentation;
   assert(in = sox_open_read(input_path, NULL, NULL, NULL));
   
-  const char *output_path = location.path.UTF8String;
+  const char *output_path = location.fileSystemRepresentation;
   assert(out = sox_open_write(output_path, &in->signal, NULL, NULL, NULL, NULL));
   
   chain = sox_create_effects_chain(&in->encoding, &out->encoding);
   
-  interm_signal = in->signal;
-  
   e = sox_create_effect(sox_find_effect("input"));
   args[0] = (char *)in, assert(sox_effect_options(e, 1, args) == SOX_SUCCESS);
-  assert(sox_add_effect(chain, e, &interm_signal, &in->signal) == SOX_SUCCESS);
+  assert(sox_add_effect(chain, e, &in->signal, &in->signal) == SOX_SUCCESS);
   free(e);
-  
+
   char *output_rate;
   NSUInteger targetSampleRate = self.task.resampler.immutableConfiguration.targetSampleRate;
   NSString *rateString = [NSString stringWithFormat:@"%lu", (unsigned long)targetSampleRate];
   output_rate = rateString.UTF8String;
-
-  e = sox_create_effect(sox_find_effect("rate"));
-  assert(sox_effect_options(e, 1, &output_rate) == SOX_SUCCESS);
-  assert(sox_add_effect(chain, e, &interm_signal, &interm_signal) == SOX_SUCCESS);
-  free(e);
+  
+  if (targetSampleRate != in->signal.rate) {
+    e = sox_create_effect(sox_find_effect("rate"));
+    assert(sox_effect_options(e, 1, &output_rate) == SOX_SUCCESS);
+    assert(sox_add_effect(chain, e, &in->signal, &in->signal) == SOX_SUCCESS);
+    free(e);
+  }
   
   e = sox_create_effect(sox_find_effect("output"));
   args[0] = (char *)out, assert(sox_effect_options(e, 1, args) == SOX_SUCCESS);
-  assert(sox_add_effect(chain, e, &interm_signal, &out->signal) == SOX_SUCCESS);
+  assert(sox_add_effect(chain, e, &in->signal, &in->signal) == SOX_SUCCESS);
   free(e);
   
   sox_flow_effects(chain, NULL, NULL);
