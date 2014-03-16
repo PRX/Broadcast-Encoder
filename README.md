@@ -26,3 +26,5 @@ Sox and twolame wrappers should also be cocoapods
 Which versions of OS X to support?
 
 Need help with GPL
+
+I have no clue if the files this is making are actually correct.
