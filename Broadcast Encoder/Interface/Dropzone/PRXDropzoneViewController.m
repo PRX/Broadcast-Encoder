@@ -98,6 +98,14 @@
 }
 
 - (void)resampleAndEncodeFileAtURL:(NSURL *)url {
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [[[self dropzoneView] textField] setStringValue:@"Resampling..."];
+    
+    [self.dropzoneView.progressIndicator setUsesThreadedAnimation:YES];
+    [self.dropzoneView.progressIndicator setIndeterminate:YES];
+    [self.dropzoneView.progressIndicator startAnimation:self];
+  });
+  
   SOXResamplerTask *task = [self.resampler taskWithURL:url];
   [task resume];
 }
@@ -147,6 +155,9 @@
   
   dispatch_async(dispatch_get_main_queue(), ^{
     if (framesWritten == totalFramesWritten) {
+      [[[self dropzoneView] textField] setStringValue:@"Encoding..."];
+      
+      [self.dropzoneView.progressIndicator setIndeterminate:NO];
       self.dropzoneView.progressIndicator.maxValue = totalFramesExpectedToWrite;
       self.dropzoneView.progressIndicator.minValue = 0;
     }
