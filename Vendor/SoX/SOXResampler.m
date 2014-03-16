@@ -10,12 +10,19 @@
 #import "SOXResamplerConfiguration.h"
 #import "SOXResamplerTask_private.h"
 #import "SOXResamplerTaskOperation.h"
+#import "sox.h"
 
 NSString * const SOXResamplerErrorDomain = @"SOXResamplerErrorDomain";
 
 @implementation SOXResampler
 
 @synthesize operationQueue = _operationQueue;
+
++ (void)load {
+  [super load];
+  
+  assert(sox_init() == SOX_SUCCESS);
+}
 
 + (instancetype)sharedResampler {
   static dispatch_once_t pred;
