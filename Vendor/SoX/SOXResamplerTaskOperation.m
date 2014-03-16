@@ -121,18 +121,13 @@
 #pragma mark - Resampling
 
 - (void)resampleToURL:(NSURL *)location {
-  static sox_format_t * in, * out; /* input and output files */
+  sox_format_t * in, * out; /* input and output files */
   sox_effects_chain_t * chain;
   sox_effect_t * e;
   sox_signalinfo_t interm_signal;
   char * args[10];
 
-  char *output_rate;
   NSUInteger targetSampleRate = self.task.resampler.immutableConfiguration.targetSampleRate;
-  NSString *rateString = [NSString stringWithFormat:@"%lu", (unsigned long)targetSampleRate];
-  output_rate = rateString.UTF8String;
-  
-  assert(sox_init() == SOX_SUCCESS);
   
   const char *input_path = self.task.originalURL.fileSystemRepresentation;
   assert(in = sox_open_read(input_path, NULL, NULL, NULL));
@@ -154,7 +149,6 @@
   
   if (targetSampleRate != in->signal.rate) {
     e = sox_create_effect(sox_find_effect("rate"));
-//    assert(sox_effect_options(e, 1, &output_rate) == SOX_SUCCESS);
     assert(sox_effect_options(e, 0, NULL) == SOX_SUCCESS);
     assert(sox_add_effect(chain, e, &interm_signal, &out->signal) == SOX_SUCCESS);
     free(e);
