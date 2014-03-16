@@ -162,7 +162,6 @@
   sox_delete_effects_chain(chain);
   sox_close(out);
   sox_close(in);
-  sox_quit();
   
   [self.task.resampler.delegate resampler:self.task.resampler task:self.task didFinishResamplingToURL:location];
 }

@@ -22,6 +22,8 @@ NSString * const SOXResamplerErrorDomain = @"SOXResamplerErrorDomain";
   [super load];
   
   assert(sox_init() == SOX_SUCCESS);
+#warning Idk where this should happen
+//  sox_quit();
 }
 
 + (instancetype)sharedResampler {
