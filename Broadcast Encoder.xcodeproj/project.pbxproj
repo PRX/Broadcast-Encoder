@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F8228D9418D63271003B17C1 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = F8228D9318D63271003B17C1 /* README.md */; };
+		F8228D9618D63607003B17C1 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = F8228D9518D63607003B17C1 /* README.md */; };
 		F88D4DC518D0F5F900C9E9C3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D4DC418D0F5F900C9E9C3 /* main.m */; };
 		F88D4DEF18D0F74200C9E9C3 /* PRXAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D4DEE18D0F74200C9E9C3 /* PRXAppDelegate.m */; };
 		F88D4DF218D0F75200C9E9C3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F88D4DF118D0F75200C9E9C3 /* Images.xcassets */; };
@@ -33,7 +33,7 @@
 
 /* Begin PBXFileReference section */
 		3E6F032395DA45B693B2B329 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = ../../Pods/Pods.xcconfig; sourceTree = "<group>"; };
-		F8228D9318D63271003B17C1 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		F8228D9518D63607003B17C1 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = SOURCE_ROOT; };
 		F88B6A5B18D245E800DB2A73 /* SOXResampler_private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SOXResampler_private.h; path = SoX/SOXResampler_private.h; sourceTree = "<group>"; };
 		F88B6A5C18D2464D00DB2A73 /* SOXResamplerTask_private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SOXResamplerTask_private.h; path = SoX/SOXResamplerTask_private.h; sourceTree = "<group>"; };
 		F88B6A5D18D2695D00DB2A73 /* TWLEncoderError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TWLEncoderError.h; sourceTree = "<group>"; };
@@ -122,8 +122,8 @@
 		F88D4DBE18D0F5F900C9E9C3 /* Broadcast Encoder */ = {
 			isa = PBXGroup;
 			children = (
+				F8228D9518D63607003B17C1 /* README.md */,
 				F88D4DC418D0F5F900C9E9C3 /* main.m */,
-				F8228D9318D63271003B17C1 /* README.md */,
 				F88D4DF018D0F75200C9E9C3 /* Assets */,
 				F88D4DEC18D0F74200C9E9C3 /* Core */,
 				F88D4E7318D1219200C9E9C3 /* Models */,
@@ -331,7 +331,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F8228D9418D63271003B17C1 /* README.md in Resources */,
+				F8228D9618D63607003B17C1 /* README.md in Resources */,
 				F88D4DF918D0F89000C9E9C3 /* Broadcast Encoder-Info.plist in Resources */,
 				F88D4DF218D0F75200C9E9C3 /* Images.xcassets in Resources */,
 				F88D4E0F18D0FE0800C9E9C3 /* MainMenu.xib in Resources */,
