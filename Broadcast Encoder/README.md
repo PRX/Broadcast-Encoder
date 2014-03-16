@@ -24,3 +24,5 @@ Would like to get sox and TwoLAME built as .frameworks and available as cocoapod
 Sox and twolame wrappers should also be cocoapods
 
 Which versions of OS X to support?
+
+Need help with GPL
