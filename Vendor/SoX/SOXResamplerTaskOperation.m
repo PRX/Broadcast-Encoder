@@ -147,12 +147,10 @@
   assert(sox_add_effect(chain, e, &interm_signal, &in->signal) == SOX_SUCCESS);
   free(e);
   
-  if (targetSampleRate != in->signal.rate) {
-    e = sox_create_effect(sox_find_effect("rate"));
-    assert(sox_effect_options(e, 0, NULL) == SOX_SUCCESS);
-    assert(sox_add_effect(chain, e, &interm_signal, &out->signal) == SOX_SUCCESS);
-    free(e);
-  }
+  e = sox_create_effect(sox_find_effect("rate"));
+  assert(sox_effect_options(e, 0, NULL) == SOX_SUCCESS);
+  assert(sox_add_effect(chain, e, &interm_signal, &out->signal) == SOX_SUCCESS);
+  free(e);
   
   e = sox_create_effect(sox_find_effect("output"));
   args[0] = (char *)out, assert(sox_effect_options(e, 1, args) == SOX_SUCCESS);
