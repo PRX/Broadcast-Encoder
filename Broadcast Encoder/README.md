@@ -18,3 +18,7 @@ Needs an icon and a pretty UI
 Cancel button?
 
 Alert the user before resamling?
+
+Would like to get sox and TwoLAME built as .frameworks and available as cocoapods
+
+Sox and twolame wrappers should also be cocoapods
