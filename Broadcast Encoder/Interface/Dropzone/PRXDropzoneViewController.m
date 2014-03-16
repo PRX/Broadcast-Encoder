@@ -13,11 +13,14 @@
 #import "SOXResampler.h"
 #import "SOXResamplerConfiguration.h"
 #import "SOXResamplerTask.h"
+#import "sox.h"
 
 @interface PRXDropzoneViewController ()
 
 @property (nonatomic, strong, readonly) SOXResampler *resampler;
 @property (nonatomic, strong, readonly) TWLEncoder *encoder;
+
+@property (nonatomic, strong) NSMutableDictionary *originalURLs;
 
 @end
 
@@ -28,6 +31,8 @@
 
 - (void)awakeFromNib {
   [super awakeFromNib];
+  
+  self.originalURLs = NSMutableDictionary.dictionary;
 }
 
 - (void)setView:(NSView *)view {
@@ -77,11 +82,17 @@
 }
 
 - (void)resampleAndOrEncodeFileAtURL:(NSURL *)url {
-  BOOL needsResampling = YES;
+  static sox_format_t * input_file;
+//  assert(sox_init() == SOX_SUCCESS);
+  assert(input_file = sox_open_read(url.fileSystemRepresentation, NULL, NULL, NULL));
+  
+  BOOL needsResampling = (input_file->signal.rate != 44100);
   
   if (needsResampling) {
+    NSLog(@"Input file sample rate is not 44100; will try to resample then encode");
     [self resampleAndEncodeFileAtURL:url];
   } else {
+    NSLog(@"Input file sample rate was 44100; going straight to encoding");
     [self encodeFileAtURL:url];
   }
 }
@@ -92,6 +103,7 @@
 }
 
 - (void)encodeFileAtURL:(NSURL *)url {
+  NSLog(@"Encoding file at %@", url);
   TWLEncoderTask *task = [self.encoder taskWithURL:url];
   [task resume];
 }
@@ -116,16 +128,11 @@
 #pragma mark - SOXResamplerDelegate
 
 - (void)resampler:(SOXResampler *)resampler task:(SOXResamplerTask *)task didFinishResamplingToURL:(NSURL *)location {
-//  [self encodeFileAtURL:location];
-  NSLog(@"Now the resulting file needs to be encoded...");
+  NSLog(@"Resampled; now the resulting file needs to be encoded...");
   
-  NSURL *inputDirectory = [task.originalURL URLByDeletingLastPathComponent];
-  NSString *inputFileName = [task.originalURL.pathComponents lastObject];
+  self.originalURLs[location] = task.originalURL;
   
-  NSString *outputFileName = [NSString stringWithFormat:@"%@.44100.wav", inputFileName];
-  NSURL *outputURL = [inputDirectory URLByAppendingPathComponent:outputFileName];
-  
-  [NSFileManager.defaultManager copyItemAtURL:location toURL:outputURL error:nil];
+  [self encodeFileAtURL:location];
 }
 
 #pragma mark - SOXResamplerTaskDelegate
@@ -135,12 +142,6 @@
 }
 
 #pragma mark - TWLEncoderDelegate
-
-- (void)encoder:(TWLEncoder *)encoder task:(TWLEncoderTask *)task didCompleteWithError:(NSError *)error {
-  NSLog(@"error %@", error);
-}
-
-#pragma mark - TWLEncoderTaskDelegate
 
 - (void)encoder:(TWLEncoder *)encoder task:(TWLEncoderTask *)task didWriteFrames:(int64_t)framesWritten totalFramesWritten:(int64_t)totalFramesWritten totalFrameExpectedToWrite:(int64_t)totalFramesExpectedToWrite bytesWritten:(int64_t)bytessWritten totalBytesWritten:(int64_t)totalBytesWritten {
   
@@ -155,13 +156,29 @@
 }
 
 - (void)encoder:(TWLEncoder *)encoder task:(TWLEncoderTask *)task didFinishEncodingToURL:(NSURL *)location {
-  NSURL *inputDirectory = [task.originalURL URLByDeletingLastPathComponent];
-  NSString *inputFileName = [task.originalURL.pathComponents lastObject];
+  NSURL *originalURL;
+  
+  // If the encoding task was created from resampling, the URL is going to be a temp
+  // file, and we don't want to copy there; we can look up the resampling task's URL
+  // from a dictionary that we are maintaining
+  if (self.originalURLs[task.originalURL]) {
+    originalURL = [self.originalURLs[task.originalURL] copy];
+    [self.originalURLs removeObjectForKey:task.originalURL];
+  } else {
+    originalURL = task.originalURL;
+  }
+  
+  NSURL *inputDirectory = [originalURL URLByDeletingLastPathComponent];
+  NSString *inputFileName = [originalURL.pathComponents lastObject];
   
   NSString *outputFileName = [NSString stringWithFormat:@"%@.mp2", inputFileName];
   NSURL *outputURL = [inputDirectory URLByAppendingPathComponent:outputFileName];
   
-  [NSFileManager.defaultManager copyItemAtURL:location toURL:outputURL error:nil];
+  NSError *error;
+  [NSFileManager.defaultManager copyItemAtURL:location toURL:outputURL error:&error];
+  if (error) {
+    NSLog(@"error: %@", error);
+  }
   
   dispatch_async(dispatch_get_main_queue(), ^{
     [[[self dropzoneView] textField] setStringValue:@"Done!"];
@@ -178,6 +195,12 @@
   NSUserNotificationCenter *center = NSUserNotificationCenter.defaultUserNotificationCenter;
   [center setDelegate:self];
   [center deliverNotification:notification];
+}
+
+#pragma mark - TWLEncoderTaskDelegate
+
+- (void)encoder:(TWLEncoder *)encoder task:(TWLEncoderTask *)task didCompleteWithError:(NSError *)error {
+  NSLog(@"error %@", error);
 }
 
 #pragma mark - NSUserNotificationCenterDelegate
