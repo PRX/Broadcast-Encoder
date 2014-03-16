@@ -84,9 +84,18 @@
 - (void)resampleAndOrEncodeFileAtURL:(NSURL *)url {
   static sox_format_t * input_file;
 //  assert(sox_init() == SOX_SUCCESS);
-  assert(input_file = sox_open_read(url.fileSystemRepresentation, NULL, NULL, NULL));
   
-  BOOL needsResampling = (input_file->signal.rate != 44100);
+  input_file = sox_open_read(url.fileSystemRepresentation, NULL, NULL, NULL);
+  
+  BOOL needsResampling = NO;
+  
+  if (input_file == NULL) {
+    NSLog(@"error");
+  } else {
+    needsResampling = (input_file->signal.rate != 44100);
+  }
+  
+  
   
   if (needsResampling) {
     NSLog(@"Input file sample rate is not 44100; will try to resample then encode");
