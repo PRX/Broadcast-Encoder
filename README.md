@@ -1,5 +1,7 @@
 # Broadcast Encoder
 
+![Demo](https://dl.dropboxusercontent.com/u/1400235/prx-brenc-demo.png)
+
 I don't know how to link against SoX, sndfile, or TwoLAME the right way, 
 so right now the paths the paths to them are hard coded in the build config
 to the default homebrew install locations (for the current versions). If
