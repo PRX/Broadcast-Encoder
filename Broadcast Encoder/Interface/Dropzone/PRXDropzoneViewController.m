@@ -48,6 +48,17 @@
   return (PRXDropzoneView *)self.view;
 }
 
+#pragma mark - Actions 
+
+- (void)closeAction:(id)sender {
+  NSWindow *window = self.view.window;
+  [window performClose:self];
+}
+
+- (void)helpAction:(id)sender {
+  NSLog(@"help!");
+}
+
 #pragma mark - Encoding
 
 - (SOXResampler *)resampler {
@@ -68,6 +79,16 @@
   }
   
   return _encoder;
+}
+
+- (void)encodeFilesFromURLs:(NSArray *)fileURLs {
+  NSArray *acceptableExtensions = @[ @"wav", @"aiff", @"aif" ];
+  
+  for (NSURL *fileURL in fileURLs) {
+    if ([acceptableExtensions containsObject:fileURL.pathExtension.lowercaseString]) {
+      [self resampleAndOrEncodeFileAtURL:fileURL];
+    }
+  }
 }
 
 - (void)encodeFilesFromPaths:(NSArray *)filePaths {
@@ -142,6 +163,15 @@
   }
 }
 
+- (void)performFileOpenOperation:(id)sender {
+  if ([sender isKindOfClass:NSOpenPanel.class]) {
+    NSOpenPanel *openPanel = sender;
+    
+    NSArray *files = openPanel.URLs;
+    [self encodeFilesFromURLs:files];
+  }
+}
+
 #pragma mark - SOXResamplerDelegate
 
 - (void)resampler:(SOXResampler *)resampler task:(SOXResamplerTask *)task didFinishResamplingToURL:(NSURL *)location {
@@ -166,12 +196,12 @@
     if (framesWritten == totalFramesWritten) {
       [[[self dropzoneView] textField] setStringValue:@"Encoding..."];
       
-      [self.dropzoneView.progressIndicator setIndeterminate:NO];
-      self.dropzoneView.progressIndicator.maxValue = totalFramesExpectedToWrite;
-      self.dropzoneView.progressIndicator.minValue = 0;
+      [self.dropzoneView.progressIndicator setUsesThreadedAnimation:YES];
+      [self.dropzoneView.progressIndicator setIndeterminate:YES];
+      [self.dropzoneView.progressIndicator startAnimation:self];
     }
     
-    self.dropzoneView.progressIndicator.doubleValue = totalFramesWritten;
+//    self.dropzoneView.progressIndicator.doubleValue = totalFramesWritten;
   });
 }
 
@@ -191,7 +221,7 @@
   NSURL *inputDirectory = [originalURL URLByDeletingLastPathComponent];
   NSString *inputFileName = [originalURL.pathComponents lastObject];
   
-  NSString *outputFileName = [NSString stringWithFormat:@"%@.mp2", inputFileName];
+  NSString *outputFileName = [NSString stringWithFormat:@"%@.broadcast.mp2", inputFileName];
   NSURL *outputURL = [inputDirectory URLByAppendingPathComponent:outputFileName];
   
   NSError *error;
@@ -201,8 +231,11 @@
   }
   
   dispatch_async(dispatch_get_main_queue(), ^{
-    [[[self dropzoneView] textField] setStringValue:@"Done!"];
+    [[[self dropzoneView] textField] setStringValue:@"Drop a .WAV or .AIFF file"];
     self.dropzoneView.progressIndicator.doubleValue = 0;
+    
+    [self.dropzoneView.progressIndicator setIndeterminate:NO];
+    [self.dropzoneView.progressIndicator stopAnimation:self];
   });
   
   NSUserNotification *notification = NSUserNotification.new;

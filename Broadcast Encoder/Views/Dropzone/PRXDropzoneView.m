@@ -19,16 +19,22 @@
   self.versionTextField.stringValue = [NSString stringWithFormat:@"TwoLAME version %s", get_twolame_version()];
 }
 
-- (void)drawRect:(NSRect)dirtyRect {
-  CGContextRef context = (CGContextRef) [[NSGraphicsContext currentContext] graphicsPort];
-  CGContextSetRGBFillColor(context, 0.227,0.251,0.337,0.8);
-  CGContextFillRect(context, NSRectToCGRect(dirtyRect));
-}
-
 #pragma mark - Mouse Events
 
 - (void)mouseDown:(NSEvent *)theEvent {
-  NSLog(@"click");
+  NSOpenPanel *openPanel = NSOpenPanel.openPanel;
+  openPanel.prompt = @"Encode";
+  
+  [openPanel setAllowsMultipleSelection:YES];
+  [openPanel setAllowedFileTypes:@[ @"wav", @"aif", @"aiff" ]];
+  
+  [openPanel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
+    if (result == NSFileHandlingPanelOKButton) {
+      [self.delegate performFileOpenOperation:openPanel];
+    } else if (result == NSFileHandlingPanelCancelButton) {
+      
+    }
+  }];
 }
 
 #pragma mark - NSDragOperation

@@ -21,4 +21,8 @@
   [window.contentView addSubview:dropzoneViewController.view];
 }
 
+- (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)theApplication {
+  return YES;
+}
+
 @end

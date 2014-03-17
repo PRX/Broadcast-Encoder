@@ -18,10 +18,14 @@
 @property (nonatomic, strong) IBOutlet NSTextField *versionTextField;
 @property (nonatomic, strong) IBOutlet NSProgressIndicator *progressIndicator;
 
+@property (nonatomic, strong) IBOutlet NSButton *closeButton;
+@property (nonatomic, strong) IBOutlet NSButton *helpButton;
+
 @end
 
 @protocol PRXDropzoneViewDelegate <NSObject>
 
+- (void)performFileOpenOperation:(id)sender;
 - (void)performDropzoneDragOperation:(id<NSDraggingInfo>)sender;
 
 @end

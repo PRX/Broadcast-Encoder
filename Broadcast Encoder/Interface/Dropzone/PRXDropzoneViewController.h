@@ -16,4 +16,7 @@
 
 @interface PRXDropzoneViewController : NSViewController <PRXDropzoneViewDelegate, TWLEncoderTaskDelegate, TWLEncoderDelegate, SOXResamplerDelegate, SOXResamplerTaskDelegate, NSUserNotificationCenterDelegate>
 
+- (IBAction)closeAction:(id)sender;
+- (IBAction)helpAction:(id)sender;
+
 @end
