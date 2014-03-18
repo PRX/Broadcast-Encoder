@@ -31,13 +31,13 @@
 /* We still use libsndfiles' SF_INFO structure for convenience */
 
 
-static void print_info_raw(struct audioin_s *audioin)
-{
-  
-  fprintf(stderr, "Raw input format: %d channels, %d-bit, %d Hz\n",
-          audioin->sfinfo->channels, audioin->samplesize, audioin->sfinfo->samplerate);
-  
-}
+//static void print_info_raw(struct audioin_s *audioin)
+//{
+//  
+//  fprintf(stderr, "Raw input format: %d channels, %d-bit, %d Hz\n",
+//          audioin->sfinfo->channels, audioin->samplesize, audioin->sfinfo->samplerate);
+//  
+//}
 
 
 /* Read in some audio samples into buffer */
@@ -106,7 +106,7 @@ audioin_t *open_audioin_raw(char *filename, SF_INFO * sfinfo, int samplesize)
   // Fill-in data structure
   audioin->samplesize = samplesize;
   audioin->sfinfo = sfinfo;
-  audioin->print_info = print_info_raw;
+//  audioin->print_info = print_info_raw;
   audioin->read = read_raw;
   audioin->error_str = error_str_raw;
   audioin->close = close_raw;

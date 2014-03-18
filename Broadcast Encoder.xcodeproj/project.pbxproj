@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		F8228D9618D63607003B17C1 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = F8228D9518D63607003B17C1 /* README.md */; };
+		F882641618D7DB2D008D505E /* TWLPCMAudioFile.m in Sources */ = {isa = PBXBuildFile; fileRef = F882641518D7DB2D008D505E /* TWLPCMAudioFile.m */; };
 		F88D4DC518D0F5F900C9E9C3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D4DC418D0F5F900C9E9C3 /* main.m */; };
 		F88D4DEF18D0F74200C9E9C3 /* PRXAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D4DEE18D0F74200C9E9C3 /* PRXAppDelegate.m */; };
 		F88D4DF218D0F75200C9E9C3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F88D4DF118D0F75200C9E9C3 /* Images.xcassets */; };
@@ -22,8 +23,6 @@
 		F88D4E9318D14E5400C9E9C3 /* TWLEncoderTask.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D4E8F18D14E5400C9E9C3 /* TWLEncoderTask.m */; };
 		F88D4E9618D150DA00C9E9C3 /* TWLEncoderTaskOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D4E9518D150DA00C9E9C3 /* TWLEncoderTaskOperation.m */; };
 		F88D4E9918D163C900C9E9C3 /* TWLEncoderConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D4E9818D163C900C9E9C3 /* TWLEncoderConfiguration.m */; };
-		F88D4E9C18D20F8600C9E9C3 /* TWLAudioInRaw.c in Sources */ = {isa = PBXBuildFile; fileRef = F88D4E9A18D20F8600C9E9C3 /* TWLAudioInRaw.c */; };
-		F88D4E9D18D20F8600C9E9C3 /* TWLAudioInSndfile.c in Sources */ = {isa = PBXBuildFile; fileRef = F88D4E9B18D20F8600C9E9C3 /* TWLAudioInSndfile.c */; };
 		F88D4EA218D23FE200C9E9C3 /* SOXResampler.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D4EA118D23FE200C9E9C3 /* SOXResampler.m */; };
 		F88D4EA518D2412800C9E9C3 /* SOXResamplerTask.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D4EA418D2412800C9E9C3 /* SOXResamplerTask.m */; };
 		F88D4EA818D2413B00C9E9C3 /* SOXResamplerTaskOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D4EA718D2413B00C9E9C3 /* SOXResamplerTaskOperation.m */; };
@@ -37,6 +36,8 @@
 /* Begin PBXFileReference section */
 		3E6F032395DA45B693B2B329 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = ../../Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		F8228D9518D63607003B17C1 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = SOURCE_ROOT; };
+		F882641418D7DB2D008D505E /* TWLPCMAudioFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWLPCMAudioFile.h; sourceTree = "<group>"; };
+		F882641518D7DB2D008D505E /* TWLPCMAudioFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWLPCMAudioFile.m; sourceTree = "<group>"; };
 		F88B6A5B18D245E800DB2A73 /* SOXResampler_private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SOXResampler_private.h; path = SoX/SOXResampler_private.h; sourceTree = "<group>"; };
 		F88B6A5C18D2464D00DB2A73 /* SOXResamplerTask_private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SOXResamplerTask_private.h; path = SoX/SOXResamplerTask_private.h; sourceTree = "<group>"; };
 		F88B6A5D18D2695D00DB2A73 /* TWLEncoderError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TWLEncoderError.h; sourceTree = "<group>"; };
@@ -70,9 +71,6 @@
 		F88D4E9518D150DA00C9E9C3 /* TWLEncoderTaskOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWLEncoderTaskOperation.m; sourceTree = "<group>"; };
 		F88D4E9718D163C900C9E9C3 /* TWLEncoderConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWLEncoderConfiguration.h; sourceTree = "<group>"; };
 		F88D4E9818D163C900C9E9C3 /* TWLEncoderConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWLEncoderConfiguration.m; sourceTree = "<group>"; };
-		F88D4E9A18D20F8600C9E9C3 /* TWLAudioInRaw.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = TWLAudioInRaw.c; sourceTree = "<group>"; };
-		F88D4E9B18D20F8600C9E9C3 /* TWLAudioInSndfile.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = TWLAudioInSndfile.c; sourceTree = "<group>"; };
-		F88D4E9E18D20FD800C9E9C3 /* TWLAudioIn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TWLAudioIn.h; sourceTree = "<group>"; };
 		F88D4EA018D23FE200C9E9C3 /* SOXResampler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SOXResampler.h; path = SoX/SOXResampler.h; sourceTree = "<group>"; };
 		F88D4EA118D23FE200C9E9C3 /* SOXResampler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SOXResampler.m; path = SoX/SOXResampler.m; sourceTree = "<group>"; };
 		F88D4EA318D2412800C9E9C3 /* SOXResamplerTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SOXResamplerTask.h; path = SoX/SOXResamplerTask.h; sourceTree = "<group>"; };
@@ -243,9 +241,8 @@
 			isa = PBXGroup;
 			children = (
 				F88B6A5D18D2695D00DB2A73 /* TWLEncoderError.h */,
-				F88D4E9E18D20FD800C9E9C3 /* TWLAudioIn.h */,
-				F88D4E9A18D20F8600C9E9C3 /* TWLAudioInRaw.c */,
-				F88D4E9B18D20F8600C9E9C3 /* TWLAudioInSndfile.c */,
+				F882641418D7DB2D008D505E /* TWLPCMAudioFile.h */,
+				F882641518D7DB2D008D505E /* TWLPCMAudioFile.m */,
 				F88D4E9718D163C900C9E9C3 /* TWLEncoderConfiguration.h */,
 				F88D4E9818D163C900C9E9C3 /* TWLEncoderConfiguration.m */,
 				F88D4E8B18D14E5400C9E9C3 /* TWLEncoder.h */,
@@ -433,11 +430,10 @@
 				F88D4DC518D0F5F900C9E9C3 /* main.m in Sources */,
 				F88D4EA518D2412800C9E9C3 /* SOXResamplerTask.m in Sources */,
 				F88D4E1618D0FEF100C9E9C3 /* PRXDropzoneView.m in Sources */,
+				F882641618D7DB2D008D505E /* TWLPCMAudioFile.m in Sources */,
 				F88D4E9318D14E5400C9E9C3 /* TWLEncoderTask.m in Sources */,
 				F88D4E9218D14E5400C9E9C3 /* TWLEncoder.m in Sources */,
-				F88D4E9D18D20F8600C9E9C3 /* TWLAudioInSndfile.c in Sources */,
 				F88D4DEF18D0F74200C9E9C3 /* PRXAppDelegate.m in Sources */,
-				F88D4E9C18D20F8600C9E9C3 /* TWLAudioInRaw.c in Sources */,
 				F88D4E9618D150DA00C9E9C3 /* TWLEncoderTaskOperation.m in Sources */,
 				F8CB2C0C18D77FA300DEFA10 /* PRXEncoderWindow.m in Sources */,
 			);

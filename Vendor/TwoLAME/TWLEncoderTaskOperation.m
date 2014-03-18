@@ -6,9 +6,8 @@
 //  Copyright (c) 2014 PRX. All rights reserved.
 //
 
-#warning make these configs?
-#define MP2BUFSIZE		(16384)
-#define AUDIOBUFSIZE	(9216)
+#define MP2_BUF_SIZE		(16384)
+#define AUDIO_BUF_SIZE		(9210)
 
 #import "TWLEncoderTaskOperation.h"
 #import "TWLEncoderError.h"
@@ -16,12 +15,9 @@
 #import "TWLEncoder_private.h"
 #import "TWLEncoderConfiguration.h"
 #import <twolame.h>
-#import "TWLAudioIn.h"
+#import "TWLPCMAudioFile.h"
 
 @interface TWLEncoderTaskOperation () {
-  
-  int sampleSize;
-  
   BOOL _executing;
   BOOL _finished;
 }
@@ -30,10 +26,10 @@
 
 @property (nonatomic) SF_INFO sndfileInfo;
 
-@property (nonatomic) audioin_t *inputPCMAudio;
 @property (nonatomic) short int *inputBuffer;
+@property (nonatomic) TWLPCMAudioFile *inputFile;
 
-@property (nonatomic) FILE *outputMP2File;
+@property (nonatomic) FILE *outputFile;
 @property (nonatomic) unsigned char *outputBuffer;
 
 @property (readonly) twolame_options *encoderOptions;
@@ -58,15 +54,66 @@
   return [[self alloc] initWithTask:task];
 }
 
-- (id)initWithTask:(TWLEncoderTask *)task {
+- (instancetype)init {
   self = [super init];
+  if (self) {
+    
+    // Allocate buffer for input PCM audio
+    self.inputBuffer = (short *)calloc(AUDIO_BUF_SIZE, sizeof(short));
+    
+    if (self.inputBuffer == NULL) {
+      
+    }
+    
+  }
+  return self;
+}
+
+- (id)initWithTask:(TWLEncoderTask *)task {
+  self = [self init];
   if (self) {
     self.task = task;
     
-#warning TODO goes somewhere else
-    sampleSize = 16;
+    [self didInit];
   }
   return self;
+}
+
+- (void)didInit {
+  [self allocatePCMBuffer];
+  [self allocateMP2Buffer];
+}
+
+- (void)allocatePCMBuffer {
+  self.inputBuffer = (short *)calloc(AUDIO_BUF_SIZE, sizeof(short));
+  
+  if (self.inputBuffer == NULL) {
+    NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Encoding was unsuccessful.",
+                                NSLocalizedFailureReasonErrorKey: @"Could not allocate buffer.",
+                                NSLocalizedRecoverySuggestionErrorKey: @"You may be out of memory." };
+    
+    NSError *error = [NSError errorWithDomain:TWLEncoderErrorDomain
+                                         code:TWLEncoderErrorCannotAllocateInputBuffer
+                                     userInfo:userInfo];
+    
+    [self didFailWithError:error];
+  }
+}
+
+- (void)allocateMP2Buffer {
+  self.outputBuffer = (unsigned char *)calloc(MP2_BUF_SIZE, sizeof(unsigned char));
+  
+  if (self.outputBuffer == NULL) {
+    NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Encoding was unsuccessful.",
+                                NSLocalizedFailureReasonErrorKey: @"Could not allocate buffer.",
+                                NSLocalizedRecoverySuggestionErrorKey: @"You may be out of memory." };
+    
+    NSError *error = [NSError errorWithDomain:TWLEncoderErrorDomain
+                                         code:TWLEncoderErrorCannotAllocateOutputBuffer
+                                     userInfo:userInfo];
+    
+    [self didFailWithError:error];
+  }
 }
 
 #pragma mark - Concurrent NSOperation
@@ -76,6 +123,10 @@
   
   if (self.isCancelled) {
     [self didGetCanceled];
+    return;
+  }
+  
+  if (self.isFinished) {
     return;
   }
   
@@ -137,6 +188,11 @@
   }
 }
 
+/* didFailWithError: does the following things:
+ *  - Reports to the parents taks that there was an error (this notifies the task delegate)
+ *  - Marks the operation as `finished`
+ *  - Marks the operation as no longer `executing`
+ */
 - (void)didFailWithError:(NSError *)error {
   [self.task didCompleteWithError:error];
   [self didFinish];
@@ -155,224 +211,205 @@
 #pragma mark - Encoding
 
 - (void)encodeToURL:(NSURL *)location {
-  if (![self allocatePCMBuffer]) return;
-  if (![self allocateMP2Buffer]) return;
+  if (self.isExecuting) {
+    [self openInputFile];
+    [self openOutputFile:location];
+    
+    [self transcode:location];
+  }
   
-  [self openInputFile];
-  
-  if (![self openOutputFile:location]) return;
-  
-  if (![self transcode:location]) return;
-  
-  if (![self checkForInputFileError]) return;
-  if (![self flushRemainingAudio]) return;
+//  if (![self checkForInputFileError]) return;
+  [self flushRemainingAudio];
   [self cleanup];
   
+  BOOL report = self.isExecuting;
+  
   [self didFinish];
-  [self.task.encoder didFinishEncodingTask:self.task toURL:location];
-}
-
-- (BOOL)allocatePCMBuffer {
-  if ((self.inputBuffer = (short *) calloc(AUDIOBUFSIZE, sizeof(short))) == NULL) {
-    NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Encoding was unsuccessful.",
-                                NSLocalizedFailureReasonErrorKey: @"Could not allocate buffer.",
-                                NSLocalizedRecoverySuggestionErrorKey: @"You may be out of memory." };
-    
-    NSError *error = [NSError errorWithDomain:TWLEncoderErrorDomain
-                                         code:TWLEncoderErrorCannotAllocateInputBuffer
-                                     userInfo:userInfo];
-
-    [self didFailWithError:error];
-    
-    return NO;
-  }
   
-  return YES;
-}
-
-- (BOOL)allocateMP2Buffer {
-  if ((self.outputBuffer = (unsigned char *) calloc(MP2BUFSIZE, sizeof(unsigned char))) == NULL) {
-    NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Encoding was unsuccessful.",
-                                NSLocalizedFailureReasonErrorKey: @"Could not allocate buffer.",
-                                NSLocalizedRecoverySuggestionErrorKey: @"You may be out of memory." };
-    
-    NSError *error = [NSError errorWithDomain:TWLEncoderErrorDomain
-                                         code:TWLEncoderErrorCannotAllocateOutputBuffer
-                                     userInfo:userInfo];
-
-    [self didFailWithError:error];
-    
-    return NO;
+  if (report) {
+    [self.task.encoder didFinishEncodingTask:self.task toURL:location];
   }
-  
-  return YES;
 }
 
 - (void)openInputFile {
-  char *inputFileName = self.task.URL.path.UTF8String;
-  
-  if (self.task.encoder.immutableConfiguration.raw) {
-    self.inputPCMAudio = open_audioin_raw(inputFileName, &_sndfileInfo, sampleSize);
-  } else {
-    self.inputPCMAudio = open_audioin_sndfile(inputFileName, &_sndfileInfo);
+  if (self.isExecuting) {
+    BOOL raw = self.task.encoder.immutableConfiguration.raw;
+    NSError *error;
+    self.inputFile = [TWLPCMAudioFile fileWithFileURL:self.task.URL sndfileInfo:&_sndfileInfo raw:raw error:&error];
+    
+    if (error) {
+      NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Encoding was unsuccessful.",
+                                  NSLocalizedFailureReasonErrorKey: @"Could not open input file.",
+                                  NSLocalizedRecoverySuggestionErrorKey: @"Make sure the file is a support PCM format." };
+      
+      NSError *_error = [NSError errorWithDomain:TWLEncoderErrorDomain
+                                           code:TWLEncoderErrorUnsupportedAudio
+                                       userInfo:userInfo];
+      
+      [self didFailWithError:_error];
+    }
   }
 }
 
-- (BOOL)openOutputFile:(NSURL *)location {
-  char *outputFileName = location.path.UTF8String;
-  
-  FILE *file = NULL;
-  file = fopen(outputFileName, "wb");
-  
-  if (file == NULL) {
-    NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Encoding was unsuccessful.",
-                                NSLocalizedFailureReasonErrorKey: @"Could not open output file.",
-                                NSLocalizedRecoverySuggestionErrorKey: @"This may be a app sandboxing issue." };
+- (void)openOutputFile:(NSURL *)location {
+  if (self.isExecuting) {
+    self.outputFile = NULL;
+    self.outputFile = fopen(location.fileSystemRepresentation, "wb");
     
-    NSError *error = [NSError errorWithDomain:TWLEncoderErrorDomain
-                                         code:TWLEncoderErrorCannotOpenFile
-                                     userInfo:userInfo];
-    
-    [self didFailWithError:error];
-    
-    return NO;
+    if (self.outputFile == NULL) {
+      NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Encoding was unsuccessful.",
+                                  NSLocalizedFailureReasonErrorKey: @"Could not open output file.",
+                                  NSLocalizedRecoverySuggestionErrorKey: @"This may be a app sandboxing issue." };
+      
+      NSError *error = [NSError errorWithDomain:TWLEncoderErrorDomain
+                                            code:TWLEncoderErrorCannotOpenFile
+                                        userInfo:userInfo];
+      
+      [self didFailWithError:error];
+    }
   }
-  
-  self.outputMP2File = file;
-  
-  return YES;
 }
 
-- (BOOL)transcode:(NSURL *)location {
-  if (self.encoderOptions == NULL) {
-    return NO;
-  }
-  
-  unsigned int frameLength = twolame_get_framelength(self.encoderOptions);
-  
-  unsigned int totalFrames = 0;
-  unsigned int frameCount = 0;
-  int samples_read = 0;
-  int audioReadSize = 0;
-  int mp2fill_size = 0;
-  unsigned int total_bytes = 0;
-  
-  if (self.sndfileInfo.frames) {
-    totalFrames = (self.sndfileInfo.frames / TWOLAME_SAMPLES_PER_FRAME);
-  }
-  
-//  if (single_frame_mode)
-//    audioReadSize = TWOLAME_SAMPLES_PER_FRAME;
-//  else
-  audioReadSize = AUDIO_BUF_SIZE;
-  
-  while ((samples_read = self.inputPCMAudio->read(self.inputPCMAudio, self.inputBuffer, audioReadSize)) > 0) {
-    int bytes_out = 0;
+- (void)transcode:(NSURL *)location {
+  if (self.isExecuting && self.encoderOptions != NULL) {
     
-    // Force byte swapping if requested
-    BOOL byteswap = self.task.encoder.configuration.byteSwap;
-    if (byteswap) {
-      int i;
-      for (i = 0; i < samples_read; i++) {
-        short tmp = self.inputBuffer[i];
-        char *src = (char *) &tmp;
-        char *dst = (char *) &_inputBuffer[i];
-        dst[0] = src[1];
-        dst[1] = src[0];
+    unsigned int frameLength = twolame_get_framelength(self.encoderOptions);
+    
+    unsigned int totalFrames = 0;
+    unsigned int frameCount = 0;
+    int64_t samples_read = 0;
+    int audioReadSize = 0;
+    int mp2fill_size = 0;
+    unsigned int total_bytes = 0;
+    
+    if (self.sndfileInfo.frames) {
+      totalFrames = (self.sndfileInfo.frames / TWOLAME_SAMPLES_PER_FRAME);
+    }
+    
+    audioReadSize = AUDIO_BUF_SIZE;
+
+    
+    while ((samples_read = [self.inputFile readBuffer:self.inputBuffer samples:audioReadSize]) > 0) {
+      int64_t bytes_out = 0;
+      
+      // Force byte swapping if requested
+      BOOL byteswap = self.task.encoder.configuration.byteSwap;
+      if (byteswap) {
+        int i;
+        for (i = 0; i < samples_read; i++) {
+          short tmp = self.inputBuffer[i];
+          char *src = (char *) &tmp;
+          char *dst = (char *) &_inputBuffer[i];
+          dst[0] = src[1];
+          dst[1] = src[0];
+        }
       }
-    }
-    
-    // Calculate the number of samples we have (per channel)
-    samples_read /= self.sndfileInfo.channels;
-    
-    // Do swapping of left and right channels if requested
-    BOOL channelSwap = self.task.encoder.configuration.channelSwap;
-    if (channelSwap && self.sndfileInfo.channels == 2) {
-      int i;
-      for (i = 0; i < samples_read; i++) {
-        short tmp = self.inputBuffer[(2 * i)];
-        self.inputBuffer[(2 * i)] = self.inputBuffer[(2 * i) + 1];
-        self.inputBuffer[(2 * i) + 1] = tmp;
+      
+      // Calculate the number of samples we have (per channel)
+      samples_read /= self.sndfileInfo.channels;
+      
+      // Do swapping of left and right channels if requested
+      BOOL channelSwap = self.task.encoder.configuration.channelSwap;
+      if (channelSwap && self.sndfileInfo.channels == 2) {
+        int i;
+        for (i = 0; i < samples_read; i++) {
+          short tmp = self.inputBuffer[(2 * i)];
+          self.inputBuffer[(2 * i)] = self.inputBuffer[(2 * i) + 1];
+          self.inputBuffer[(2 * i) + 1] = tmp;
+        }
       }
+
+      // Encode the audio to MP2
+      mp2fill_size = twolame_encode_buffer_interleaved(self.encoderOptions, self.inputBuffer, (int)samples_read, self.outputBuffer, MP2_BUF_SIZE);
+
+      // Stop if we don't have any bytes (probably don't have enough audio for a full frame of
+      // mpeg audio)
+      if (mp2fill_size == 0)
+        break;
+      if (mp2fill_size < 0) {
+        
+        NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Encoding was unsuccessful.",
+                                    NSLocalizedFailureReasonErrorKey: @"Error while encoding audio.",
+                                    NSLocalizedRecoverySuggestionErrorKey: @"The input file may be corrupt." };
+        
+        NSError *error = [NSError errorWithDomain:TWLEncoderErrorDomain
+                                             code:TWLEncoderErrorCannotEncodeAudio
+                                         userInfo:userInfo];
+        
+        [self didFailWithError:error];
+        return;
+      }
+      
+      // Write the encoded audio out
+
+      
+      bytes_out = fwrite(self.outputBuffer, sizeof(unsigned char), mp2fill_size, self.outputFile);
+      if (bytes_out != mp2fill_size) {
+        NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Encoding was unsuccessful.",
+                                    NSLocalizedFailureReasonErrorKey: @"Error while writing encoded audio.",
+                                    NSLocalizedRecoverySuggestionErrorKey: @"The input file may be corrupt." };
+        
+        NSError *error = [NSError errorWithDomain:TWLEncoderErrorDomain
+                                             code:TWLEncoderErrorCannotWriteFile
+                                         userInfo:userInfo];
+        
+        [self didFailWithError:error];
+        return;
+      }
+      total_bytes += bytes_out;
+      
+      unsigned int frames_out = (mp2fill_size / frameLength);
+      frameCount += frames_out;
+
+      [self.task.encoder.delegate encoder:self.task.encoder task:self.task didWriteFrames:frames_out totalFramesWritten:frameCount totalFrameExpectedToWrite:totalFrames bytesWritten:bytes_out totalBytesWritten:total_bytes];
     }
-    
-    // Encode the audio to MP2
-    mp2fill_size = twolame_encode_buffer_interleaved(self.encoderOptions, self.inputBuffer, samples_read, self.outputBuffer, MP2_BUF_SIZE);
-    
-    // Stop if we don't have any bytes (probably don't have enough audio for a full frame of
-    // mpeg audio)
-    if (mp2fill_size == 0)
-      break;
-    if (mp2fill_size < 0) {
-      fprintf(stderr, "error while encoding audio: %d\n", mp2fill_size);
-      exit(ERR_ENCODING);
-    }
-    // Check that a whole number of frame was written
-    // if (mp2fill_size % frame_len != 0) {
-    // fprintf(stderr,"error while encoding audio: non-whole number of frames written\n");
-    // exit(ERR_ENCODING);
-    // }
-    
-    // Write the encoded audio out
-    bytes_out = fwrite(self.outputBuffer, sizeof(unsigned char), mp2fill_size, self.outputMP2File);
-    if (bytes_out != mp2fill_size) {
-      perror("error while writing to output file");
-      exit(ERR_WRITING_OUTPUT);
-    }
-    total_bytes += bytes_out;
-    
-    // Only single frame ?
-//    if (single_frame_mode)
-//      break;
+  }
+}
+//
+//- (BOOL)checkForInputFileError {
+//  if (self.inputPCMAudio->error_str(self.inputPCMAudio)) {
+//    NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Encoding was unsuccessful.",
+//                                NSLocalizedFailureReasonErrorKey: @"Could not read input file.",
+//                                NSLocalizedRecoverySuggestionErrorKey: @"Check permissions and file type." };
 //    
-    
-    // Display Progress
-    unsigned int frames_out = (mp2fill_size / frameLength);
-    frameCount += frames_out;
-    
-    [self.task.encoder.delegate encoder:self.task.encoder task:self.task didWriteFrames:frames_out totalFramesWritten:frameCount totalFrameExpectedToWrite:totalFrames bytesWritten:bytes_out totalBytesWritten:total_bytes];
-  }
-  
-  return YES;
-}
-
-- (BOOL)checkForInputFileError {
-  if (self.inputPCMAudio->error_str(self.inputPCMAudio)) {
-    NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Encoding was unsuccessful.",
-                                NSLocalizedFailureReasonErrorKey: @"Could not read input file.",
-                                NSLocalizedRecoverySuggestionErrorKey: @"Check permissions and file type." };
-    
-    NSError *error = [NSError errorWithDomain:TWLEncoderErrorDomain
-                                         code:TWLEncoderErrorCannotReadFile
-                                     userInfo:userInfo];
-    
-    [self didFailWithError:error];
-    
-    return NO;
-  }
-  
-  return YES;
-}
-
-- (BOOL)flushRemainingAudio {
-  
-//  mp2fill_size = twolame_encode_flush(encopts, mp2buffer, MP2_BUF_SIZE);
-//  if (mp2fill_size > 0) {
-//    int bytes_out = fwrite(mp2buffer, sizeof(unsigned char), mp2fill_size, outputfile);
-//    frame_count++;
-//    if (bytes_out <= 0) {
-//      perror("error while writing to output file");
-//      exit(ERR_WRITING_OUTPUT);
-//    }
-//    total_bytes += bytes_out;
+//    NSError *error = [NSError errorWithDomain:TWLEncoderErrorDomain
+//                                         code:TWLEncoderErrorCannotReadFile
+//                                     userInfo:userInfo];
+//    
+//    [self didFailWithError:error];
+//    
+//    return NO;
 //  }
-  
-  return YES;
+//  
+//  return YES;
+//}
+
+- (void)flushRemainingAudio {
+  if (self.isExecuting) {
+    int mp2fill_size = twolame_encode_flush(self.encoderOptions, self.outputBuffer, MP2_BUF_SIZE);
+    if (mp2fill_size > 0) {
+      int64_t bytes_out = fwrite(self.outputBuffer, sizeof(unsigned char), mp2fill_size, self.outputFile);
+      //    frame_count++;
+      if (bytes_out <= 0) {
+        NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Encoding was unsuccessful.",
+                                    NSLocalizedFailureReasonErrorKey: @"Error while writing encoded audio.",
+                                    NSLocalizedRecoverySuggestionErrorKey: @"The input file may be corrupt." };
+        
+        NSError *error = [NSError errorWithDomain:TWLEncoderErrorDomain
+                                             code:TWLEncoderErrorCannotWriteFile
+                                         userInfo:userInfo];
+        
+        [self didFailWithError:error];
+        return;
+      }
+      //    total_bytes += bytes_out;
+    }
+  }
 }
 
 - (void)cleanup {
-  self.inputPCMAudio->close(self.inputPCMAudio);
-  fclose(self.outputMP2File);
+  [self.inputFile close];
+  fclose(self.outputFile);
   
   // Close the libtwolame encoder
   twolame_close(&_encoderOptions);

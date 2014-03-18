@@ -30,8 +30,10 @@ typedef NS_ENUM(NSInteger, TWLEncoderError) {
   TWLEncoderErrorBadConfiguration = -2001,
   TWLEncoderErrorCannotAllocateInputBuffer = -2002,
   TWLEncoderErrorCannotAllocateOutputBuffer = -2003,
+  TWLEncoderErrorCannotEncodeAudio = -2004,
   
   // File I/O errors
   TWLEncoderErrorCannotOpenFile = -3000,
-  TWLEncoderErrorCannotReadFile = -3001
+  TWLEncoderErrorCannotReadFile = -3001,
+  TWLEncoderErrorCannotWriteFile = -3002
 };
