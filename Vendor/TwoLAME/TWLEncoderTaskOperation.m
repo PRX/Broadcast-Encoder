@@ -234,7 +234,7 @@
 }
 
 - (void)openInputFile {
-  if (!self.isTaskCanceled && self.isExecutingg) {
+  if (!self.isTaskCanceled && self.isExecuting) {
     BOOL raw = self.task.encoder.immutableConfiguration.raw;
     NSError *error;
     self.inputFile = [TWLPCMAudioFile fileWithFileURL:self.task.URL sndfileInfo:&_sndfileInfo raw:raw error:&error];
