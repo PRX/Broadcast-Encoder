@@ -18,7 +18,6 @@
 		F88D4E1618D0FEF100C9E9C3 /* PRXDropzoneView.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D4E1518D0FEF100C9E9C3 /* PRXDropzoneView.m */; };
 		F88D4E1A18D1029700C9E9C3 /* PRXDropzoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D4E1918D1029700C9E9C3 /* PRXDropzoneViewController.m */; };
 		F88D4E1C18D102BA00C9E9C3 /* PRXDropzoneView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F88D4E1B18D102BA00C9E9C3 /* PRXDropzoneView.xib */; };
-		F88D4E7C18D1266D00C9E9C3 /* PRXResampler.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D4E7B18D1266D00C9E9C3 /* PRXResampler.m */; };
 		F88D4E9218D14E5400C9E9C3 /* TWLEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D4E8C18D14E5400C9E9C3 /* TWLEncoder.m */; };
 		F88D4E9318D14E5400C9E9C3 /* TWLEncoderTask.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D4E8F18D14E5400C9E9C3 /* TWLEncoderTask.m */; };
 		F88D4E9618D150DA00C9E9C3 /* TWLEncoderTaskOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D4E9518D150DA00C9E9C3 /* TWLEncoderTaskOperation.m */; };
@@ -59,8 +58,6 @@
 		F88D4E1818D1029700C9E9C3 /* PRXDropzoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PRXDropzoneViewController.h; path = Dropzone/PRXDropzoneViewController.h; sourceTree = "<group>"; };
 		F88D4E1918D1029700C9E9C3 /* PRXDropzoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PRXDropzoneViewController.m; path = Dropzone/PRXDropzoneViewController.m; sourceTree = "<group>"; };
 		F88D4E1B18D102BA00C9E9C3 /* PRXDropzoneView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PRXDropzoneView.xib; path = Views/Dropzone/PRXDropzoneView.xib; sourceTree = "<group>"; };
-		F88D4E7A18D1266D00C9E9C3 /* PRXResampler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PRXResampler.h; path = Models/PRXResampler.h; sourceTree = "<group>"; };
-		F88D4E7B18D1266D00C9E9C3 /* PRXResampler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PRXResampler.m; path = Models/PRXResampler.m; sourceTree = "<group>"; };
 		F88D4E8B18D14E5400C9E9C3 /* TWLEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWLEncoder.h; sourceTree = "<group>"; };
 		F88D4E8C18D14E5400C9E9C3 /* TWLEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWLEncoder.m; sourceTree = "<group>"; };
 		F88D4E8D18D14E5400C9E9C3 /* TWLEncoder_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWLEncoder_private.h; sourceTree = "<group>"; };
@@ -214,18 +211,8 @@
 		F88D4E7318D1219200C9E9C3 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				F88D4E8618D14C9A00C9E9C3 /* SoX */,
-				F88D4E7A18D1266D00C9E9C3 /* PRXResampler.h */,
-				F88D4E7B18D1266D00C9E9C3 /* PRXResampler.m */,
 			);
 			name = Models;
-			sourceTree = "<group>";
-		};
-		F88D4E8618D14C9A00C9E9C3 /* SoX */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = SoX;
 			sourceTree = "<group>";
 		};
 		F88D4E8718D14E5400C9E9C3 /* Vendor */ = {
@@ -426,7 +413,6 @@
 				F8CB2C1018D78C4B00DEFA10 /* PRXStaticImageView.m in Sources */,
 				F88D4EAB18D2426200C9E9C3 /* SOXResamplerConfiguration.m in Sources */,
 				F88D4EA818D2413B00C9E9C3 /* SOXResamplerTaskOperation.m in Sources */,
-				F88D4E7C18D1266D00C9E9C3 /* PRXResampler.m in Sources */,
 				F88D4DC518D0F5F900C9E9C3 /* main.m in Sources */,
 				F88D4EA518D2412800C9E9C3 /* SOXResamplerTask.m in Sources */,
 				F88D4E1618D0FEF100C9E9C3 /* PRXDropzoneView.m in Sources */,
