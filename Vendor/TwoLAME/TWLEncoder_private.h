@@ -24,8 +24,8 @@
 @property BOOL isInvalid;
 
 /* Initializers */
-- (id)initWithConfiguration:(TWLEncoderConfiguration *)configuration;
-- (id)initWithConfiguration:(TWLEncoderConfiguration *)configuration delegate:(id<TWLEncoderDelegate>)delegate operationQueue:(NSOperationQueue *)queue;
+- (instancetype)initWithConfiguration:(TWLEncoderConfiguration *)configuration;
+- (instancetype)initWithConfiguration:(TWLEncoderConfiguration *)configuration delegate:(id<TWLEncoderDelegate>)delegate operationQueue:(NSOperationQueue *)queue;
 
 /* Builds twolame_options based on the SF_INFO of a given
  * input file, and the configuration that this encoder was

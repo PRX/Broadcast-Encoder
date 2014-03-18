@@ -45,11 +45,11 @@ NSString * const TWLEncoderErrorDomain = @"TWLEncoderErrorDomain";
 
 #pragma mark Private
 
-- (id)initWithConfiguration:(TWLEncoderConfiguration *)configuration {
+- (instancetype)initWithConfiguration:(TWLEncoderConfiguration *)configuration {
   return [self initWithConfiguration:configuration delegate:nil operationQueue:nil];
 }
 
-- (id)initWithConfiguration:(TWLEncoderConfiguration *)configuration delegate:(id<TWLEncoderDelegate>)delegate operationQueue:(NSOperationQueue *)queue {
+- (instancetype)initWithConfiguration:(TWLEncoderConfiguration *)configuration delegate:(id<TWLEncoderDelegate>)delegate operationQueue:(NSOperationQueue *)queue {
   self = [super init];
   if (self) {
     _configuration = configuration;
@@ -205,6 +205,24 @@ NSString * const TWLEncoderErrorDomain = @"TWLEncoderErrorDomain";
 - (void)didFinishEncodingTask:(TWLEncoderTask *)task toURL:(NSURL *)location {
   [self.delegate encoder:self task:task didFinishEncodingToURL:location];
 #warning clean up temp file once delegate returns
+}
+
+#pragma mark - NSCopying
+
+- (id)copyWithZone:(NSZone *)zone {
+  TWLEncoder *copy = self.class.new;
+  
+  copy->_configuration = self.immutableConfiguration.copy;
+  copy->_immutableConfiguration = self.immutableConfiguration.copy;
+  
+  copy.isInvalid = self.isInvalid;
+  
+  copy.encoderDescription = self.encoderDescription.copy;
+  
+  copy->_delegate = self.delegate;
+  copy->_operationQueue = self.operationQueue.copy;
+  
+  return copy;
 }
 
 @end

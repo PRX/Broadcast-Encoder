@@ -14,6 +14,6 @@
 
 + (instancetype)operationWithTask:(TWLEncoderTask *)task;
 
-- (id)initWithTask:(TWLEncoderTask *)task;
+- (instancetype)initWithTask:(TWLEncoderTask *)task;
 
 @end

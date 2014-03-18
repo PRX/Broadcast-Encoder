@@ -37,7 +37,7 @@
 @class TWLEncoderConfiguration;
 @protocol TWLEncoderDelegate;
 
-@interface TWLEncoder : NSObject
+@interface TWLEncoder : NSObject <NSCopying>
 
 /*
  * The shared encoded has a basic configuration and uses

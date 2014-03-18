@@ -54,7 +54,7 @@
   return [[self alloc] initWithTask:task];
 }
 
-- (id)initWithTask:(TWLEncoderTask *)task {
+- (instancetype)initWithTask:(TWLEncoderTask *)task {
   self = [super init];
   if (self) {
     self.task = task;

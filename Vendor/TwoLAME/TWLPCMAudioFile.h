@@ -25,7 +25,7 @@
 /* the local URL of the audio file this object represents */
 @property (nonatomic, copy, readonly) NSURL *fileURL;
 
-/*  */
+/* a pointer to SF_INFO describing the audio properties of the file */
 @property (nonatomic, readonly) SF_INFO *sndfileInfo;
 
 /* determines if the audio file should be treated as headerless raw PCM data */

@@ -13,7 +13,7 @@
 
 @synthesize taskIdentifier = _taskIdentifier;
 
-- (id)initWithURL:(NSURL *)url encoder:(TWLEncoder *)encoder delegate:(id<TWLEncoderTaskDelegate>)delegate {
+- (instancetype)initWithURL:(NSURL *)url encoder:(TWLEncoder *)encoder delegate:(id<TWLEncoderTaskDelegate>)delegate {
   self = [super init];
   if (self) {
 #warning should make sure both args exist
