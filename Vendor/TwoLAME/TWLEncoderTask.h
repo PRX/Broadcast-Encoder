@@ -43,7 +43,7 @@
 
 #warning TODO
 /* -cancel returns immediately, but marks a task as being canceled.
- * The task will signal -URLSession:task:didCompleteWithError: with an
+ * The task will signal -encoder:task:didCompleteWithError: with an
  * error value of { TWLEncoderErrorDomain, TWLEncoderErrorCancelled }.  In some
  * cases, the task may signal other work before it acknowledges the
  * cancelation.  -cancel may be sent to a task that has been suspended.
