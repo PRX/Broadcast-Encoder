@@ -17,7 +17,7 @@
  */
 @interface TWLEncoderTask : NSObject <NSCopying>
 
-@property (readonly, retain) id <TWLEncoderTaskDelegate> delegate;
+@property (readonly, weak) id <TWLEncoderTaskDelegate> delegate;
 
 /* an identifier for this task, assigned by and unique to the owning session */
 @property (readonly) NSUInteger taskIdentifier;

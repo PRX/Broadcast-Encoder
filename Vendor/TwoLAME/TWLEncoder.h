@@ -56,7 +56,7 @@
 + (instancetype)encoderWithConfiguration:(TWLEncoderConfiguration *)configuration delegate:(id<TWLEncoderDelegate>)delegate operationQueue:(NSOperationQueue *)queue;
 
 @property (readonly, retain) NSOperationQueue *operationQueue;
-@property (readonly, retain) id <TWLEncoderDelegate> delegate;
+@property (readonly, weak) id <TWLEncoderDelegate> delegate;
 @property (readonly, copy) TWLEncoderConfiguration *configuration;
 
 /*
