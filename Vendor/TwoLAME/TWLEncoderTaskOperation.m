@@ -365,24 +365,6 @@
     }
   }
 }
-//
-//- (BOOL)checkForInputFileError {
-//  if (self.inputPCMAudio->error_str(self.inputPCMAudio)) {
-//    NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Encoding was unsuccessful.",
-//                                NSLocalizedFailureReasonErrorKey: @"Could not read input file.",
-//                                NSLocalizedRecoverySuggestionErrorKey: @"Check permissions and file type." };
-//    
-//    NSError *error = [NSError errorWithDomain:TWLEncoderErrorDomain
-//                                         code:TWLEncoderErrorCannotReadFile
-//                                     userInfo:userInfo];
-//    
-//    [self didFailWithError:error];
-//    
-//    return NO;
-//  }
-//  
-//  return YES;
-//}
 
 - (void)flushRemainingAudio {
   if (self.isExecuting) {
