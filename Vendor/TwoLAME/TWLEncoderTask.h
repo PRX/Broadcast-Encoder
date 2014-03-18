@@ -41,7 +41,6 @@
  */
 @property (copy) NSString *taskDescription;
 
-#warning TODO
 /* -cancel returns immediately, but marks a task as being canceled.
  * The task will signal -encoder:task:didCompleteWithError: with an
  * error value of { TWLEncoderErrorDomain, TWLEncoderErrorCancelled }.  In some

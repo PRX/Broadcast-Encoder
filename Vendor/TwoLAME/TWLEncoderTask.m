@@ -16,7 +16,6 @@
 - (instancetype)initWithURL:(NSURL *)url encoder:(TWLEncoder *)encoder delegate:(id<TWLEncoderTaskDelegate>)delegate {
   self = [super init];
   if (self) {
-#warning should make sure both args exist
     _URL = url;
     _encoder = encoder;
     _delegate = delegate;

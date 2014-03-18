@@ -11,7 +11,6 @@
 @implementation PRXEncoderWindow
 
 - (void)performClose:(id)sender {
-#warning quit the app if we get here
   [super performClose:sender];
 }
 
