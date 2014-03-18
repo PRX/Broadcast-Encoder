@@ -15,8 +15,6 @@
 @property (nonatomic, strong, readonly) TWLEncoder *encoder;
 @property (nonatomic, strong, readonly) NSURL *URL;
 
-@property (nonatomic, readonly) const char *path;
-
 /* Private Initializers */
 - (id)initWithURL:(NSURL *)url encoder:(TWLEncoder *)encoder delegate:(id<TWLEncoderTaskDelegate>)delegate;
 

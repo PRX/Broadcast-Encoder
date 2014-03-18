@@ -14,7 +14,7 @@
 - (void)awakeFromNib {
   [super awakeFromNib];
   
-  [self registerForDraggedTypes:@[ NSColorPboardType, NSFilenamesPboardType ]];
+  [self registerForDraggedTypes:@[ NSFilenamesPboardType ]];
   
   self.versionTextField.stringValue = [NSString stringWithFormat:@"TwoLAME version %s", get_twolame_version()];
 }

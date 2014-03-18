@@ -18,8 +18,6 @@ NSString * const TWLEncoderErrorDomain = @"TWLEncoderErrorDomain";
 @implementation TWLEncoder
 
 @synthesize operationQueue = _operationQueue;
-@synthesize configuration = _configuration;
-@synthesize immutableConfiguration = _immutableConfiguration;
 
 #pragma mark - Initializers
 #pragma mark Public

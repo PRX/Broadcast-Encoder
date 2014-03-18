@@ -11,9 +11,6 @@
 
 @implementation TWLEncoderTask
 
-@synthesize encoder = _encoder;
-@synthesize URL = _URL;
-@synthesize delegate = _delegate;
 @synthesize taskIdentifier = _taskIdentifier;
 
 - (id)initWithURL:(NSURL *)url encoder:(TWLEncoder *)encoder delegate:(id<TWLEncoderTaskDelegate>)delegate {
@@ -36,10 +33,6 @@
 
 - (NSURL *)originalURL {
   return self.URL;
-}
-
-- (const char *)path {
-  return self.URL.path.UTF8String;
 }
 
 - (void)resume {
