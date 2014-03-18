@@ -40,7 +40,7 @@
 }
 
 - (void)cancel {
-#warning todo
+  _canceled = YES;
 }
 
 #pragma mark - Delegate Notification

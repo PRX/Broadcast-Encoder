@@ -173,6 +173,24 @@
   }
 }
 
+- (BOOL)isTaskCanceled {
+  if (self.task.isCanceled) {
+    NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Encoding was unsuccessful.",
+                                NSLocalizedFailureReasonErrorKey: @"Operation was canceled by the user.",
+                                NSLocalizedRecoverySuggestionErrorKey: @"Allow the operation to complete." };
+    
+    NSError *error = [NSError errorWithDomain:TWLEncoderErrorDomain
+                                         code:TWLEncoderErrorCancelled
+                                     userInfo:userInfo];
+    
+    [self didFailWithError:error];
+
+    return YES;
+  }
+  
+  return NO;
+}
+
 /* didFailWithError: does the following things:
  *  - Reports to the parents taks that there was an error (this notifies the task delegate)
  *  - Marks the operation as `finished`
@@ -196,28 +214,27 @@
 #pragma mark - Encoding
 
 - (void)encodeToURL:(NSURL *)location {
-  if (self.isExecuting) {
+  if (!self.isTaskCanceled && self.isExecuting) {
     [self openInputFile];
     [self openOutputFile:location];
     
     [self transcode:location];
-  }
-  
-//  if (![self checkForInputFileError]) return;
-  [self flushRemainingAudio];
-  [self cleanup];
-  
-  BOOL report = self.isExecuting;
-  
-  [self didFinish];
-  
-  if (report) {
-    [self.task.encoder didFinishEncodingTask:self.task toURL:location];
+    
+    [self flushRemainingAudio];
+    [self cleanup];
+    
+    BOOL report = self.isExecuting;
+    
+    [self didFinish];
+    
+    if (report) {
+      [self.task.encoder didFinishEncodingTask:self.task toURL:location];
+    }
   }
 }
 
 - (void)openInputFile {
-  if (self.isExecuting) {
+  if (!self.isTaskCanceled && self.isExecutingg) {
     BOOL raw = self.task.encoder.immutableConfiguration.raw;
     NSError *error;
     self.inputFile = [TWLPCMAudioFile fileWithFileURL:self.task.URL sndfileInfo:&_sndfileInfo raw:raw error:&error];
@@ -237,7 +254,7 @@
 }
 
 - (void)openOutputFile:(NSURL *)location {
-  if (self.isExecuting) {
+  if (!self.isTaskCanceled && self.isExecuting) {
     self.outputFile = NULL;
     self.outputFile = fopen(location.fileSystemRepresentation, "wb");
     
@@ -256,7 +273,7 @@
 }
 
 - (void)transcode:(NSURL *)location {
-  if (self.isExecuting && self.encoderOptions != NULL) {
+  if (!self.isTaskCanceled && self.isExecuting && self.encoderOptions != NULL) {
     
     unsigned int frameLength = twolame_get_framelength(self.encoderOptions);
     
@@ -352,7 +369,7 @@
 }
 
 - (void)flushRemainingAudio {
-  if (self.isExecuting) {
+  if (!self.isTaskCanceled && self.isExecuting) {
     int mp2fill_size = twolame_encode_flush(self.encoderOptions, self.outputBuffer, MP2_BUF_SIZE);
     if (mp2fill_size > 0) {
       int64_t bytes_out = fwrite(self.outputBuffer, sizeof(unsigned char), mp2fill_size, self.outputFile);

@@ -15,6 +15,8 @@
 @property (nonatomic, strong, readonly) TWLEncoder *encoder;
 @property (nonatomic, strong, readonly) NSURL *URL;
 
+@property (readonly, getter = isCanceled) BOOL canceled;
+
 /* Private Initializers */
 /* neither url nor encoder can be nil */
 - (instancetype)initWithURL:(NSURL *)url encoder:(TWLEncoder *)encoder delegate:(id<TWLEncoderTaskDelegate>)delegate;
