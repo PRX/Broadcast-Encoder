@@ -19,21 +19,21 @@
 
 @property (readonly, retain) id <TWLEncoderTaskDelegate> delegate;
 
-#warning TODO
 /* an identifier for this task, assigned by and unique to the owning session */
 @property (readonly) NSUInteger taskIdentifier;
 
 /* original file URL of the PCM audio to be encoded */
 @property (readonly, copy) NSURL *originalURL;
 
+#warning TODO
 /* number of bytes already encoded into MP2 */
-@property (readonly) int64_t countOfBytesEncoded;
+//@property (readonly) int64_t countOfBytesEncoded;
 
 /* number of frames already encoded into MP2 */
-@property (readonly) int64_t countOfFramesEncoded;
+//@property (readonly) int64_t countOfFramesEncoded;
 
 /* number of frames we expect to encode */
-@property (readonly) int64_t countOfFramesExpectedToEncode;
+//@property (readonly) int64_t countOfFramesExpectedToEncode;
 
 /*
  * The taskDescription property is available for the developer to
@@ -44,7 +44,7 @@
 #warning TODO
 /* -cancel returns immediately, but marks a task as being canceled.
  * The task will signal -URLSession:task:didCompleteWithError: with an
- * error value of { NSURLErrorDomain, NSURLErrorCancelled }.  In some
+ * error value of { TWLEncoderErrorDomain, TWLEncoderErrorCancelled }.  In some
  * cases, the task may signal other work before it acknowledges the
  * cancelation.  -cancel may be sent to a task that has been suspended.
  */

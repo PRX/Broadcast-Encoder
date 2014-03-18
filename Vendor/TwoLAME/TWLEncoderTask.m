@@ -56,7 +56,14 @@
 - (id)copyWithZone:(NSZone *)zone {
   TWLEncoderTask *copy = TWLEncoderTask.new;
   
-#warning todo
+  copy->_delegate = self.delegate;
+  copy->_encoder = self.encoder;
+  
+  // don't copy taskIdentifier
+  
+  copy->_URL = self.URL.copy;
+  copy.taskDescription = self.taskDescription.copy;
+  
   return copy;
 }
 

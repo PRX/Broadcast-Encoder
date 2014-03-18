@@ -16,6 +16,7 @@
 @property (nonatomic, strong, readonly) NSURL *URL;
 
 /* Private Initializers */
+/* neither url nor encoder can be nil */
 - (id)initWithURL:(NSURL *)url encoder:(TWLEncoder *)encoder delegate:(id<TWLEncoderTaskDelegate>)delegate;
 
 /* Delegate Notification */
