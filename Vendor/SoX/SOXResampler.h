@@ -24,8 +24,8 @@ typedef NS_ENUM(NSInteger, SOXResamplerError) {
 + (instancetype)resamplerWithConfiguration:(SOXResamplerConfiguration *)configuration delegate:(id<SOXResamplerDelegate>)delegate operationQueue:(NSOperationQueue *)queue;
 + (instancetype)sharedResampler;
 
-@property (nonatomic, strong) id<SOXResamplerDelegate> delegate;
-@property (nonatomic, strong, readonly) SOXResamplerConfiguration *configuration;
+@property (weak) id <SOXResamplerDelegate> delegate;
+@property (copy, readonly) SOXResamplerConfiguration *configuration;
 
 - (SOXResamplerTask *)taskWithURL:(NSURL *)url;
 

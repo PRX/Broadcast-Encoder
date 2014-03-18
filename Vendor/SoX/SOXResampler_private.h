@@ -15,8 +15,8 @@
 @property (nonatomic, strong, readonly) NSOperationQueue *operationQueue;
 @property (nonatomic, strong, readonly) SOXResamplerConfiguration *immutableConfiguration;
 
-- (id)initWithConfiguration:(SOXResamplerConfiguration *)configuration;
-- (id)initWithConfiguration:(SOXResamplerConfiguration *)configuration delegate:(id<SOXResamplerDelegate>)delegate operationQueue:(NSOperationQueue *)queue;
+- (instancetype)initWithConfiguration:(SOXResamplerConfiguration *)configuration;
+- (instancetype)initWithConfiguration:(SOXResamplerConfiguration *)configuration delegate:(id<SOXResamplerDelegate>)delegate operationQueue:(NSOperationQueue *)queue;
 
 - (void)resampleTask:(SOXResamplerTask *)task;
 

@@ -14,6 +14,6 @@
 
 + (instancetype)operationWithTask:(SOXResamplerTask *)task;
 
-- (id)initWithTask:(SOXResamplerTask *)task;
+- (instancetype)initWithTask:(SOXResamplerTask *)task;
 
 @end

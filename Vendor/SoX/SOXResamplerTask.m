@@ -36,6 +36,10 @@
   [self.resampler resampleTask:self];
 }
 
+- (void)cancel {
+#warning todo
+}
+
 - (void)didCompleteWithError:(NSError *)error {
   if ([self.delegate respondsToSelector:@selector(resampler:task:didCompleteWithError:)]) {
     [self.delegate resampler:self.resampler task:self didCompleteWithError:error];

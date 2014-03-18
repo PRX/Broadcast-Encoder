@@ -37,7 +37,7 @@
   return [[self alloc] initWithTask:task];
 }
 
-- (id)initWithTask:(SOXResamplerTask *)task {
+- (instancetype)initWithTask:(SOXResamplerTask *)task {
   self = [super init];
   if (self) {
     self.task = task;

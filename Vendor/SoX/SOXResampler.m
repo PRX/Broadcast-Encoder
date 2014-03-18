@@ -47,11 +47,11 @@ NSString * const SOXResamplerErrorDomain = @"SOXResamplerErrorDomain";
   return [[self alloc] initWithConfiguration:configuration delegate:delegate operationQueue:queue];
 }
 
-- (id)initWithConfiguration:(SOXResamplerConfiguration *)configuration {
+- (instancetype)initWithConfiguration:(SOXResamplerConfiguration *)configuration {
   return [self initWithConfiguration:configuration delegate:nil operationQueue:nil];
 }
 
-- (id)initWithConfiguration:(SOXResamplerConfiguration *)configuration delegate:(id<SOXResamplerDelegate>)delegate operationQueue:(NSOperationQueue *)queue {
+- (instancetype)initWithConfiguration:(SOXResamplerConfiguration *)configuration delegate:(id<SOXResamplerDelegate>)delegate operationQueue:(NSOperationQueue *)queue {
   self = [super init];
   if (self) {
     _configuration = configuration;

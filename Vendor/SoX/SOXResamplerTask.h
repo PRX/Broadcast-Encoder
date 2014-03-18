@@ -13,10 +13,11 @@
 
 @interface SOXResamplerTask : NSObject
 
-@property (nonatomic, strong) id<SOXResamplerTaskDelegate> delegate;
+@property (nonatomic, strong) id <SOXResamplerTaskDelegate> delegate;
 @property (nonatomic, strong, readonly) NSURL *originalURL;
 
 - (void)resume;
+- (void)cancel;
 
 @end
 
