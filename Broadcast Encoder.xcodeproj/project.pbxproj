@@ -30,6 +30,7 @@
 		F88D4EAB18D2426200C9E9C3 /* SOXResamplerConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D4EAA18D2426200C9E9C3 /* SOXResamplerConfiguration.m */; };
 		F8CB2C0C18D77FA300DEFA10 /* PRXEncoderWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = F8CB2C0B18D77FA300DEFA10 /* PRXEncoderWindow.m */; };
 		F8CB2C1018D78C4B00DEFA10 /* PRXStaticImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = F8CB2C0F18D78C4B00DEFA10 /* PRXStaticImageView.m */; };
+		F8CB2C1918D7B9ED00DEFA10 /* Broadcast-Encoder.help in Resources */ = {isa = PBXBuildFile; fileRef = F8CB2C1818D7B9ED00DEFA10 /* Broadcast-Encoder.help */; };
 		FEDE4F37ED8343EBBFC7ACEE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FB60D8C62A224C569AF2877F /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -84,6 +85,7 @@
 		F8CB2C0B18D77FA300DEFA10 /* PRXEncoderWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PRXEncoderWindow.m; path = Views/Window/PRXEncoderWindow.m; sourceTree = "<group>"; };
 		F8CB2C0E18D78C4B00DEFA10 /* PRXStaticImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PRXStaticImageView.h; path = Views/Images/PRXStaticImageView.h; sourceTree = "<group>"; };
 		F8CB2C0F18D78C4B00DEFA10 /* PRXStaticImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PRXStaticImageView.m; path = Views/Images/PRXStaticImageView.m; sourceTree = "<group>"; };
+		F8CB2C1818D7B9ED00DEFA10 /* Broadcast-Encoder.help */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Broadcast-Encoder.help"; sourceTree = "<group>"; };
 		FB60D8C62A224C569AF2877F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -155,6 +157,7 @@
 		F88D4DF018D0F75200C9E9C3 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				F8CB2C1818D7B9ED00DEFA10 /* Broadcast-Encoder.help */,
 				F88D4DF118D0F75200C9E9C3 /* Images.xcassets */,
 			);
 			path = Assets;
@@ -363,6 +366,7 @@
 				F88D4E0F18D0FE0800C9E9C3 /* MainMenu.xib in Resources */,
 				F88D4E1C18D102BA00C9E9C3 /* PRXDropzoneView.xib in Resources */,
 				F88D4E1118D0FE7B00C9E9C3 /* Broadcast Encoder.entitlements in Resources */,
+				F8CB2C1918D7B9ED00DEFA10 /* Broadcast-Encoder.help in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -530,6 +534,7 @@
 					/usr/local/Cellar/libsndfile/1.0.25/include,
 				);
 				LIBRARY_SEARCH_PATHS = "/usr/local/Cellar/two-lame/0.3.13/lib";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -548,6 +553,7 @@
 					/usr/local/Cellar/libsndfile/1.0.25/include,
 				);
 				LIBRARY_SEARCH_PATHS = "/usr/local/Cellar/two-lame/0.3.13/lib";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

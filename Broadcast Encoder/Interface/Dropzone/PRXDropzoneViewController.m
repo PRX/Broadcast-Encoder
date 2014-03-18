@@ -56,7 +56,8 @@
 }
 
 - (void)helpAction:(id)sender {
-  NSLog(@"help!");
+  NSString *helpBookName = [NSBundle.mainBundle objectForInfoDictionaryKey: @"CFBundleHelpBookName"];
+  [NSHelpManager.sharedHelpManager openHelpAnchor:@"nil" inBook:helpBookName];
 }
 
 #pragma mark - Encoding
