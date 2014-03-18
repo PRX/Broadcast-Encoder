@@ -27,12 +27,19 @@
 - (id)initWithConfiguration:(TWLEncoderConfiguration *)configuration;
 - (id)initWithConfiguration:(TWLEncoderConfiguration *)configuration delegate:(id<TWLEncoderDelegate>)delegate operationQueue:(NSOperationQueue *)queue;
 
+/* Builds twolame_options based on the SF_INFO of a given
+ * input file, and the configuration that this encoder was
+ * created with
+ */
 - (twolame_options *)encoderOptionsWithSFInfo:(SF_INFO)sfinfo;
 
-/* Operation Queueing */
+/* Creates an operation for the task and adds it to this
+ * encoder's operation queue to be worked on immediately
+ */
 - (void)encodeTask:(TWLEncoderTask *)task;
 
 /* Delegate Notification */
+- (void)didBecomeInvalidWithError:(NSError *)error;
 - (void)didFinishEncodingTask:(TWLEncoderTask *)task toURL:(NSURL *)location;
 
 @end

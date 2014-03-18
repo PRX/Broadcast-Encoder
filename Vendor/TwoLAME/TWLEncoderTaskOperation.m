@@ -54,23 +54,8 @@
   return [[self alloc] initWithTask:task];
 }
 
-- (instancetype)init {
-  self = [super init];
-  if (self) {
-    
-    // Allocate buffer for input PCM audio
-    self.inputBuffer = (short *)calloc(AUDIO_BUF_SIZE, sizeof(short));
-    
-    if (self.inputBuffer == NULL) {
-      
-    }
-    
-  }
-  return self;
-}
-
 - (id)initWithTask:(TWLEncoderTask *)task {
-  self = [self init];
+  self = [super init];
   if (self) {
     self.task = task;
     
