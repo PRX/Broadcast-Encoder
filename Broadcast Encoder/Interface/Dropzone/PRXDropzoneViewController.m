@@ -249,6 +249,8 @@
   NSUserNotificationCenter *center = NSUserNotificationCenter.defaultUserNotificationCenter;
   [center setDelegate:self];
   [center deliverNotification:notification];
+  
+  [NSApp requestUserAttention:NSInformationalRequest];
 }
 
 #pragma mark - TWLEncoderTaskDelegate
