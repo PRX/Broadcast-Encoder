@@ -203,7 +203,7 @@ NSString * const TWLEncoderErrorDomain = @"TWLEncoderErrorDomain";
 
 - (void)didFinishEncodingTask:(TWLEncoderTask *)task toURL:(NSURL *)location {
   [self.delegate encoder:self task:task didFinishEncodingToURL:location];
-#warning clean up temp file once delegate returns
+  [NSFileManager.defaultManager removeItemAtURL:location error:nil];
 }
 
 #pragma mark - NSCopying
