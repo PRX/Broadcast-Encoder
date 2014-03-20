@@ -156,11 +156,8 @@
   NSString *availableTypes = [pasteboard availableTypeFromArray:acceptableTypes];
   
   if ([availableTypes isEqualToString:NSFilenamesPboardType]) {
-    
-    
     NSArray *filePaths = [pasteboard propertyListForType:NSFilenamesPboardType];
-    [self encodeFilesFromPaths:filePaths];
-    
+    [self encodeFilesFromPaths:@[ filePaths.firstObject ]];
   }
 }
 
@@ -197,12 +194,15 @@
     if (framesWritten == totalFramesWritten) {
       [[[self dropzoneView] textField] setStringValue:@"Encoding..."];
       
-      [self.dropzoneView.progressIndicator setUsesThreadedAnimation:YES];
-      [self.dropzoneView.progressIndicator setIndeterminate:YES];
-      [self.dropzoneView.progressIndicator startAnimation:self];
+      [self.dropzoneView.progressIndicator setUsesThreadedAnimation:NO];
+      [self.dropzoneView.progressIndicator setIndeterminate:NO];
+      [self.dropzoneView.progressIndicator stopAnimation:self];
+      
+      self.dropzoneView.progressIndicator.minValue = 0;
+      self.dropzoneView.progressIndicator.maxValue = totalFramesExpectedToWrite;
     }
     
-//    self.dropzoneView.progressIndicator.doubleValue = totalFramesWritten;
+    self.dropzoneView.progressIndicator.doubleValue = totalFramesWritten;
   });
 }
 

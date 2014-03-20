@@ -25,7 +25,7 @@
   NSOpenPanel *openPanel = NSOpenPanel.openPanel;
   openPanel.prompt = @"Encode";
   
-  [openPanel setAllowsMultipleSelection:YES];
+  [openPanel setAllowsMultipleSelection:NO];
   [openPanel setAllowedFileTypes:@[ @"wav", @"aif", @"aiff" ]];
   
   [openPanel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
