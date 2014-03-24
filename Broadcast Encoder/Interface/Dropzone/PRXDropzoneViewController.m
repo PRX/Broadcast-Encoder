@@ -18,7 +18,8 @@
 @interface PRXDropzoneViewController ()
 
 @property (nonatomic, strong, readonly) SOXResampler *resampler;
-@property (nonatomic, strong, readonly) TWLEncoder *encoder;
+@property (nonatomic, strong, readonly) TWLEncoder *monoEncoder;
+@property (nonatomic, strong, readonly) TWLEncoder *stereoEncoder;
 
 @property (nonatomic, strong) NSMutableDictionary *originalURLs;
 
@@ -27,7 +28,8 @@
 @implementation PRXDropzoneViewController
 
 @synthesize resampler = _resampler;
-@synthesize encoder = _encoder;
+@synthesize monoEncoder = _monoEncoder;
+@synthesize stereoEncoder = _stereoEncoder;
 
 - (void)awakeFromNib {
   [super awakeFromNib];
@@ -73,13 +75,25 @@
   return _resampler;
 }
 
-- (TWLEncoder *)encoder {
-  if (!_encoder) {
+- (TWLEncoder *)monoEncoder {
+  if (!_monoEncoder) {
     TWLEncoderConfiguration *config = TWLEncoderConfiguration.publicRadioConfiguration;
-    _encoder = [TWLEncoder encoderWithConfiguration:config delegate:self operationQueue:nil];
+    config.outputMode = TWLEncoderOutputModeMono;
+    config.kilobitrate = 128;
+    
+    _monoEncoder = [TWLEncoder encoderWithConfiguration:config delegate:self operationQueue:nil];
   }
   
-  return _encoder;
+  return _monoEncoder;
+}
+
+- (TWLEncoder *)stereoEncoder {
+  if (!_stereoEncoder) {
+    TWLEncoderConfiguration *config = TWLEncoderConfiguration.publicRadioConfiguration;
+    _stereoEncoder = [TWLEncoder encoderWithConfiguration:config delegate:self operationQueue:nil];
+  }
+  
+  return _stereoEncoder;
 }
 
 - (void)encodeFilesFromURLs:(NSArray *)fileURLs {
@@ -105,19 +119,16 @@
 
 - (void)resampleAndOrEncodeFileAtURL:(NSURL *)url {
   static sox_format_t * input_file;
-//  assert(sox_init() == SOX_SUCCESS);
-  
   input_file = sox_open_read(url.fileSystemRepresentation, NULL, NULL, NULL);
   
   BOOL needsResampling = NO;
   
   if (input_file == NULL) {
     NSLog(@"error");
+    return;
   } else {
     needsResampling = (input_file->signal.rate != 44100);
   }
-  
-  
   
   if (needsResampling) {
     NSLog(@"Input file sample rate is not 44100; will try to resample then encode");
@@ -142,8 +153,28 @@
 }
 
 - (void)encodeFileAtURL:(NSURL *)url {
-  NSLog(@"Encoding file at %@", url);
-  TWLEncoderTask *task = [self.encoder taskWithURL:url];
+  static sox_format_t * input_file;
+  input_file = sox_open_read(url.fileSystemRepresentation, NULL, NULL, NULL);
+  
+  BOOL isMono = NO;
+  
+  if (input_file == NULL) {
+    NSLog(@"error");
+    return;
+  } else {
+    isMono = (input_file->signal.channels == 1);
+  }
+ 
+  TWLEncoderTask *task;
+  
+  if (isMono) {
+    NSLog(@"Encoding mono file at %@", url);
+    task = [self.monoEncoder taskWithURL:url];
+  } else {
+    NSLog(@"Encoding stereo file at %@", url);
+    task = [self.stereoEncoder taskWithURL:url];
+  }
+  
   [task resume];
 }
 
