@@ -67,9 +67,7 @@
 - (SOXResampler *)resampler {
   if (!_resampler) {
     SOXResamplerConfiguration *config = SOXResamplerConfiguration.publicRadioConfiguration;
-    
-    _resampler = [SOXResampler resamplerWithConfiguration:config];
-    _resampler.delegate = self;
+    _resampler = [SOXResampler resamplerWithConfiguration:config delegate:self operationQueue:nil];
   }
   
   return _resampler;
@@ -118,7 +116,7 @@
 }
 
 - (void)resampleAndOrEncodeFileAtURL:(NSURL *)url {
-  static sox_format_t * input_file;
+  static sox_format_t *input_file;
   input_file = sox_open_read(url.fileSystemRepresentation, NULL, NULL, NULL);
   
   BOOL needsResampling = NO;
@@ -153,7 +151,7 @@
 }
 
 - (void)encodeFileAtURL:(NSURL *)url {
-  static sox_format_t * input_file;
+  static sox_format_t *input_file;
   input_file = sox_open_read(url.fileSystemRepresentation, NULL, NULL, NULL);
   
   BOOL isMono = NO;
@@ -251,9 +249,9 @@
   }
   
   NSURL *inputDirectory = [originalURL URLByDeletingLastPathComponent];
-  NSString *inputFileName = [originalURL.pathComponents lastObject];
+  NSString *inputFileName = originalURL.pathComponents.lastObject;
   
-  NSString *outputFileName = [NSString stringWithFormat:@"%@.broadcast.mp2", inputFileName];
+  NSString *outputFileName = [NSString stringWithFormat:@"%@.broadcast.mp2", inputFileName.stringByDeletingPathExtension];
   NSURL *outputURL = [inputDirectory URLByAppendingPathComponent:outputFileName];
   
   NSError *error;

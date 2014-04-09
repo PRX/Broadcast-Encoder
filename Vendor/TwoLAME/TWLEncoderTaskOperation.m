@@ -277,7 +277,7 @@
     
     unsigned int frameLength = twolame_get_framelength(self.encoderOptions);
     
-    unsigned int totalFrames = 0;
+    long long totalFrames = 0;
     unsigned int frameCount = 0;
     int64_t samples_read = 0;
     int audioReadSize = 0;
@@ -290,7 +290,6 @@
     
     audioReadSize = AUDIO_BUF_SIZE;
 
-    
     while ((samples_read = [self.inputFile readBuffer:self.inputBuffer samples:audioReadSize]) > 0) {
       int64_t bytes_out = 0;
       
