@@ -128,6 +128,46 @@
     needsResampling = (input_file->signal.rate != 44100);
   }
   
+  BOOL isClean = YES;
+  
+  if (needsResampling) { isClean = NO; NSLog(@"Not clean; resample"); }
+  if (input_file->signal.channels != 1 && input_file->signal.channels != 2) { isClean = NO;; NSLog(@"Not clean; channels"); }
+  if (input_file->signal.precision != 16) { isClean = NO;; NSLog(@"Not clean; bit depth"); }
+  
+  
+  if (isClean) {
+    [self _resampleAndOrEncodeFileAtURL:url];
+  } else {
+    NSAlert *alert = NSAlert.new;
+    alert.messageText = @"Non-Standard Audio Encoding";
+    alert.informativeText = @"This file is not standard 44.1 kHz, 16 bit audio.\n\nAdditional processing will occur to create a broadcast-ready MP2, but this can affect audio quality. Please review the MP2 once encoding has completed.\n\nIf there are problems, try using a standard 44.1/16 WAV or AIFF file instead.";
+    alert.alertStyle = NSWarningAlertStyle;
+    alert.showsHelp = YES;
+    
+    [alert addButtonWithTitle:@"OK"];
+    [alert addButtonWithTitle:@"Cancel"];
+    
+    [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
+      if (returnCode == NSAlertFirstButtonReturn) {
+        [self _resampleAndOrEncodeFileAtURL:url];
+      }
+    }];
+  }
+}
+
+- (void)_resampleAndOrEncodeFileAtURL:(NSURL *)url {
+  static sox_format_t *_input_file;
+  _input_file = sox_open_read(url.fileSystemRepresentation, NULL, NULL, NULL);
+  
+  BOOL needsResampling = NO;
+  
+  if (_input_file == NULL) {
+    NSLog(@"error");
+    return;
+  } else {
+    needsResampling = (_input_file->signal.rate != 44100);
+  }
+  
   if (needsResampling) {
     NSLog(@"Input file sample rate is not 44100; will try to resample then encode");
     [self resampleAndEncodeFileAtURL:url];
