@@ -7,8 +7,8 @@
 //
 
 #import "TWLEncoder.h"
-#import <twolame.h>
-#include <sndfile.h>
+#import <TwoLAME/TwoLAME.h>
+#import <sndfile/sndfile.h>
 
 @class TWLEncoderConfiguration;
 

@@ -14,7 +14,7 @@
 #import "TWLEncoderTask_private.h"
 #import "TWLEncoder_private.h"
 #import "TWLEncoderConfiguration.h"
-#import <twolame.h>
+#import <TwoLAME/TwoLAME.h>
 #import "TWLPCMAudioFile.h"
 
 @interface TWLEncoderTaskOperation () {

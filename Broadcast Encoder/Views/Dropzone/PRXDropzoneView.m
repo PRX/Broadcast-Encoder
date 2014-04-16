@@ -7,7 +7,8 @@
 //
 
 #import "PRXDropzoneView.h"
-#import <twolame.h>
+//#import <twolame.h>
+#import <TwoLAME/TwoLAME.h>
 
 @implementation PRXDropzoneView
 

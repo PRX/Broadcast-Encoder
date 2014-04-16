@@ -13,7 +13,9 @@
 #import "SOXResampler.h"
 #import "SOXResamplerConfiguration.h"
 #import "SOXResamplerTask.h"
-#import "sox.h"
+#import <sndfile/sndfile.h>
+#import "soxr.h"
+//#import <SoX/SoX.h>
 
 @interface PRXDropzoneViewController ()
 
@@ -116,8 +118,10 @@
 }
 
 - (void)resampleAndOrEncodeFileAtURL:(NSURL *)url {
-  static sox_format_t *input_file;
-  input_file = sox_open_read(url.fileSystemRepresentation, NULL, NULL, NULL);
+  static SNDFILE *input_file;
+  SF_INFO input_file_info;
+  
+  input_file = sf_open(url.fileSystemRepresentation, SFM_READ, &input_file_info);
   
   BOOL needsResampling = NO;
   
@@ -125,15 +129,16 @@
     NSLog(@"error");
     return;
   } else {
-    needsResampling = (input_file->signal.rate != 44100);
+    needsResampling = (input_file_info.samplerate != 44100);
   }
   
   BOOL isClean = YES;
   
   if (needsResampling) { isClean = NO; NSLog(@"Not clean; resample"); }
-  if (input_file->signal.channels != 1 && input_file->signal.channels != 2) { isClean = NO;; NSLog(@"Not clean; channels"); }
-  if (input_file->signal.precision != 16) { isClean = NO;; NSLog(@"Not clean; bit depth"); }
+  if (input_file_info.channels != 1 && input_file_info.channels != 2) { isClean = NO; NSLog(@"Not clean; channels"); }
+  if ((input_file_info.format & SF_FORMAT_PCM_16) != SF_FORMAT_PCM_16 ) { isClean = NO; NSLog(@"Not clean; bit depth"); }
   
+  sf_close(input_file);
   
   if (isClean) {
     [self _resampleAndOrEncodeFileAtURL:url];
@@ -156,16 +161,18 @@
 }
 
 - (void)_resampleAndOrEncodeFileAtURL:(NSURL *)url {
-  static sox_format_t *_input_file;
-  _input_file = sox_open_read(url.fileSystemRepresentation, NULL, NULL, NULL);
+  static SNDFILE *input_file;
+  SF_INFO input_file_info;
+  
+  input_file = sf_open(url.fileSystemRepresentation, SFM_READ, &input_file_info);
   
   BOOL needsResampling = NO;
   
-  if (_input_file == NULL) {
+  if (input_file == NULL) {
     NSLog(@"error");
     return;
   } else {
-    needsResampling = (_input_file->signal.rate != 44100);
+    needsResampling = (input_file_info.samplerate != 44100);
   }
   
   if (needsResampling) {
@@ -191,8 +198,10 @@
 }
 
 - (void)encodeFileAtURL:(NSURL *)url {
-  static sox_format_t *input_file;
-  input_file = sox_open_read(url.fileSystemRepresentation, NULL, NULL, NULL);
+  static SNDFILE *input_file;
+  SF_INFO input_file_info;
+  
+  input_file = sf_open(url.fileSystemRepresentation, SFM_READ, &input_file_info);
   
   BOOL isMono = NO;
   
@@ -200,7 +209,7 @@
     NSLog(@"error");
     return;
   } else {
-    isMono = (input_file->signal.channels == 1);
+    isMono = (input_file_info.channels == 1);
   }
  
   TWLEncoderTask *task;

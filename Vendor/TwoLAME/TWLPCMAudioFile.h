@@ -8,7 +8,7 @@
 
 @import Foundation;
 
-#import <sndfile.h>
+#import <sndfile/sndfile.h>
 
 /**
  
