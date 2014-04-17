@@ -120,7 +120,7 @@
   static SNDFILE *input_file;
   SF_INFO input_file_info;
   
-  input_file = sf_open(url.fileSystemRepresentation, SFM_READ, &input_file_info);
+  input_file = sf_open(url.path.fileSystemRepresentation, SFM_READ, &input_file_info);
   
   BOOL needsResampling = NO;
   
@@ -163,7 +163,7 @@
   static SNDFILE *input_file;
   SF_INFO input_file_info;
   
-  input_file = sf_open(url.fileSystemRepresentation, SFM_READ, &input_file_info);
+  input_file = sf_open(url.path.fileSystemRepresentation, SFM_READ, &input_file_info);
   
   BOOL needsResampling = NO;
   
@@ -185,7 +185,7 @@
 
 - (void)resampleAndEncodeFileAtURL:(NSURL *)url {
   dispatch_async(dispatch_get_main_queue(), ^{
-    [[[self dropzoneView] textField] setStringValue:@"Resampling..."];
+    self.dropzoneView.textField.stringValue = @"Resampling...";
     
     [self.dropzoneView.progressIndicator setUsesThreadedAnimation:YES];
     [self.dropzoneView.progressIndicator setIndeterminate:YES];
@@ -200,7 +200,7 @@
   static SNDFILE *input_file;
   SF_INFO input_file_info;
   
-  input_file = sf_open(url.fileSystemRepresentation, SFM_READ, &input_file_info);
+  input_file = sf_open(url.path.fileSystemRepresentation, SFM_READ, &input_file_info);
   
   BOOL isMono = NO;
   
