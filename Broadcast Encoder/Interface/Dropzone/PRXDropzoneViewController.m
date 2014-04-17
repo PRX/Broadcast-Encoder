@@ -14,8 +14,7 @@
 #import "SOXResamplerConfiguration.h"
 #import "SOXResamplerTask.h"
 #import <sndfile/sndfile.h>
-#import "soxr.h"
-//#import <SoX/SoX.h>
+#import <soxr/soxr.h>
 
 @interface PRXDropzoneViewController ()
 

@@ -10,7 +10,7 @@
 #import "SOXResamplerConfiguration.h"
 #import "SOXResamplerTask_private.h"
 #import "SOXResamplerTaskOperation.h"
-#import "soxr.h"
+#import <soxr/soxr.h>
 
 NSString * const SOXResamplerErrorDomain = @"SOXResamplerErrorDomain";
 

@@ -10,7 +10,7 @@
 #import "SOXResamplerTask_private.h"
 #import "SOXResampler_private.h"
 #import "SOXResamplerConfiguration.h"
-#import "soxr.h"
+#import <soxr/soxr.h>
 #import <sndfile/sndfile.h>
 
 @interface SOXResamplerTaskOperation () {
@@ -131,15 +131,15 @@
   
   input_file = sf_open(location.fileSystemRepresentation, SFM_READ, &input_file_info);
 
-  soxr_error_t error;
-  
-  soxr_t soxr = soxr_create(input_file_info.samplerate,
-                            targetSampleRate,
-                            1, // channels
-                            &error,
-                            NULL, NULL, NULL);
-  
-  soxr_delete(soxr);
+//  soxr_error_t error;
+//  
+//  soxr_t soxr = soxr_create(input_file_info.samplerate,
+//                            targetSampleRate,
+//                            1, // channels
+//                            &error,
+//                            NULL, NULL, NULL);
+//  
+//  soxr_delete(soxr);
 
 }
 

@@ -12,7 +12,6 @@
 		F88D4DC518D0F5F900C9E9C3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D4DC418D0F5F900C9E9C3 /* main.m */; };
 		F88D4DEF18D0F74200C9E9C3 /* PRXAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D4DEE18D0F74200C9E9C3 /* PRXAppDelegate.m */; };
 		F88D4DF218D0F75200C9E9C3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F88D4DF118D0F75200C9E9C3 /* Images.xcassets */; };
-		F88D4DF918D0F89000C9E9C3 /* Broadcast Encoder-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F88D4DF818D0F89000C9E9C3 /* Broadcast Encoder-Info.plist */; };
 		F88D4E0F18D0FE0800C9E9C3 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F88D4E0E18D0FE0800C9E9C3 /* MainMenu.xib */; };
 		F88D4E1118D0FE7B00C9E9C3 /* Broadcast Encoder.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = F88D4E1018D0FE7B00C9E9C3 /* Broadcast Encoder.entitlements */; };
 		F88D4E1618D0FEF100C9E9C3 /* PRXDropzoneView.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D4E1518D0FEF100C9E9C3 /* PRXDropzoneView.m */; };
@@ -31,8 +30,7 @@
 		F8EA636D18FF3E5E00EC3E70 /* SOXResamplerTask.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D4EA418D2412800C9E9C3 /* SOXResamplerTask.m */; };
 		F8EA636E18FF3E5E00EC3E70 /* SOXResamplerTaskOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D4EA718D2413B00C9E9C3 /* SOXResamplerTaskOperation.m */; };
 		F8EA636F18FF3E6200EC3E70 /* SOXResamplerConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = F88D4EAA18D2426200C9E9C3 /* SOXResamplerConfiguration.m */; };
-		F8EA637218FF43A000EC3E70 /* libsoxr.0.1.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F8EA637018FF43A000EC3E70 /* libsoxr.0.1.0.dylib */; };
-		F8EA637318FF4D4400EC3E70 /* libsoxr.0.1.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = F8EA637018FF43A000EC3E70 /* libsoxr.0.1.0.dylib */; };
+		F8EA638418FF6B0C00EC3E70 /* soxr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8EA638318FF6B0C00EC3E70 /* soxr.framework */; };
 		FEDE4F37ED8343EBBFC7ACEE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FB60D8C62A224C569AF2877F /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -43,7 +41,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				F8EA637318FF4D4400EC3E70 /* libsoxr.0.1.0.dylib in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,8 +97,7 @@
 		F8CB2C0F18D78C4B00DEFA10 /* PRXStaticImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PRXStaticImageView.m; path = Views/Images/PRXStaticImageView.m; sourceTree = "<group>"; };
 		F8CB2C1818D7B9ED00DEFA10 /* Broadcast-Encoder.help */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Broadcast-Encoder.help"; sourceTree = "<group>"; };
 		F8EA636A18FF3D9E00EC3E70 /* sndfile.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = sndfile.framework; path = Vendor/sndfile.framework; sourceTree = "<group>"; };
-		F8EA637018FF43A000EC3E70 /* libsoxr.0.1.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsoxr.0.1.0.dylib; path = ../../../Desktop/libsoxr.0.1.0.dylib; sourceTree = "<group>"; };
-		F8EA637118FF43A000EC3E70 /* soxr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = soxr.h; path = ../../../Desktop/soxr.h; sourceTree = "<group>"; };
+		F8EA638318FF6B0C00EC3E70 /* soxr.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = soxr.framework; path = Vendor/soxr.framework; sourceTree = "<group>"; };
 		FB60D8C62A224C569AF2877F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -112,8 +108,8 @@
 			files = (
 				FEDE4F37ED8343EBBFC7ACEE /* libPods.a in Frameworks */,
 				F8EA636B18FF3D9E00EC3E70 /* sndfile.framework in Frameworks */,
+				F8EA638418FF6B0C00EC3E70 /* soxr.framework in Frameworks */,
 				F8941CBC18FF0D16001CC983 /* TwoLAME.framework in Frameworks */,
-				F8EA637218FF43A000EC3E70 /* libsoxr.0.1.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,8 +137,7 @@
 		F88D4DB718D0F5F900C9E9C3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F8EA637018FF43A000EC3E70 /* libsoxr.0.1.0.dylib */,
-				F8EA637118FF43A000EC3E70 /* soxr.h */,
+				F8EA638318FF6B0C00EC3E70 /* soxr.framework */,
 				F8EA636A18FF3D9E00EC3E70 /* sndfile.framework */,
 				F8941CBB18FF0D16001CC983 /* TwoLAME.framework */,
 				FB60D8C62A224C569AF2877F /* libPods.a */,
@@ -246,13 +241,13 @@
 		F88D4E8718D14E5400C9E9C3 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
-				F88D4E9F18D23FC100C9E9C3 /* SoX */,
-				F88D4E8818D14E5400C9E9C3 /* TwoLAME */,
+				F88D4E9F18D23FC100C9E9C3 /* SoX Resampler */,
+				F88D4E8818D14E5400C9E9C3 /* TWLEncoder */,
 			);
 			path = Vendor;
 			sourceTree = "<group>";
 		};
-		F88D4E8818D14E5400C9E9C3 /* TwoLAME */ = {
+		F88D4E8818D14E5400C9E9C3 /* TWLEncoder */ = {
 			isa = PBXGroup;
 			children = (
 				F88B6A5D18D2695D00DB2A73 /* TWLEncoderError.h */,
@@ -269,10 +264,11 @@
 				F88D4E9418D150DA00C9E9C3 /* TWLEncoderTaskOperation.h */,
 				F88D4E9518D150DA00C9E9C3 /* TWLEncoderTaskOperation.m */,
 			);
+			name = TWLEncoder;
 			path = TwoLAME;
 			sourceTree = "<group>";
 		};
-		F88D4E9F18D23FC100C9E9C3 /* SoX */ = {
+		F88D4E9F18D23FC100C9E9C3 /* SoX Resampler */ = {
 			isa = PBXGroup;
 			children = (
 				F88D4EA918D2426200C9E9C3 /* SOXResamplerConfiguration.h */,
@@ -286,7 +282,7 @@
 				F88D4EA618D2413B00C9E9C3 /* SOXResamplerTaskOperation.h */,
 				F88D4EA718D2413B00C9E9C3 /* SOXResamplerTaskOperation.m */,
 			);
-			name = SoX;
+			name = "SoX Resampler";
 			sourceTree = "<group>";
 		};
 		F8CB2C0918D77F8C00DEFA10 /* Window */ = {
@@ -374,7 +370,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F8228D9618D63607003B17C1 /* README.md in Resources */,
-				F88D4DF918D0F89000C9E9C3 /* Broadcast Encoder-Info.plist in Resources */,
 				F88D4DF218D0F75200C9E9C3 /* Images.xcassets in Resources */,
 				F88D4E0F18D0FE0800C9E9C3 /* MainMenu.xib in Resources */,
 				F88D4E1C18D102BA00C9E9C3 /* PRXDropzoneView.xib in Resources */,
@@ -541,15 +536,17 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Vendor",
+					"$(PROJECT_DIR)/Vendor/SoX",
+					Resampler,
 				);
 				HEADER_SEARCH_PATHS = (
 					"\"${PODS_ROOT}/Headers\"",
 					"\"${PODS_ROOT}/Headers/Underscore.m\"",
-					/usr/local/Cellar/sox/14.4.1_1/include,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/farski/Desktop,
+					"$(PROJECT_DIR)/Vendor/SoX",
+					Resampler,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -564,15 +561,17 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Vendor",
+					"$(PROJECT_DIR)/Vendor/SoX",
+					Resampler,
 				);
 				HEADER_SEARCH_PATHS = (
 					"\"${PODS_ROOT}/Headers\"",
 					"\"${PODS_ROOT}/Headers/Underscore.m\"",
-					/usr/local/Cellar/sox/14.4.1_1/include,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/farski/Desktop,
+					"$(PROJECT_DIR)/Vendor/SoX",
+					Resampler,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
