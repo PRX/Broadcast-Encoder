@@ -432,21 +432,6 @@
 			baseConfigurationReference = 3E6F032395DA45B693B2B329 /* Pods.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Vendor",
-					"$(PROJECT_DIR)/Vendor/SoX",
-					Resampler,
-				);
-				HEADER_SEARCH_PATHS = (
-					"\"${PODS_ROOT}/Headers\"",
-					"\"${PODS_ROOT}/Headers/Underscore.m\"",
-				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Vendor/SoX",
-					Resampler,
-				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -457,21 +442,6 @@
 			baseConfigurationReference = 3E6F032395DA45B693B2B329 /* Pods.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Vendor",
-					"$(PROJECT_DIR)/Vendor/SoX",
-					Resampler,
-				);
-				HEADER_SEARCH_PATHS = (
-					"\"${PODS_ROOT}/Headers\"",
-					"\"${PODS_ROOT}/Headers/Underscore.m\"",
-				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Vendor/SoX",
-					Resampler,
-				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

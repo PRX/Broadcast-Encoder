@@ -125,7 +125,7 @@
   BOOL needsResampling = NO;
   
   if (input_file == NULL) {
-    NSLog(@"error");
+    NSLog(@"error 3");
     return;
   } else {
     needsResampling = (input_file_info.samplerate != 44100);
@@ -168,7 +168,7 @@
   BOOL needsResampling = NO;
   
   if (input_file == NULL) {
-    NSLog(@"error");
+    NSLog(@"error 2");
     return;
   } else {
     needsResampling = (input_file_info.samplerate != 44100);
@@ -205,7 +205,7 @@
   BOOL isMono = NO;
   
   if (input_file == NULL) {
-    NSLog(@"error");
+    NSLog(@"error 1");
     return;
   } else {
     isMono = (input_file_info.channels == 1);
@@ -316,16 +316,18 @@
     [self.dropzoneView.progressIndicator stopAnimation:self];
   });
   
-  NSUserNotification *notification = NSUserNotification.new;
-  notification.title = @"Encoding complete";
-  notification.subtitle = inputFileName;
-  notification.informativeText = @"Broadcast-ready MP2 now available";
-  notification.soundName = NSUserNotificationDefaultSoundName;
-  notification.userInfo = @{ @"path": outputURL.path };
-  
-  NSUserNotificationCenter *center = NSUserNotificationCenter.defaultUserNotificationCenter;
-  [center setDelegate:self];
-  [center deliverNotification:notification];
+  if (!(NSAppKitVersionNumber < NSAppKitVersionNumber10_8)) {
+    NSUserNotification *notification = NSUserNotification.new;
+    notification.title = @"Encoding complete";
+    notification.subtitle = inputFileName;
+    notification.informativeText = @"Broadcast-ready MP2 now available";
+    notification.soundName = NSUserNotificationDefaultSoundName;
+    notification.userInfo = @{ @"path": outputURL.path };
+    
+    NSUserNotificationCenter *center = NSUserNotificationCenter.defaultUserNotificationCenter;
+    [center setDelegate:self];
+    [center deliverNotification:notification];
+  }
   
   [NSApp requestUserAttention:NSInformationalRequest];
 }
