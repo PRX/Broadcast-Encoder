@@ -10,15 +10,23 @@
 	<string>Broadcast Encoder</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
+		<key>6B159AA8-6FD4-4777-8A79-3A5DDCDB6636</key>
+		<string>https://github.com/PRX/TWLEncoder.git</string>
 		<key>8D519747-0A63-4300-AD83-ADEA70810A8F</key>
 		<string>ssh://github.com/PRX/Broadcast-Encoder.git</string>
+		<key>E89DB0D8-CD72-4CAF-B3CE-9E4E299F79A4</key>
+		<string>https://github.com/PRX/SOXResampler.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>Broadcast Encoder.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
+		<key>6B159AA8-6FD4-4777-8A79-3A5DDCDB6636</key>
+		<string>../../TWLEncoder</string>
 		<key>8D519747-0A63-4300-AD83-ADEA70810A8F</key>
 		<string>..</string>
+		<key>E89DB0D8-CD72-4CAF-B3CE-9E4E299F79A4</key>
+		<string>../../SOXResampler</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>ssh://github.com/PRX/Broadcast-Encoder.git</string>
@@ -35,6 +43,22 @@
 			<string>8D519747-0A63-4300-AD83-ADEA70810A8F</string>
 			<key>IDESourceControlWCCName</key>
 			<string>Broadcast Encoder</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>E89DB0D8-CD72-4CAF-B3CE-9E4E299F79A4</string>
+			<key>IDESourceControlWCCName</key>
+			<string>SOXResampler</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>6B159AA8-6FD4-4777-8A79-3A5DDCDB6636</string>
+			<key>IDESourceControlWCCName</key>
+			<string>TWLEncoder</string>
 		</dict>
 	</array>
 </dict>
