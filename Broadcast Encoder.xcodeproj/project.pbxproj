@@ -79,7 +79,6 @@
 			isa = PBXGroup;
 			children = (
 				F88D4DB718D0F5F900C9E9C3 /* Frameworks */,
-				F88D4E8718D14E5400C9E9C3 /* Vendor */,
 				F88D4DBE18D0F5F900C9E9C3 /* Broadcast Encoder */,
 				F88D4DB618D0F5F900C9E9C3 /* Products */,
 			);
@@ -192,13 +191,6 @@
 			children = (
 			);
 			name = Models;
-			sourceTree = "<group>";
-		};
-		F88D4E8718D14E5400C9E9C3 /* Vendor */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Vendor;
 			sourceTree = "<group>";
 		};
 		F8CB2C0918D77F8C00DEFA10 /* Window */ = {
