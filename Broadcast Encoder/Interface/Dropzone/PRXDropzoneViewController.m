@@ -252,15 +252,43 @@
 - (void)resampler:(SOXResampler *)resampler task:(SOXResamplerTask *)task didFinishResamplingToURL:(NSURL *)location {
   NSLog(@"Resampled; now the resulting file needs to be encoded...");
   
-  self.originalURLs[location] = task.originalURL;
+  NSString *GID = [[NSProcessInfo processInfo] globallyUniqueString];
+  NSString *ephemeralFileName = location.path.pathComponents.lastObject;
+  NSString *tempFileName = [NSString stringWithFormat:@"%@_%@.au", GID, ephemeralFileName];
   
-  [self encodeFileAtURL:location];
+  NSURL *tempFileURL = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:tempFileName]];
+  
+  [NSFileManager.defaultManager copyItemAtURL:location toURL:tempFileURL error:NULL];
+  
+  self.originalURLs[tempFileURL] = task.originalURL;
+  
+  [self encodeFileAtURL:tempFileURL];
 }
 
 #pragma mark - SOXResamplerTaskDelegate
 
+- (void)resampler:(SOXResampler *)resampler task:(SOXResamplerTask *)task didResampleFrames:(int64_t)framesResampled totalFramesResampled:(int64_t)totalFramesResampled totalFrameExpectedToResample:(int64_t)totalFrameExpectedToResample {
+  
+  dispatch_async(dispatch_get_main_queue(), ^{
+    if (framesResampled == totalFramesResampled) {
+      [[[self dropzoneView] textField] setStringValue:@"Resampling..."];
+      
+      [self.dropzoneView.progressIndicator setUsesThreadedAnimation:NO];
+      [self.dropzoneView.progressIndicator setIndeterminate:NO];
+      [self.dropzoneView.progressIndicator stopAnimation:self];
+      
+      self.dropzoneView.progressIndicator.minValue = 0;
+      self.dropzoneView.progressIndicator.maxValue = totalFrameExpectedToResample;
+    }
+    
+    self.dropzoneView.progressIndicator.doubleValue = totalFramesResampled;
+  });
+}
+
 - (void)resampler:(SOXResampler *)encoder task:(SOXResamplerTask *)task didCompleteWithError:(NSError *)error {
-  NSLog(@"Resampling error");
+  if (error) {
+    NSLog(@"Resampling error");
+  }
 }
 
 #pragma mark - TWLEncoderDelegate
@@ -306,6 +334,15 @@
   [NSFileManager.defaultManager copyItemAtURL:location toURL:outputURL error:&error];
   if (error) {
     NSLog(@"error: %@", error);
+  }
+  
+  
+  // Remove the file at `location` if it's in the temp dir
+  NSString *locationFileName = task.originalURL.pathComponents.lastObject;
+  NSURL *checkURL = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:locationFileName]];
+  
+  if ([NSFileManager.defaultManager fileExistsAtPath:checkURL.path]) {
+    [NSFileManager.defaultManager removeItemAtURL:checkURL error:NULL];
   }
   
   dispatch_async(dispatch_get_main_queue(), ^{
